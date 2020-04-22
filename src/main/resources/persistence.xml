@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="GiorgiaTechLibrary_Persistence">
-
+        <class>models.entities.AddressEntity</class>
+        <class>models.entities.BookEntity</class>
+        <class>models.entities.BookBorrowEntity</class>
+        <class>models.entities.BookCatalogEntity</class>
+        <class>models.entities.BookConditionEntity</class>
+        <class>models.entities.BookReturnEntity</class>
+        <class>models.entities.BookTypeEntity</class>
+        <class>models.entities.CardEntity</class>
+        <class>models.entities.CoverTypeEntity</class>
+        <class>models.entities.FacultyMemberEntity</class>
+        <class>models.entities.FacultyMemberTypeEntity</class>
+        <class>models.entities.LanguageEntity</class>
+        <class>models.entities.LibraryEmployeeEntity</class>
+        <class>models.entities.LibraryEmployeeTypeEntity</class>
+        <class>models.entities.MapEntity</class>
+        <class>models.entities.PersonEntity</class>
+        <class>models.entities.PersonTypeEntity</class>
+        <class>models.entities.PhoneNumberEntity</class>
+        <class>models.entities.PostcodeEntity</class>
+        <class>models.entities.StudentEntity</class>
+        <class>models.entities.StudentTypeEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:sqlserver://kraka.ucn.dk;database=dmai0917_1067677"/>
+            <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        </properties>
     </persistence-unit>
 </persistence>
