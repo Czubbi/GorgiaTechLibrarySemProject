@@ -1,5 +1,6 @@
 package GTL_API.Controllers;
 
+import GTL_API.Models.UpdateModels.CoverTypeUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,11 @@ public class CoverTypeController {
     @RequestMapping(value="/{coverType}", method = RequestMethod.GET)
     public ResponseEntity<?> findCoverTypeByName(@PathVariable String coverType){
         return new ResponseEntity<>(iCoverTypeService.findCoverTypeByName(coverType), new HttpHeaders(), HttpStatus.FOUND);
+    }
+
+    @RequestMapping(value="/", method = RequestMethod.PATCH)
+    public ResponseEntity<?> findCoverTypeByName(@RequestBody CoverTypeUpdate coverType){
+        return new ResponseEntity<>(iCoverTypeService.updateCoverType(coverType), new HttpHeaders(), HttpStatus.OK);
     }
 
 }

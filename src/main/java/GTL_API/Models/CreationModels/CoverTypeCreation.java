@@ -9,6 +9,5 @@ public class CoverTypeCreation {
 
     public void setCoverType(String coverType) {
         this.coverType = coverType;
-
     }
 }

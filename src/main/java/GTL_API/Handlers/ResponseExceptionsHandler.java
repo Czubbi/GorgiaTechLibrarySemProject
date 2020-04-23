@@ -1,5 +1,6 @@
 package GTL_API.Handlers;
 
+import GTL_API.Exceptions.DuplicateException;
 import GTL_API.Exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,10 @@ public class ResponseExceptionsHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value= NotFoundException.class)
     protected ResponseEntity<Object> handleNotFoundException(NotFoundException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value= DuplicateException.class)
+    protected ResponseEntity<Object> handleDuplicateException(DuplicateException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
     }
 }
