@@ -7,4 +7,4 @@ addons:
     packages:
       - oracle-java9-installer
 before_install:
-  - git update-index --chmod=+x mvnw
+  - chmod +x mvnw
