@@ -7,4 +7,5 @@ addons:
     packages:
       - oracle-java9-installer
 before_install:
+  - chmod +x mvnw
   - cd src/test/java
