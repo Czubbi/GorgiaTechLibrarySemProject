@@ -7,6 +7,7 @@ public class CoverTypeReturn {
         return coverType;
     }
 
+
     public void setCoverType(String coverType) {
         this.coverType = coverType;
 
