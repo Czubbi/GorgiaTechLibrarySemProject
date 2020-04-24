@@ -8,4 +8,3 @@ addons:
       - oracle-java9-installer
 before_install:
   - cd src/test/java
-  - chmod +x mvnw
