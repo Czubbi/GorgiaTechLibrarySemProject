@@ -6,7 +6,6 @@ import GTL_API.Models.Entities.CoverTypeEntity;
 import GTL_API.Exceptions.DuplicateException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;

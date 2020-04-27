@@ -23,6 +23,7 @@
         <class>GTL_API.Models.Entities.PostcodeEntity</class>
         <class>GTL_API.Models.Entities.StudentEntity</class>
         <class>GTL_API.Models.Entities.StudentTypeEntity</class>
+        <class>GTL_API.Models.Entities.AvailableBooksEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://kraka.ucn.dk;database=dmai0917_1067677"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
