@@ -6,18 +6,19 @@ import java.sql.Date;
 @Entity
 @Table(name = "Card", schema = "dbo", catalog = "dmai0917_1067677")
 public class CardEntity {
-    private int number;
+    private Integer number;
     private Date expirationDate;
     private String picture;
-    private int libraryEmployeeId;
+    private Integer libraryEmployeeId;
+    private Boolean isDeleted;
 
     @Id
     @Column(name = "number", nullable = false)
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
@@ -43,12 +44,22 @@ public class CardEntity {
 
     @Basic
     @Column(name = "library_employee_id", nullable = false)
-    public int getLibraryEmployeeId() {
+    public Integer getLibraryEmployeeId() {
         return libraryEmployeeId;
     }
 
-    public void setLibraryEmployeeId(int libraryEmployeeId) {
+    public void setLibraryEmployeeId(Integer libraryEmployeeId) {
         this.libraryEmployeeId = libraryEmployeeId;
+    }
+
+    @Basic
+    @Column(name = "is_deleted", nullable = false)
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override
