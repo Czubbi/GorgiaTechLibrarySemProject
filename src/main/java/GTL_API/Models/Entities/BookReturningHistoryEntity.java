@@ -4,32 +4,44 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "BookReturn", schema = "dbo", catalog = "dmai0917_1067677")
-public class BookReturnEntity {
-    private Integer id;
-    private Date returnedDate;
+@Table(name = "BookReturningHistory", schema = "dbo", catalog = "dmai0917_1067677")
+public class BookReturningHistoryEntity {
+    private String ssn;
+    private Date borrowDate;
+    private String isbn;
     private Date estimatedReturnDate;
+    private Date returnedDate;
     private Double payment;
     private Boolean status;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public Integer getId() {
-        return id;
+    @Column(name = "ssn", nullable = false, length = 11)
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     @Basic
-    @Column(name = "returned_date", nullable = true)
-    public Date getReturnedDate() {
-        return returnedDate;
+    @Column(name = "borrow_date", nullable = false)
+    public Date getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setReturnedDate(Date returnedDate) {
-        this.returnedDate = returnedDate;
+    public void setBorrowDate(Date borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    @Basic
+    @Column(name = "isbn", nullable = false, length = 13)
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     @Basic
@@ -40,6 +52,16 @@ public class BookReturnEntity {
 
     public void setEstimatedReturnDate(Date estimatedReturnDate) {
         this.estimatedReturnDate = estimatedReturnDate;
+    }
+
+    @Basic
+    @Column(name = "returned_date", nullable = true)
+    public Date getReturnedDate() {
+        return returnedDate;
+    }
+
+    public void setReturnedDate(Date returnedDate) {
+        this.returnedDate = returnedDate;
     }
 
     @Basic
@@ -67,12 +89,14 @@ public class BookReturnEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BookReturnEntity that = (BookReturnEntity) o;
+        BookReturningHistoryEntity that = (BookReturningHistoryEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (returnedDate != null ? !returnedDate.equals(that.returnedDate) : that.returnedDate != null) return false;
+        if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
+        if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
+        if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
         if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
             return false;
+        if (returnedDate != null ? !returnedDate.equals(that.returnedDate) : that.returnedDate != null) return false;
         if (payment != null ? !payment.equals(that.payment) : that.payment != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
@@ -81,9 +105,11 @@ public class BookReturnEntity {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (returnedDate != null ? returnedDate.hashCode() : 0);
+        int result = ssn != null ? ssn.hashCode() : 0;
+        result = 31 * result + (borrowDate != null ? borrowDate.hashCode() : 0);
+        result = 31 * result + (isbn != null ? isbn.hashCode() : 0);
         result = 31 * result + (estimatedReturnDate != null ? estimatedReturnDate.hashCode() : 0);
+        result = 31 * result + (returnedDate != null ? returnedDate.hashCode() : 0);
         result = 31 * result + (payment != null ? payment.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;

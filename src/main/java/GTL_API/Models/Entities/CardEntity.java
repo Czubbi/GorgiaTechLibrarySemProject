@@ -69,21 +69,24 @@ public class CardEntity {
 
         CardEntity that = (CardEntity) o;
 
-        if (number != that.number) return false;
-        if (libraryEmployeeId != that.libraryEmployeeId) return false;
+        if (number != null ? !number.equals(that.number) : that.number != null) return false;
         if (expirationDate != null ? !expirationDate.equals(that.expirationDate) : that.expirationDate != null)
             return false;
         if (picture != null ? !picture.equals(that.picture) : that.picture != null) return false;
+        if (libraryEmployeeId != null ? !libraryEmployeeId.equals(that.libraryEmployeeId) : that.libraryEmployeeId != null)
+            return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = number;
+        int result = number != null ? number.hashCode() : 0;
         result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
-        result = 31 * result + libraryEmployeeId;
+        result = 31 * result + (libraryEmployeeId != null ? libraryEmployeeId.hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         return result;
     }
 }

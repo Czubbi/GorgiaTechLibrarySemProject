@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "PhoneNumber", schema = "dbo", catalog = "dmai0917_1067677")
 public class PhoneNumberEntity {
-    private int id;
+    private Integer id;
     private String ssn;
     private String areaCode;
     private String phoneNumber;
@@ -13,11 +13,11 @@ public class PhoneNumberEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,16 +68,18 @@ public class PhoneNumberEntity {
 
         PhoneNumberEntity that = (PhoneNumberEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
         if (areaCode != null ? !areaCode.equals(that.areaCode) : that.areaCode != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (ssn != null ? ssn.hashCode() : 0);
         result = 31 * result + (areaCode != null ? areaCode.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);

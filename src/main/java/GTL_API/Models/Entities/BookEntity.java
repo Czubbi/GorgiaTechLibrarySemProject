@@ -11,12 +11,12 @@ public class BookEntity {
     private String title;
     private String author;
     private String subjectArea;
-    private int languageId;
+    private Integer languageId;
     private Date releasedDate;
-    private int copiesNumber;
-    private int availableBooksNumber;
-    private int coverId;
-    private int bookTypeId;
+    private Integer copiesNumber;
+    private Integer availableBooksNumber;
+    private Integer coverId;
+    private Integer bookTypeId;
     private Date addedDate;
 
     @Id
@@ -71,11 +71,11 @@ public class BookEntity {
 
     @Basic
     @Column(name = "language_id", nullable = false)
-    public int getLanguageId() {
+    public Integer getLanguageId() {
         return languageId;
     }
 
-    public void setLanguageId(int languageId) {
+    public void setLanguageId(Integer languageId) {
         this.languageId = languageId;
     }
 
@@ -91,41 +91,41 @@ public class BookEntity {
 
     @Basic
     @Column(name = "copies_number", nullable = false)
-    public int getCopiesNumber() {
+    public Integer getCopiesNumber() {
         return copiesNumber;
     }
 
-    public void setCopiesNumber(int copiesNumber) {
+    public void setCopiesNumber(Integer copiesNumber) {
         this.copiesNumber = copiesNumber;
     }
 
     @Basic
     @Column(name = "available_books_number", nullable = false)
-    public int getAvailableBooksNumber() {
+    public Integer getAvailableBooksNumber() {
         return availableBooksNumber;
     }
 
-    public void setAvailableBooksNumber(int availableBooksNumber) {
+    public void setAvailableBooksNumber(Integer availableBooksNumber) {
         this.availableBooksNumber = availableBooksNumber;
     }
 
     @Basic
     @Column(name = "cover_id", nullable = false)
-    public int getCoverId() {
+    public Integer getCoverId() {
         return coverId;
     }
 
-    public void setCoverId(int coverId) {
+    public void setCoverId(Integer coverId) {
         this.coverId = coverId;
     }
 
     @Basic
     @Column(name = "book_type_id", nullable = false)
-    public int getBookTypeId() {
+    public Integer getBookTypeId() {
         return bookTypeId;
     }
 
-    public void setBookTypeId(int bookTypeId) {
+    public void setBookTypeId(Integer bookTypeId) {
         this.bookTypeId = bookTypeId;
     }
 
@@ -146,18 +146,21 @@ public class BookEntity {
 
         BookEntity that = (BookEntity) o;
 
-        if (languageId != that.languageId) return false;
-        if (copiesNumber != that.copiesNumber) return false;
-        if (availableBooksNumber != that.availableBooksNumber) return false;
-        if (coverId != that.coverId) return false;
-        if (bookTypeId != that.bookTypeId) return false;
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (subjectArea != null ? !subjectArea.equals(that.subjectArea) : that.subjectArea != null) return false;
+        if (languageId != null ? !languageId.equals(that.languageId) : that.languageId != null) return false;
         if (releasedDate != null ? !releasedDate.equals(that.releasedDate) : that.releasedDate != null) return false;
-        return addedDate != null ? addedDate.equals(that.addedDate) : that.addedDate == null;
+        if (copiesNumber != null ? !copiesNumber.equals(that.copiesNumber) : that.copiesNumber != null) return false;
+        if (availableBooksNumber != null ? !availableBooksNumber.equals(that.availableBooksNumber) : that.availableBooksNumber != null)
+            return false;
+        if (coverId != null ? !coverId.equals(that.coverId) : that.coverId != null) return false;
+        if (bookTypeId != null ? !bookTypeId.equals(that.bookTypeId) : that.bookTypeId != null) return false;
+        if (addedDate != null ? !addedDate.equals(that.addedDate) : that.addedDate != null) return false;
+
+        return true;
     }
 
     @Override
@@ -167,12 +170,12 @@ public class BookEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (subjectArea != null ? subjectArea.hashCode() : 0);
-        result = 31 * result + languageId;
+        result = 31 * result + (languageId != null ? languageId.hashCode() : 0);
         result = 31 * result + (releasedDate != null ? releasedDate.hashCode() : 0);
-        result = 31 * result + copiesNumber;
-        result = 31 * result + availableBooksNumber;
-        result = 31 * result + coverId;
-        result = 31 * result + bookTypeId;
+        result = 31 * result + (copiesNumber != null ? copiesNumber.hashCode() : 0);
+        result = 31 * result + (availableBooksNumber != null ? availableBooksNumber.hashCode() : 0);
+        result = 31 * result + (coverId != null ? coverId.hashCode() : 0);
+        result = 31 * result + (bookTypeId != null ? bookTypeId.hashCode() : 0);
         result = 31 * result + (addedDate != null ? addedDate.hashCode() : 0);
         return result;
     }

@@ -5,26 +5,26 @@ import javax.persistence.*;
 @Entity
 @Table(name = "FacultyMember", schema = "dbo", catalog = "dmai0917_1067677")
 public class FacultyMemberEntity {
-    private int facultyMemberId;
-    private int facultyMemberTypeId;
+    private Integer facultyMemberId;
+    private Integer facultyMemberTypeId;
 
     @Id
     @Column(name = "faculty_member_id", nullable = false)
-    public int getFacultyMemberId() {
+    public Integer getFacultyMemberId() {
         return facultyMemberId;
     }
 
-    public void setFacultyMemberId(int facultyMemberId) {
+    public void setFacultyMemberId(Integer facultyMemberId) {
         this.facultyMemberId = facultyMemberId;
     }
 
     @Basic
     @Column(name = "faculty_member_type_id", nullable = false)
-    public int getFacultyMemberTypeId() {
+    public Integer getFacultyMemberTypeId() {
         return facultyMemberTypeId;
     }
 
-    public void setFacultyMemberTypeId(int facultyMemberTypeId) {
+    public void setFacultyMemberTypeId(Integer facultyMemberTypeId) {
         this.facultyMemberTypeId = facultyMemberTypeId;
     }
 
@@ -35,14 +35,18 @@ public class FacultyMemberEntity {
 
         FacultyMemberEntity that = (FacultyMemberEntity) o;
 
-        if (facultyMemberId != that.facultyMemberId) return false;
-        return facultyMemberTypeId == that.facultyMemberTypeId;
+        if (facultyMemberId != null ? !facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId != null)
+            return false;
+        if (facultyMemberTypeId != null ? !facultyMemberTypeId.equals(that.facultyMemberTypeId) : that.facultyMemberTypeId != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = facultyMemberId;
-        result = 31 * result + facultyMemberTypeId;
+        int result = facultyMemberId != null ? facultyMemberId.hashCode() : 0;
+        result = 31 * result + (facultyMemberTypeId != null ? facultyMemberTypeId.hashCode() : 0);
         return result;
     }
 }

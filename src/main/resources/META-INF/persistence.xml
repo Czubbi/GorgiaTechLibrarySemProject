@@ -24,6 +24,12 @@
         <class>GTL_API.Models.Entities.StudentEntity</class>
         <class>GTL_API.Models.Entities.StudentTypeEntity</class>
         <class>GTL_API.Models.Entities.AvailableBooksEntity</class>
+        <class>GTL_API.Models.Entities.BookReturningHistoryEntity</class>
+        <class>GTL_API.Models.Entities.DestroyedBooksEntity</class>
+        <class>GTL_API.Models.Entities.EmployeesInformationEntity</class>
+        <class>GTL_API.Models.Entities.PeopleWhoDidNotReturedBooksYetEntity</class>
+        <class>GTL_API.Models.Entities.StudentsGpaHigher3WorkingMoreThan1YearEntity</class>
+        <class>GTL_API.Models.Entities.StudentsInformationEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://kraka.ucn.dk;database=dmai0917_1067677"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

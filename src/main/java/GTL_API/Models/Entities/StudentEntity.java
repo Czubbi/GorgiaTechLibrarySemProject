@@ -5,48 +5,48 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Student", schema = "dbo", catalog = "dmai0917_1067677")
 public class StudentEntity {
-    private int studentId;
-    private int studentTypeId;
-    private int deadlinesMissed;
-    private double gpa;
+    private Integer studentId;
+    private Integer studentTypeId;
+    private Integer deadlinesMissed;
+    private Double gpa;
 
     @Id
     @Column(name = "student_id", nullable = false)
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
     @Basic
     @Column(name = "student_type_id", nullable = false)
-    public int getStudentTypeId() {
+    public Integer getStudentTypeId() {
         return studentTypeId;
     }
 
-    public void setStudentTypeId(int studentTypeId) {
+    public void setStudentTypeId(Integer studentTypeId) {
         this.studentTypeId = studentTypeId;
     }
 
     @Basic
     @Column(name = "deadlines_missed", nullable = false)
-    public int getDeadlinesMissed() {
+    public Integer getDeadlinesMissed() {
         return deadlinesMissed;
     }
 
-    public void setDeadlinesMissed(int deadlinesMissed) {
+    public void setDeadlinesMissed(Integer deadlinesMissed) {
         this.deadlinesMissed = deadlinesMissed;
     }
 
     @Basic
     @Column(name = "gpa", nullable = false, precision = 0)
-    public double getGpa() {
+    public Double getGpa() {
         return gpa;
     }
 
-    public void setGpa(double gpa) {
+    public void setGpa(Double gpa) {
         this.gpa = gpa;
     }
 
@@ -57,21 +57,22 @@ public class StudentEntity {
 
         StudentEntity that = (StudentEntity) o;
 
-        if (studentId != that.studentId) return false;
-        if (studentTypeId != that.studentTypeId) return false;
-        if (deadlinesMissed != that.deadlinesMissed) return false;
-        return Double.compare(that.gpa, gpa) == 0;
+        if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
+        if (studentTypeId != null ? !studentTypeId.equals(that.studentTypeId) : that.studentTypeId != null)
+            return false;
+        if (deadlinesMissed != null ? !deadlinesMissed.equals(that.deadlinesMissed) : that.deadlinesMissed != null)
+            return false;
+        if (gpa != null ? !gpa.equals(that.gpa) : that.gpa != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = studentId;
-        result = 31 * result + studentTypeId;
-        result = 31 * result + deadlinesMissed;
-        temp = Double.doubleToLongBits(gpa);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = studentId != null ? studentId.hashCode() : 0;
+        result = 31 * result + (studentTypeId != null ? studentTypeId.hashCode() : 0);
+        result = 31 * result + (deadlinesMissed != null ? deadlinesMissed.hashCode() : 0);
+        result = 31 * result + (gpa != null ? gpa.hashCode() : 0);
         return result;
     }
 }

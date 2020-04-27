@@ -48,7 +48,9 @@ public class PostcodeEntity {
 
         if (postcode != null ? !postcode.equals(that.postcode) : that.postcode != null) return false;
         if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        return state != null ? state.equals(that.state) : that.state == null;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
+
+        return true;
     }
 
     @Override

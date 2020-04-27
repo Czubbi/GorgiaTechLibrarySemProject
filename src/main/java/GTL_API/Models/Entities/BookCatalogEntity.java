@@ -5,17 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "BookCatalog", schema = "dbo", catalog = "dmai0917_1067677")
 public class BookCatalogEntity {
-    private int id;
+    private Integer id;
     private String isbn;
-    private int bookConditionId;
+    private Integer bookConditionId;
+    private Boolean isDeleted;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,12 +32,22 @@ public class BookCatalogEntity {
 
     @Basic
     @Column(name = "book_condition_id", nullable = false)
-    public int getBookConditionId() {
+    public Integer getBookConditionId() {
         return bookConditionId;
     }
 
-    public void setBookConditionId(int bookConditionId) {
+    public void setBookConditionId(Integer bookConditionId) {
         this.bookConditionId = bookConditionId;
+    }
+
+    @Basic
+    @Column(name = "is_deleted", nullable = false)
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override
@@ -46,16 +57,21 @@ public class BookCatalogEntity {
 
         BookCatalogEntity that = (BookCatalogEntity) o;
 
-        if (id != that.id) return false;
-        if (bookConditionId != that.bookConditionId) return false;
-        return isbn != null ? isbn.equals(that.isbn) : that.isbn == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
+        if (bookConditionId != null ? !bookConditionId.equals(that.bookConditionId) : that.bookConditionId != null)
+            return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (isbn != null ? isbn.hashCode() : 0);
-        result = 31 * result + bookConditionId;
+        result = 31 * result + (bookConditionId != null ? bookConditionId.hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         return result;
     }
 }
