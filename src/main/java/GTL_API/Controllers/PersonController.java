@@ -27,6 +27,11 @@ public class PersonController {
         return new ResponseEntity<>(iPersonService.updatePerson(person), new HttpHeaders(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity<?> createPerson(@RequestBody PersonUpdate person){
+        return new ResponseEntity<>(iPersonService.updatePerson(person), new HttpHeaders(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/findbyname/", method = RequestMethod.GET)
     public ResponseEntity<?> findPersonByFirstNameAndLastName(@RequestBody PersonReturn person){
         return new ResponseEntity<>(iPersonService.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()), new HttpHeaders(), HttpStatus.FOUND);

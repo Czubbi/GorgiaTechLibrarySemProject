@@ -5,11 +5,11 @@ public class PersonCreation {
     private String firstName;
     private String middleName;
     private String lastName;
-    private int homeAddressId;
-    private int campusAddressId;
-    private int loanDuration;
-    private int cardNumberId;
-    private int personTypeId;
+    private Integer homeAddressId;
+    private Integer campusAddressId;
+    private Integer loanDuration;
+    private Integer cardNumberId;
+    private Integer personTypeId;
 
     public String getSsn() {
         return ssn;
@@ -47,23 +47,23 @@ public class PersonCreation {
         return homeAddressId;
     }
 
-    public void setHomeAddressId(int homeAddressId) {
+    public void setHomeAddressId(Integer homeAddressId) {
         this.homeAddressId = homeAddressId;
     }
 
-    public int getCampusAddressId() {
+    public Integer getCampusAddressId() {
         return campusAddressId;
     }
 
-    public void setCampusAddressId(int campusAddressId) {
+    public void setCampusAddressId(Integer campusAddressId) {
         this.campusAddressId = campusAddressId;
     }
 
-    public int getLoanDuration() {
+    public Integer getLoanDuration() {
         return loanDuration;
     }
 
-    public void setLoanDuration(int loanDuration) {
+    public void setLoanDuration(Integer loanDuration) {
         this.loanDuration = loanDuration;
     }
 
@@ -71,7 +71,7 @@ public class PersonCreation {
         return cardNumberId;
     }
 
-    public void setCardNumberId(int cardNumberId) {
+    public void setCardNumberId(Integer cardNumberId) {
         this.cardNumberId = cardNumberId;
     }
 
@@ -79,7 +79,7 @@ public class PersonCreation {
         return personTypeId;
     }
 
-    public void setPersonTypeId(int personTypeId) {
+    public void setPersonTypeId(Integer personTypeId) {
         this.personTypeId = personTypeId;
     }
 

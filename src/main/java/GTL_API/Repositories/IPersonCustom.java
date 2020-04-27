@@ -10,4 +10,6 @@ public interface IPersonCustom {
     PersonReturn findPersonByCardNumberId(Integer cardNumberId);
 
     PersonReturn updatePerson(PersonEntity personEntity);
+
+    PersonReturn createPerson(PersonEntity personEntity);
 }

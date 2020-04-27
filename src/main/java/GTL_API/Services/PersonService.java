@@ -1,5 +1,6 @@
 package GTL_API.Services;
 
+import GTL_API.Models.CreationModels.PersonCreation;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
@@ -40,5 +41,10 @@ public class PersonService implements IPersonService {
     @Override
     public PersonReturn updatePerson(PersonUpdate person) {
         return iPersonCustomRepository.updatePerson(modelMapper.map(person, PersonEntity.class));
+    }
+
+    @Override
+    public PersonReturn createPerson(PersonCreation person) {
+        return iPersonCustomRepository.createPerson(modelMapper.map(person, PersonEntity.class));
     }
 }

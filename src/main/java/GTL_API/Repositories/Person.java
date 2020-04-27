@@ -1,5 +1,6 @@
 package GTL_API.Repositories;
 
+import GTL_API.Exceptions.CreationException;
 import GTL_API.Exceptions.DuplicateException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UpdateException;
@@ -70,6 +71,16 @@ public class Person implements IPersonCustom{
         } catch (Exception e){
             throw new UpdateException("There was an unexpected error while updating the person");
         }
+    }
+
+    @Override
+    public PersonReturn createPerson(PersonEntity personEntity) {
+        return null;
+        /*try{
+
+        } catch (Exception e) {
+            throw new CreationException("There was an unexpected error while updating the person");
+        }*/
     }
 
     private PersonEntity findBySsnIfExistsAndReturn(String ssn) {
