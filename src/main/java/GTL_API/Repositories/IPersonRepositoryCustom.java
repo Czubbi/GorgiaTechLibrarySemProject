@@ -3,7 +3,7 @@ package GTL_API.Repositories;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
 
-public interface IPersonCustom {
+public interface IPersonRepositoryCustom {
     PersonReturn findPersonBySsn(String ssn);
     PersonReturn findPersonByFirstNameAndLastName(String firstName, String lastName);
     PersonReturn findPersonByCardNumberId(Integer cardNumberId);

@@ -4,14 +4,14 @@ import GTL_API.Models.CreationModels.PersonCreation;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
-import GTL_API.Repositories.IPersonCustom;
+import GTL_API.Repositories.IPersonRepositoryCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService implements IPersonService {
-    private IPersonCustom iPersonCustomRepository;
+    private IPersonRepositoryCustom personRepositoryCustom;
 
     private ModelMapper modelMapper;
 
@@ -19,32 +19,32 @@ public class PersonService implements IPersonService {
     public void setModelMapper(ModelMapper modelMapper) { this.modelMapper = modelMapper; }
 
     @Autowired
-    public void setIPersonCustomRepository(IPersonCustom iPersonCustomRepository){
-        this.iPersonCustomRepository = iPersonCustomRepository;
+    public void setIPersonCustomRepository(IPersonRepositoryCustom personRepositoryCustom){
+        this.personRepositoryCustom = personRepositoryCustom;
     }
 
     @Override
     public PersonReturn findPersonBySsn(String ssn) {
-        return iPersonCustomRepository.findPersonBySsn(ssn);
+        return personRepositoryCustom.findPersonBySsn(ssn);
     }
 
     @Override
     public PersonReturn findPersonByFirstNameAndLastName(String firstName, String lastName) {
-        return iPersonCustomRepository.findPersonByFirstNameAndLastName(firstName, lastName);
+        return personRepositoryCustom.findPersonByFirstNameAndLastName(firstName, lastName);
     }
 
     @Override
     public PersonReturn findPersonByCardNumberId(Integer cardNumberId) {
-        return iPersonCustomRepository.findPersonByCardNumberId(cardNumberId);
+        return personRepositoryCustom.findPersonByCardNumberId(cardNumberId);
     }
 
     @Override
     public PersonReturn updatePerson(PersonUpdate person) {
-        return iPersonCustomRepository.updatePerson(modelMapper.map(person, PersonEntity.class));
+        return personRepositoryCustom.updatePerson(modelMapper.map(person, PersonEntity.class));
     }
 
     @Override
     public PersonReturn createPerson(PersonCreation person) {
-        return iPersonCustomRepository.createPerson(modelMapper.map(person, PersonEntity.class));
+        return personRepositoryCustom.createPerson(modelMapper.map(person, PersonEntity.class));
     }
 }
