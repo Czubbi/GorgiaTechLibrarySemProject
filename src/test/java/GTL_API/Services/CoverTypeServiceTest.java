@@ -1,3 +1,5 @@
+package GTL_API.Services;
+
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
 import GTL_API.Repositories.CoverType;
 import org.junit.Assert;
