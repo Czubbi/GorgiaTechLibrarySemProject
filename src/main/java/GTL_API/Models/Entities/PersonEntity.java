@@ -9,11 +9,11 @@ public class PersonEntity {
     private String firstName;
     private String middleName;
     private String lastName;
-    private int homeAddressId;
-    private int campusAddressId;
-    private int loanDuration;
-    private int cardNumberId;
-    private int personTypeId;
+    private Integer homeAddressId;
+    private Integer campusAddressId;
+    private Integer loanDuration;
+    private Integer cardNumberId;
+    private Integer personTypeId;
 
     @Id
     @Column(name = "ssn", nullable = false, length = 11)
@@ -57,51 +57,51 @@ public class PersonEntity {
 
     @Basic
     @Column(name = "home_address_id", nullable = false)
-    public int getHomeAddressId() {
+    public Integer getHomeAddressId() {
         return homeAddressId;
     }
 
-    public void setHomeAddressId(int homeAddressId) {
+    public void setHomeAddressId(Integer homeAddressId) {
         this.homeAddressId = homeAddressId;
     }
 
     @Basic
     @Column(name = "campus_address_id", nullable = false)
-    public int getCampusAddressId() {
+    public Integer getCampusAddressId() {
         return campusAddressId;
     }
 
-    public void setCampusAddressId(int campusAddressId) {
+    public void setCampusAddressId(Integer campusAddressId) {
         this.campusAddressId = campusAddressId;
     }
 
     @Basic
     @Column(name = "loan_duration", nullable = false)
-    public int getLoanDuration() {
+    public Integer getLoanDuration() {
         return loanDuration;
     }
 
-    public void setLoanDuration(int loanDuration) {
+    public void setLoanDuration(Integer loanDuration) {
         this.loanDuration = loanDuration;
     }
 
     @Basic
     @Column(name = "card_number_id", nullable = false)
-    public int getCardNumberId() {
+    public Integer getCardNumberId() {
         return cardNumberId;
     }
 
-    public void setCardNumberId(int cardNumberId) {
+    public void setCardNumberId(Integer cardNumberId) {
         this.cardNumberId = cardNumberId;
     }
 
     @Basic
     @Column(name = "person_type_id", nullable = false)
-    public int getPersonTypeId() {
+    public Integer getPersonTypeId() {
         return personTypeId;
     }
 
-    public void setPersonTypeId(int personTypeId) {
+    public void setPersonTypeId(Integer personTypeId) {
         this.personTypeId = personTypeId;
     }
 
@@ -120,9 +120,7 @@ public class PersonEntity {
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-
-        return true;
+        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
     }
 
     @Override

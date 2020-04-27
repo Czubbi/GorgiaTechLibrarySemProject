@@ -73,9 +73,7 @@ public class BookBorrowEntity {
         if (bookCatalogId != that.bookCatalogId) return false;
         if (bookReturnId != that.bookReturnId) return false;
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
-        if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
-
-        return true;
+        return borrowDate != null ? borrowDate.equals(that.borrowDate) : that.borrowDate == null;
     }
 
     @Override

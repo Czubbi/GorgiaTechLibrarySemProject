@@ -5,16 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CoverType", schema = "dbo", catalog = "dmai0917_1067677")
 public class CoverTypeEntity {
-    private int id;
+    private Integer id;
     private String coverType;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,9 +36,7 @@ public class CoverTypeEntity {
         CoverTypeEntity that = (CoverTypeEntity) o;
 
         if (id != that.id) return false;
-        if (coverType != null ? !coverType.equals(that.coverType) : that.coverType != null) return false;
-
-        return true;
+        return coverType != null ? coverType.equals(that.coverType) : that.coverType == null;
     }
 
     @Override

@@ -48,9 +48,7 @@ public class BookCatalogEntity {
 
         if (id != that.id) return false;
         if (bookConditionId != that.bookConditionId) return false;
-        if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
-
-        return true;
+        return isbn != null ? isbn.equals(that.isbn) : that.isbn == null;
     }
 
     @Override

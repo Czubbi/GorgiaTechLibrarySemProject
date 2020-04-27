@@ -157,9 +157,7 @@ public class BookEntity {
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (subjectArea != null ? !subjectArea.equals(that.subjectArea) : that.subjectArea != null) return false;
         if (releasedDate != null ? !releasedDate.equals(that.releasedDate) : that.releasedDate != null) return false;
-        if (addedDate != null ? !addedDate.equals(that.addedDate) : that.addedDate != null) return false;
-
-        return true;
+        return addedDate != null ? addedDate.equals(that.addedDate) : that.addedDate == null;
     }
 
     @Override

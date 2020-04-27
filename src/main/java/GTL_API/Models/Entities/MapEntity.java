@@ -37,9 +37,7 @@ public class MapEntity {
         MapEntity mapEntity = (MapEntity) o;
 
         if (barcode != null ? !barcode.equals(mapEntity.barcode) : mapEntity.barcode != null) return false;
-        if (addedDate != null ? !addedDate.equals(mapEntity.addedDate) : mapEntity.addedDate != null) return false;
-
-        return true;
+        return addedDate != null ? addedDate.equals(mapEntity.addedDate) : mapEntity.addedDate == null;
     }
 
     @Override

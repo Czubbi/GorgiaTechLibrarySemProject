@@ -60,9 +60,7 @@ public class StudentEntity {
         if (studentId != that.studentId) return false;
         if (studentTypeId != that.studentTypeId) return false;
         if (deadlinesMissed != that.deadlinesMissed) return false;
-        if (Double.compare(that.gpa, gpa) != 0) return false;
-
-        return true;
+        return Double.compare(that.gpa, gpa) == 0;
     }
 
     @Override
