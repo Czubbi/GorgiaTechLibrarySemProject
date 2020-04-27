@@ -6,29 +6,29 @@ import java.sql.Date;
 @Entity
 @Table(name = "BookBorrow", schema = "dbo", catalog = "dmai0917_1067677")
 public class BookBorrowEntity {
-    private int id;
-    private int bookCatalogId;
+    private Integer id;
+    private Integer bookCatalogId;
     private String ssn;
     private Date borrowDate;
-    private int bookReturnId;
+    private Integer bookReturnId;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "book_catalog_id", nullable = false)
-    public int getBookCatalogId() {
+    public Integer getBookCatalogId() {
         return bookCatalogId;
     }
 
-    public void setBookCatalogId(int bookCatalogId) {
+    public void setBookCatalogId(Integer bookCatalogId) {
         this.bookCatalogId = bookCatalogId;
     }
 
@@ -54,11 +54,11 @@ public class BookBorrowEntity {
 
     @Basic
     @Column(name = "book_return_id", nullable = false)
-    public int getBookReturnId() {
+    public Integer getBookReturnId() {
         return bookReturnId;
     }
 
-    public void setBookReturnId(int bookReturnId) {
+    public void setBookReturnId(Integer bookReturnId) {
         this.bookReturnId = bookReturnId;
     }
 
@@ -69,20 +69,23 @@ public class BookBorrowEntity {
 
         BookBorrowEntity that = (BookBorrowEntity) o;
 
-        if (id != that.id) return false;
-        if (bookCatalogId != that.bookCatalogId) return false;
-        if (bookReturnId != that.bookReturnId) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (bookCatalogId != null ? !bookCatalogId.equals(that.bookCatalogId) : that.bookCatalogId != null)
+            return false;
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
-        return borrowDate != null ? borrowDate.equals(that.borrowDate) : that.borrowDate == null;
+        if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
+        if (bookReturnId != null ? !bookReturnId.equals(that.bookReturnId) : that.bookReturnId != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + bookCatalogId;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (bookCatalogId != null ? bookCatalogId.hashCode() : 0);
         result = 31 * result + (ssn != null ? ssn.hashCode() : 0);
         result = 31 * result + (borrowDate != null ? borrowDate.hashCode() : 0);
-        result = 31 * result + bookReturnId;
+        result = 31 * result + (bookReturnId != null ? bookReturnId.hashCode() : 0);
         return result;
     }
 }

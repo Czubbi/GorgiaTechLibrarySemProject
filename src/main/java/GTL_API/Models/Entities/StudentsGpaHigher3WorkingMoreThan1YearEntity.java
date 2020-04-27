@@ -4,14 +4,35 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "LibraryEmployee", schema = "dbo", catalog = "dmai0917_1067677")
-public class LibraryEmployeeEntity {
+@Table(name = "StudentsGpaHigher3WorkingMoreThan1Year", schema = "dbo", catalog = "dmai0917_1067677")
+public class StudentsGpaHigher3WorkingMoreThan1YearEntity {
+    private Integer studentId;
+    private Double gpa;
     private Integer employeeId;
-    private Integer libraryEmployeeTypeId;
     private Double weeklyHours;
     private Date hireDate;
 
     @Id
+    @Column(name = "student_id", nullable = false)
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
+    @Basic
+    @Column(name = "gpa", nullable = false, precision = 0)
+    public Double getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(Double gpa) {
+        this.gpa = gpa;
+    }
+
+    @Basic
     @Column(name = "employee_id", nullable = false)
     public Integer getEmployeeId() {
         return employeeId;
@@ -19,16 +40,6 @@ public class LibraryEmployeeEntity {
 
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
-    }
-
-    @Basic
-    @Column(name = "library_employee_type_id", nullable = false)
-    public Integer getLibraryEmployeeTypeId() {
-        return libraryEmployeeTypeId;
-    }
-
-    public void setLibraryEmployeeTypeId(Integer libraryEmployeeTypeId) {
-        this.libraryEmployeeTypeId = libraryEmployeeTypeId;
     }
 
     @Basic
@@ -56,11 +67,11 @@ public class LibraryEmployeeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LibraryEmployeeEntity that = (LibraryEmployeeEntity) o;
+        StudentsGpaHigher3WorkingMoreThan1YearEntity that = (StudentsGpaHigher3WorkingMoreThan1YearEntity) o;
 
+        if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
+        if (gpa != null ? !gpa.equals(that.gpa) : that.gpa != null) return false;
         if (employeeId != null ? !employeeId.equals(that.employeeId) : that.employeeId != null) return false;
-        if (libraryEmployeeTypeId != null ? !libraryEmployeeTypeId.equals(that.libraryEmployeeTypeId) : that.libraryEmployeeTypeId != null)
-            return false;
         if (weeklyHours != null ? !weeklyHours.equals(that.weeklyHours) : that.weeklyHours != null) return false;
         if (hireDate != null ? !hireDate.equals(that.hireDate) : that.hireDate != null) return false;
 
@@ -69,8 +80,9 @@ public class LibraryEmployeeEntity {
 
     @Override
     public int hashCode() {
-        int result = employeeId != null ? employeeId.hashCode() : 0;
-        result = 31 * result + (libraryEmployeeTypeId != null ? libraryEmployeeTypeId.hashCode() : 0);
+        int result = studentId != null ? studentId.hashCode() : 0;
+        result = 31 * result + (gpa != null ? gpa.hashCode() : 0);
+        result = 31 * result + (employeeId != null ? employeeId.hashCode() : 0);
         result = 31 * result + (weeklyHours != null ? weeklyHours.hashCode() : 0);
         result = 31 * result + (hireDate != null ? hireDate.hashCode() : 0);
         return result;

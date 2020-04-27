@@ -6,17 +6,17 @@ import java.sql.Date;
 @Entity
 @Table(name = "StudentType", schema = "dbo", catalog = "dmai0917_1067677")
 public class StudentTypeEntity {
-    private int id;
+    private Integer id;
     private String courseName;
     private Date graduationDate;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,14 +47,17 @@ public class StudentTypeEntity {
 
         StudentTypeEntity that = (StudentTypeEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (courseName != null ? !courseName.equals(that.courseName) : that.courseName != null) return false;
-        return graduationDate != null ? graduationDate.equals(that.graduationDate) : that.graduationDate == null;
+        if (graduationDate != null ? !graduationDate.equals(that.graduationDate) : that.graduationDate != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (courseName != null ? courseName.hashCode() : 0);
         result = 31 * result + (graduationDate != null ? graduationDate.hashCode() : 0);
         return result;

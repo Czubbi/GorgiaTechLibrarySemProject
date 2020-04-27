@@ -50,8 +50,7 @@ public class CardService implements ICardService {
      */
     @Override
     public CardReturn findCardByNumber(int number) {
-        CardReturn found = iCardRepository.findCardByNumber(number);
-        return found;
+        return iCardRepository.findCardByNumber(number);
     }
 
     /**
@@ -74,8 +73,7 @@ public class CardService implements ICardService {
             }
         }
         cardCreation.setNumber(generatedNumber);
-        CardReturn created = iCardRepository.createCard(modelMapper.map(cardCreation, CardEntity.class));
-        return created;
+        return iCardRepository.createCard(modelMapper.map(cardCreation, CardEntity.class));
     }
 
     /**
@@ -103,8 +101,8 @@ public class CardService implements ICardService {
 
     /**
      * Invokes a iCardRepository's method that checks if there exists a card with certain number.
-     * @param number
-     * @return
+     * @param number a number that has been generated
+     * @return boolean value determining if a card with passed number exists or not
      */
     private boolean validateCardNumber(int number) {
         return iCardRepository.checkIfExistsByCardNumber(number);

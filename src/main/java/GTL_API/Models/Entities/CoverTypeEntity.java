@@ -35,13 +35,15 @@ public class CoverTypeEntity {
 
         CoverTypeEntity that = (CoverTypeEntity) o;
 
-        if (id != that.id) return false;
-        return coverType != null ? coverType.equals(that.coverType) : that.coverType == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (coverType != null ? !coverType.equals(that.coverType) : that.coverType != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (coverType != null ? coverType.hashCode() : 0);
         return result;
     }
