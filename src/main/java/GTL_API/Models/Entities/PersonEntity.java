@@ -14,6 +14,7 @@ public class PersonEntity {
     private Integer loanDuration;
     private Integer cardNumberId;
     private Integer personTypeId;
+    private Boolean isDeleted;
 
     @Id
     @Column(name = "ssn", nullable = false, length = 11)
@@ -105,6 +106,16 @@ public class PersonEntity {
         this.personTypeId = personTypeId;
     }
 
+    @Basic
+    @Column(name = "is_deleted", nullable = false)
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,15 +123,20 @@ public class PersonEntity {
 
         PersonEntity that = (PersonEntity) o;
 
-        if (homeAddressId != that.homeAddressId) return false;
-        if (campusAddressId != that.campusAddressId) return false;
-        if (loanDuration != that.loanDuration) return false;
-        if (cardNumberId != that.cardNumberId) return false;
-        if (personTypeId != that.personTypeId) return false;
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (homeAddressId != null ? !homeAddressId.equals(that.homeAddressId) : that.homeAddressId != null)
+            return false;
+        if (campusAddressId != null ? !campusAddressId.equals(that.campusAddressId) : that.campusAddressId != null)
+            return false;
+        if (loanDuration != null ? !loanDuration.equals(that.loanDuration) : that.loanDuration != null) return false;
+        if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
+        if (personTypeId != null ? !personTypeId.equals(that.personTypeId) : that.personTypeId != null) return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+
+        return true;
     }
 
     @Override
@@ -129,11 +145,12 @@ public class PersonEntity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + homeAddressId;
-        result = 31 * result + campusAddressId;
-        result = 31 * result + loanDuration;
-        result = 31 * result + cardNumberId;
-        result = 31 * result + personTypeId;
+        result = 31 * result + (homeAddressId != null ? homeAddressId.hashCode() : 0);
+        result = 31 * result + (campusAddressId != null ? campusAddressId.hashCode() : 0);
+        result = 31 * result + (loanDuration != null ? loanDuration.hashCode() : 0);
+        result = 31 * result + (cardNumberId != null ? cardNumberId.hashCode() : 0);
+        result = 31 * result + (personTypeId != null ? personTypeId.hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         return result;
     }
 }

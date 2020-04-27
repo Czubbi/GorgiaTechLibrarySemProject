@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "AvailableBooks", schema = "dbo", catalog = "dmai0917_1067677")
-public class AvailableBooksEntity {
+@Table(name = "DestroyedBooks", schema = "dbo", catalog = "dmai0917_1067677")
+public class DestroyedBooksEntity {
     private Integer id;
     private String isbn;
     private Integer bookConditionId;
@@ -47,7 +47,7 @@ public class AvailableBooksEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AvailableBooksEntity that = (AvailableBooksEntity) o;
+        DestroyedBooksEntity that = (DestroyedBooksEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;

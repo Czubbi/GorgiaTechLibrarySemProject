@@ -5,17 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "LibraryEmployeeType", schema = "dbo", catalog = "dmai0917_1067677")
 public class LibraryEmployeeTypeEntity {
-    private int id;
+    private Integer id;
     private String type;
-    private double hourlyWage;
+    private Double hourlyWage;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,11 +31,11 @@ public class LibraryEmployeeTypeEntity {
 
     @Basic
     @Column(name = "hourly_wage", nullable = false, precision = 0)
-    public double getHourlyWage() {
+    public Double getHourlyWage() {
         return hourlyWage;
     }
 
-    public void setHourlyWage(double hourlyWage) {
+    public void setHourlyWage(Double hourlyWage) {
         this.hourlyWage = hourlyWage;
     }
 
@@ -46,19 +46,18 @@ public class LibraryEmployeeTypeEntity {
 
         LibraryEmployeeTypeEntity that = (LibraryEmployeeTypeEntity) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.hourlyWage, hourlyWage) != 0) return false;
-        return type != null ? type.equals(that.type) : that.type == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (hourlyWage != null ? !hourlyWage.equals(that.hourlyWage) : that.hourlyWage != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        temp = Double.doubleToLongBits(hourlyWage);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (hourlyWage != null ? hourlyWage.hashCode() : 0);
         return result;
     }
 }

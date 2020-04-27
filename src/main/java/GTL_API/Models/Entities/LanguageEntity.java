@@ -5,16 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Language", schema = "dbo", catalog = "dmai0917_1067677")
 public class LanguageEntity {
-    private int id;
+    private Integer id;
     private String language;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,13 +35,15 @@ public class LanguageEntity {
 
         LanguageEntity that = (LanguageEntity) o;
 
-        if (id != that.id) return false;
-        return language != null ? language.equals(that.language) : that.language == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (language != null ? !language.equals(that.language) : that.language != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (language != null ? language.hashCode() : 0);
         return result;
     }

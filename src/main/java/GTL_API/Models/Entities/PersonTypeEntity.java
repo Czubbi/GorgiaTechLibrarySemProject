@@ -5,18 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "PersonType", schema = "dbo", catalog = "dmai0917_1067677")
 public class PersonTypeEntity {
-    private int id;
+    private Integer id;
     private Integer studentId;
     private Integer libraryEmployeeId;
     private Integer facultyMemberId;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,16 +57,19 @@ public class PersonTypeEntity {
 
         PersonTypeEntity that = (PersonTypeEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
         if (libraryEmployeeId != null ? !libraryEmployeeId.equals(that.libraryEmployeeId) : that.libraryEmployeeId != null)
             return false;
-        return facultyMemberId != null ? facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId == null;
+        if (facultyMemberId != null ? !facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (studentId != null ? studentId.hashCode() : 0);
         result = 31 * result + (libraryEmployeeId != null ? libraryEmployeeId.hashCode() : 0);
         result = 31 * result + (facultyMemberId != null ? facultyMemberId.hashCode() : 0);

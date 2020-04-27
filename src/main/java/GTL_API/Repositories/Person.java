@@ -1,7 +1,5 @@
 package GTL_API.Repositories;
 
-import GTL_API.Exceptions.CreationException;
-import GTL_API.Exceptions.DuplicateException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UpdateException;
 import GTL_API.Handlers.PatcherHandler;

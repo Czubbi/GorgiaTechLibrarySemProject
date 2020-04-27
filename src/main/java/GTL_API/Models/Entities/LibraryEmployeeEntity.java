@@ -6,38 +6,38 @@ import java.sql.Date;
 @Entity
 @Table(name = "LibraryEmployee", schema = "dbo", catalog = "dmai0917_1067677")
 public class LibraryEmployeeEntity {
-    private int employeeId;
-    private int libraryEmployeeTypeId;
-    private double weeklyHours;
+    private Integer employeeId;
+    private Integer libraryEmployeeTypeId;
+    private Double weeklyHours;
     private Date hireDate;
 
     @Id
     @Column(name = "employee_id", nullable = false)
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
     @Basic
     @Column(name = "library_employee_type_id", nullable = false)
-    public int getLibraryEmployeeTypeId() {
+    public Integer getLibraryEmployeeTypeId() {
         return libraryEmployeeTypeId;
     }
 
-    public void setLibraryEmployeeTypeId(int libraryEmployeeTypeId) {
+    public void setLibraryEmployeeTypeId(Integer libraryEmployeeTypeId) {
         this.libraryEmployeeTypeId = libraryEmployeeTypeId;
     }
 
     @Basic
     @Column(name = "weekly_hours", nullable = false, precision = 0)
-    public double getWeeklyHours() {
+    public Double getWeeklyHours() {
         return weeklyHours;
     }
 
-    public void setWeeklyHours(double weeklyHours) {
+    public void setWeeklyHours(Double weeklyHours) {
         this.weeklyHours = weeklyHours;
     }
 
@@ -58,20 +58,20 @@ public class LibraryEmployeeEntity {
 
         LibraryEmployeeEntity that = (LibraryEmployeeEntity) o;
 
-        if (employeeId != that.employeeId) return false;
-        if (libraryEmployeeTypeId != that.libraryEmployeeTypeId) return false;
-        if (Double.compare(that.weeklyHours, weeklyHours) != 0) return false;
-        return hireDate != null ? hireDate.equals(that.hireDate) : that.hireDate == null;
+        if (employeeId != null ? !employeeId.equals(that.employeeId) : that.employeeId != null) return false;
+        if (libraryEmployeeTypeId != null ? !libraryEmployeeTypeId.equals(that.libraryEmployeeTypeId) : that.libraryEmployeeTypeId != null)
+            return false;
+        if (weeklyHours != null ? !weeklyHours.equals(that.weeklyHours) : that.weeklyHours != null) return false;
+        if (hireDate != null ? !hireDate.equals(that.hireDate) : that.hireDate != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = employeeId;
-        result = 31 * result + libraryEmployeeTypeId;
-        temp = Double.doubleToLongBits(weeklyHours);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = employeeId != null ? employeeId.hashCode() : 0;
+        result = 31 * result + (libraryEmployeeTypeId != null ? libraryEmployeeTypeId.hashCode() : 0);
+        result = 31 * result + (weeklyHours != null ? weeklyHours.hashCode() : 0);
         result = 31 * result + (hireDate != null ? hireDate.hashCode() : 0);
         return result;
     }

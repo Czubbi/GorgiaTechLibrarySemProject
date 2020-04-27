@@ -6,19 +6,19 @@ import java.sql.Date;
 @Entity
 @Table(name = "BookReturn", schema = "dbo", catalog = "dmai0917_1067677")
 public class BookReturnEntity {
-    private int id;
+    private Integer id;
     private Date returnedDate;
     private Date estimatedReturnDate;
-    private double payment;
-    private boolean status;
+    private Double payment;
+    private Boolean status;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,21 +44,21 @@ public class BookReturnEntity {
 
     @Basic
     @Column(name = "payment", nullable = false, precision = 0)
-    public double getPayment() {
+    public Double getPayment() {
         return payment;
     }
 
-    public void setPayment(double payment) {
+    public void setPayment(Double payment) {
         this.payment = payment;
     }
 
     @Basic
     @Column(name = "status", nullable = false)
-    public boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -69,23 +69,23 @@ public class BookReturnEntity {
 
         BookReturnEntity that = (BookReturnEntity) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.payment, payment) != 0) return false;
-        if (status != that.status) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (returnedDate != null ? !returnedDate.equals(that.returnedDate) : that.returnedDate != null) return false;
-        return estimatedReturnDate != null ? estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate == null;
+        if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
+            return false;
+        if (payment != null ? !payment.equals(that.payment) : that.payment != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (returnedDate != null ? returnedDate.hashCode() : 0);
         result = 31 * result + (estimatedReturnDate != null ? estimatedReturnDate.hashCode() : 0);
-        temp = Double.doubleToLongBits(payment);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (status ? 1 : 0);
+        result = 31 * result + (payment != null ? payment.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }
