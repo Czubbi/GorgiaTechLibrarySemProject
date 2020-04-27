@@ -57,10 +57,10 @@ public class IPersonRepositoryRepositoryTest {
         Assert.assertEquals("Test", found.getFirstName());
         Assert.assertEquals("TestLast", found.getLastName());
 
-        cleanup();
+        //cleanup();
     }
 
-    public void cleanup(){
+    /*public void cleanup(){
         PersonEntity person = new PersonEntity();
         person.setSsn("000-71-3764");
         person.setFirstName("Bart");
@@ -72,6 +72,6 @@ public class IPersonRepositoryRepositoryTest {
         person.setPersonTypeId(102084);
 
         personRepository.updatePerson(person);
-    }
+    }*/
 
 }

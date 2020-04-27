@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-    <persistence-unit name="GiorgiaTechLibrary_Persistence">
+    <persistence-unit name="GiorgiaTechLibrary_Persistence-Test">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>GTL_API.Models.Entities.AddressEntity</class>
         <class>GTL_API.Models.Entities.BookEntity</class>
@@ -31,13 +31,12 @@
         <class>GTL_API.Models.Entities.StudentsGpaHigher3WorkingMoreThan1YearEntity</class>
         <class>GTL_API.Models.Entities.StudentsInformationEntity</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:sqlserver://hildur.ucn.dk;database=psu0220_1067677"/>
+            <property name="hibernate.connection.url" value="jdbc:sqlserver://kraka.ucn.dk;database=dmai0917_1067677"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="javax.persistence.jdbc.user" value="psu0220_1067677"/>
+            <property name="javax.persistence.jdbc.user" value="dmai0917_1067677"/>
             <property name="javax.persistence.jdbc.password" value="Password1!"/>
             <property name="javax.persistence.jdbc.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
-
 </persistence>
