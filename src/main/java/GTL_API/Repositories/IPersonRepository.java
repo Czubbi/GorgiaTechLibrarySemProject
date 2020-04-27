@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IPerson extends JpaRepository<PersonEntity, String> {
+public interface IPersonRepository extends JpaRepository<PersonEntity, String>{
     Optional<PersonEntity> findBySsnIs(String ssn);
     Optional<PersonEntity> findByFirstNameIsAndLastNameIs(String firstName, String lastName);
     Optional<PersonEntity> findByCardNumberIdIs(Integer cardNumberId);

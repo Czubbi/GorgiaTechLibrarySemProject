@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class Person implements IPersonCustom{
-    private IPerson iPerson;
+public class PersonRepository implements IPersonRepositoryCustom{
+    private IPersonRepository iPerson;
     private ModelMapper modelMapper;
     private PatcherHandler patcherHandler;
 
@@ -21,7 +21,7 @@ public class Person implements IPersonCustom{
     public void setPatcherHandler(PatcherHandler patcherHandler) { this.patcherHandler = patcherHandler; }
 
     @Autowired
-    public void setIPerson(IPerson iPerson) { this.iPerson = iPerson; }
+    public void setIPerson(IPersonRepository iPerson) { this.iPerson = iPerson; }
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) { this.modelMapper = modelMapper; }
