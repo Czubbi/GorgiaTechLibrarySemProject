@@ -36,9 +36,7 @@ public class BookTypeEntity {
         BookTypeEntity that = (BookTypeEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (bookType != null ? !bookType.equals(that.bookType) : that.bookType != null) return false;
-
-        return true;
+        return bookType != null ? bookType.equals(that.bookType) : that.bookType == null;
     }
 
     @Override

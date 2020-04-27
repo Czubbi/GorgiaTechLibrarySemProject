@@ -61,10 +61,7 @@ public class PersonTypeEntity {
         if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
         if (libraryEmployeeId != null ? !libraryEmployeeId.equals(that.libraryEmployeeId) : that.libraryEmployeeId != null)
             return false;
-        if (facultyMemberId != null ? !facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId != null)
-            return false;
-
-        return true;
+        return facultyMemberId != null ? facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId == null;
     }
 
     @Override

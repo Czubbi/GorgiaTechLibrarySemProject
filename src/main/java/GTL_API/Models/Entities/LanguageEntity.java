@@ -36,9 +36,7 @@ public class LanguageEntity {
         LanguageEntity that = (LanguageEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (language != null ? !language.equals(that.language) : that.language != null) return false;
-
-        return true;
+        return language != null ? language.equals(that.language) : that.language == null;
     }
 
     @Override

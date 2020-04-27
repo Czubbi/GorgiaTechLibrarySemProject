@@ -48,10 +48,7 @@ public class DestroyedBooksEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
-        if (bookConditionId != null ? !bookConditionId.equals(that.bookConditionId) : that.bookConditionId != null)
-            return false;
-
-        return true;
+        return bookConditionId != null ? bookConditionId.equals(that.bookConditionId) : that.bookConditionId == null;
     }
 
     @Override

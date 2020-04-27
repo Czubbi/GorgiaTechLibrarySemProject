@@ -85,10 +85,7 @@ public class PeopleWhoDidNotReturedBooksYetEntity {
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
-        if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
-            return false;
-
-        return true;
+        return estimatedReturnDate != null ? estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate == null;
     }
 
     @Override

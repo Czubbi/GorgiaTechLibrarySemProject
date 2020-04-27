@@ -61,9 +61,7 @@ public class BookCatalogEntity {
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
         if (bookConditionId != null ? !bookConditionId.equals(that.bookConditionId) : that.bookConditionId != null)
             return false;
-        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
-
-        return true;
+        return isDeleted != null ? isDeleted.equals(that.isDeleted) : that.isDeleted == null;
     }
 
     @Override

@@ -37,10 +37,7 @@ public class FacultyMemberEntity {
 
         if (facultyMemberId != null ? !facultyMemberId.equals(that.facultyMemberId) : that.facultyMemberId != null)
             return false;
-        if (facultyMemberTypeId != null ? !facultyMemberTypeId.equals(that.facultyMemberTypeId) : that.facultyMemberTypeId != null)
-            return false;
-
-        return true;
+        return facultyMemberTypeId != null ? facultyMemberTypeId.equals(that.facultyMemberTypeId) : that.facultyMemberTypeId == null;
     }
 
     @Override

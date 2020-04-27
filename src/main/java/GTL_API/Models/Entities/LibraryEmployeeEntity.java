@@ -62,9 +62,7 @@ public class LibraryEmployeeEntity {
         if (libraryEmployeeTypeId != null ? !libraryEmployeeTypeId.equals(that.libraryEmployeeTypeId) : that.libraryEmployeeTypeId != null)
             return false;
         if (weeklyHours != null ? !weeklyHours.equals(that.weeklyHours) : that.weeklyHours != null) return false;
-        if (hireDate != null ? !hireDate.equals(that.hireDate) : that.hireDate != null) return false;
-
-        return true;
+        return hireDate != null ? hireDate.equals(that.hireDate) : that.hireDate == null;
     }
 
     @Override

@@ -96,9 +96,7 @@ public class EmployeesInformationEntity {
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (hourlyWage != null ? !hourlyWage.equals(that.hourlyWage) : that.hourlyWage != null) return false;
         if (weeklyHours != null ? !weeklyHours.equals(that.weeklyHours) : that.weeklyHours != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-
-        return true;
+        return type != null ? type.equals(that.type) : that.type == null;
     }
 
     @Override

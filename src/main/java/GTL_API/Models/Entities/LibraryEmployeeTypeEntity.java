@@ -48,9 +48,7 @@ public class LibraryEmployeeTypeEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        if (hourlyWage != null ? !hourlyWage.equals(that.hourlyWage) : that.hourlyWage != null) return false;
-
-        return true;
+        return hourlyWage != null ? hourlyWage.equals(that.hourlyWage) : that.hourlyWage == null;
     }
 
     @Override

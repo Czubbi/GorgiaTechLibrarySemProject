@@ -134,9 +134,7 @@ public class PersonEntity {
         if (loanDuration != null ? !loanDuration.equals(that.loanDuration) : that.loanDuration != null) return false;
         if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
         if (personTypeId != null ? !personTypeId.equals(that.personTypeId) : that.personTypeId != null) return false;
-        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
-
-        return true;
+        return isDeleted != null ? isDeleted.equals(that.isDeleted) : that.isDeleted == null;
     }
 
     @Override

@@ -62,9 +62,7 @@ public class StudentEntity {
             return false;
         if (deadlinesMissed != null ? !deadlinesMissed.equals(that.deadlinesMissed) : that.deadlinesMissed != null)
             return false;
-        if (gpa != null ? !gpa.equals(that.gpa) : that.gpa != null) return false;
-
-        return true;
+        return gpa != null ? gpa.equals(that.gpa) : that.gpa == null;
     }
 
     @Override

@@ -49,10 +49,7 @@ public class StudentTypeEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (courseName != null ? !courseName.equals(that.courseName) : that.courseName != null) return false;
-        if (graduationDate != null ? !graduationDate.equals(that.graduationDate) : that.graduationDate != null)
-            return false;
-
-        return true;
+        return graduationDate != null ? graduationDate.equals(that.graduationDate) : that.graduationDate == null;
     }
 
     @Override

@@ -36,10 +36,7 @@ public class BookConditionEntity {
         BookConditionEntity that = (BookConditionEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (bookCondition != null ? !bookCondition.equals(that.bookCondition) : that.bookCondition != null)
-            return false;
-
-        return true;
+        return bookCondition != null ? bookCondition.equals(that.bookCondition) : that.bookCondition == null;
     }
 
     @Override

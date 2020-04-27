@@ -49,9 +49,7 @@ public class MapEntity {
 
         if (barcode != null ? !barcode.equals(mapEntity.barcode) : mapEntity.barcode != null) return false;
         if (addedDate != null ? !addedDate.equals(mapEntity.addedDate) : mapEntity.addedDate != null) return false;
-        if (isDeleted != null ? !isDeleted.equals(mapEntity.isDeleted) : mapEntity.isDeleted != null) return false;
-
-        return true;
+        return isDeleted != null ? isDeleted.equals(mapEntity.isDeleted) : mapEntity.isDeleted == null;
     }
 
     @Override

@@ -158,9 +158,7 @@ public class BookEntity {
             return false;
         if (coverId != null ? !coverId.equals(that.coverId) : that.coverId != null) return false;
         if (bookTypeId != null ? !bookTypeId.equals(that.bookTypeId) : that.bookTypeId != null) return false;
-        if (addedDate != null ? !addedDate.equals(that.addedDate) : that.addedDate != null) return false;
-
-        return true;
+        return addedDate != null ? addedDate.equals(that.addedDate) : that.addedDate == null;
     }
 
     @Override

@@ -72,9 +72,7 @@ public class PhoneNumberEntity {
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
         if (areaCode != null ? !areaCode.equals(that.areaCode) : that.areaCode != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-
-        return true;
+        return description != null ? description.equals(that.description) : that.description == null;
     }
 
     @Override

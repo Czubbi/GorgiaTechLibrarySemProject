@@ -36,9 +36,7 @@ public class CoverTypeEntity {
         CoverTypeEntity that = (CoverTypeEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (coverType != null ? !coverType.equals(that.coverType) : that.coverType != null) return false;
-
-        return true;
+        return coverType != null ? coverType.equals(that.coverType) : that.coverType == null;
     }
 
     @Override

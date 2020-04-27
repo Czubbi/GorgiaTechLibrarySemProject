@@ -73,9 +73,7 @@ public class StudentsGpaHigher3WorkingMoreThan1YearEntity {
         if (gpa != null ? !gpa.equals(that.gpa) : that.gpa != null) return false;
         if (employeeId != null ? !employeeId.equals(that.employeeId) : that.employeeId != null) return false;
         if (weeklyHours != null ? !weeklyHours.equals(that.weeklyHours) : that.weeklyHours != null) return false;
-        if (hireDate != null ? !hireDate.equals(that.hireDate) : that.hireDate != null) return false;
-
-        return true;
+        return hireDate != null ? hireDate.equals(that.hireDate) : that.hireDate == null;
     }
 
     @Override

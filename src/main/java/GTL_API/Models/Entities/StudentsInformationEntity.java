@@ -84,9 +84,7 @@ public class StudentsInformationEntity {
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
-        if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
-
-        return true;
+        return studentId != null ? studentId.equals(that.studentId) : that.studentId == null;
     }
 
     @Override
