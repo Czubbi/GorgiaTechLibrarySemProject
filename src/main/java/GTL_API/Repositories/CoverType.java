@@ -51,7 +51,7 @@ public class CoverType implements ICoverTypeCustom {
             checkIfExistsByCoverType(found);
             CoverTypeEntity updated = iCoverType.save(found);
             return modelMapper.map(updated, CoverTypeReturn.class);
-        } catch(DuplicateException duplicateException) {
+        } catch (DuplicateException duplicateException) {
             throw duplicateException;
         } catch (Exception e) {
             throw new UpdateException("There was an unexpected error while updating the cover type.");
