@@ -1,10 +1,10 @@
 package GTL_API.Models.UpdateModels;
 
 public class CoverTypeUpdate {
-    private int id;
+    private Integer id;
     private String coverType;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -61,9 +61,7 @@ public class AddressEntity {
         if (street != null ? !street.equals(that.street) : that.street != null) return false;
         if (addressNumber != null ? !addressNumber.equals(that.addressNumber) : that.addressNumber != null)
             return false;
-        if (postcodeId != null ? !postcodeId.equals(that.postcodeId) : that.postcodeId != null) return false;
-
-        return true;
+        return postcodeId != null ? postcodeId.equals(that.postcodeId) : that.postcodeId == null;
     }
 
     @Override

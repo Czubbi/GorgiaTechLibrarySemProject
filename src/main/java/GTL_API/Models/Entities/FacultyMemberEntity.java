@@ -36,9 +36,7 @@ public class FacultyMemberEntity {
         FacultyMemberEntity that = (FacultyMemberEntity) o;
 
         if (facultyMemberId != that.facultyMemberId) return false;
-        if (facultyMemberTypeId != that.facultyMemberTypeId) return false;
-
-        return true;
+        return facultyMemberTypeId == that.facultyMemberTypeId;
     }
 
     @Override

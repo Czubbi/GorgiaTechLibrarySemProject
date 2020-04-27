@@ -73,10 +73,7 @@ public class BookReturnEntity {
         if (Double.compare(that.payment, payment) != 0) return false;
         if (status != that.status) return false;
         if (returnedDate != null ? !returnedDate.equals(that.returnedDate) : that.returnedDate != null) return false;
-        if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
-            return false;
-
-        return true;
+        return estimatedReturnDate != null ? estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate == null;
     }
 
     @Override
