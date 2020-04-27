@@ -1,9 +1,6 @@
 package GTL_API.Models.Entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "DestroyedBooks", schema = "dbo", catalog = "dmai0917_1067677")
@@ -12,7 +9,7 @@ public class DestroyedBooksEntity {
     private String isbn;
     private Integer bookConditionId;
 
-    @Basic
+    @Id
     @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;

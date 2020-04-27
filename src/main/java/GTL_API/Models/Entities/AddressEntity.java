@@ -5,18 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Address", schema = "dbo", catalog = "dmai0917_1067677")
 public class AddressEntity {
-    private int id;
+    private Integer id;
     private String street;
     private String addressNumber;
     private String postcodeId;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,16 +57,18 @@ public class AddressEntity {
 
         AddressEntity that = (AddressEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (street != null ? !street.equals(that.street) : that.street != null) return false;
         if (addressNumber != null ? !addressNumber.equals(that.addressNumber) : that.addressNumber != null)
             return false;
-        return postcodeId != null ? postcodeId.equals(that.postcodeId) : that.postcodeId == null;
+        if (postcodeId != null ? !postcodeId.equals(that.postcodeId) : that.postcodeId != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (addressNumber != null ? addressNumber.hashCode() : 0);
         result = 31 * result + (postcodeId != null ? postcodeId.hashCode() : 0);

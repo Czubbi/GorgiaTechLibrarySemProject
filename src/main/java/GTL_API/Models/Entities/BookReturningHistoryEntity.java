@@ -1,9 +1,6 @@
 package GTL_API.Models.Entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -17,7 +14,7 @@ public class BookReturningHistoryEntity {
     private Double payment;
     private Boolean status;
 
-    @Basic
+    @Id
     @Column(name = "ssn", nullable = false, length = 11)
     public String getSsn() {
         return ssn;

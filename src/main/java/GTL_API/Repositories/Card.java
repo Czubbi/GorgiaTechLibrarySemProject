@@ -56,7 +56,9 @@ public class Card implements ICardCustom {
         try {
             CardEntity foundCard = findIfExistsAndReturn(number);
             return modelMapper.map(foundCard, CardReturn.class);
-        } catch (Exception e) {
+        }catch(NotFoundException notFoundException){
+            throw notFoundException;
+        }catch (Exception e) {
             throw new UnknownException(String.format("Unknown error while finding card with number %d", number));
         }
     }
@@ -72,7 +74,7 @@ public class Card implements ICardCustom {
         try {
             CardEntity added = cardRepository.save(cardEntity);
             return modelMapper.map(added, CardReturn.class);
-        } catch (Exception e) {
+        }catch (Exception e) {
             throw new UnknownException("Unknown error while creating a new card.");
         }
     }

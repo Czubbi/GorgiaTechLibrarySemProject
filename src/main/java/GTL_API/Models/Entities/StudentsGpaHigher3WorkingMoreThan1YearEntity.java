@@ -1,9 +1,6 @@
 package GTL_API.Models.Entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -15,7 +12,7 @@ public class StudentsGpaHigher3WorkingMoreThan1YearEntity {
     private Double weeklyHours;
     private Date hireDate;
 
-    @Basic
+    @Id
     @Column(name = "student_id", nullable = false)
     public Integer getStudentId() {
         return studentId;

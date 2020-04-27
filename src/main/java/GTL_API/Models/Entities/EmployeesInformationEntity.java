@@ -1,9 +1,6 @@
 package GTL_API.Models.Entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "EmployeesInformation", schema = "dbo", catalog = "dmai0917_1067677")
@@ -16,7 +13,7 @@ public class EmployeesInformationEntity {
     private Double weeklyHours;
     private String type;
 
-    @Basic
+    @Id
     @Column(name = "ssn", nullable = false, length = 11)
     public String getSsn() {
         return ssn;

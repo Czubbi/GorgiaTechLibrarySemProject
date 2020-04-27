@@ -1,9 +1,6 @@
 package GTL_API.Models.Entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -16,7 +13,7 @@ public class PeopleWhoDidNotReturedBooksYetEntity {
     private String isbn;
     private Date estimatedReturnDate;
 
-    @Basic
+    @Id
     @Column(name = "ssn", nullable = false, length = 11)
     public String getSsn() {
         return ssn;
