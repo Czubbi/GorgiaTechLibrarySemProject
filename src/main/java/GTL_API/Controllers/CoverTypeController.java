@@ -25,7 +25,7 @@ public class CoverTypeController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.PATCH)
-    public ResponseEntity<?> findCoverTypeByName(@RequestBody CoverTypeUpdate coverType){
+    public ResponseEntity<?> updateCoverType(@RequestBody CoverTypeUpdate coverType){
         return new ResponseEntity<>(iCoverTypeService.updateCoverType(coverType), new HttpHeaders(), HttpStatus.OK);
     }
 

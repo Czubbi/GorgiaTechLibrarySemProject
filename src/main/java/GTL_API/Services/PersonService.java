@@ -19,7 +19,7 @@ public class PersonService implements IPersonService {
     public void setModelMapper(ModelMapper modelMapper) { this.modelMapper = modelMapper; }
 
     @Autowired
-    public void setiPersonCustomRepository(IPersonCustom iPersonCustomRepository){
+    public void setIPersonCustomRepository(IPersonCustom iPersonCustomRepository){
         this.iPersonCustomRepository = iPersonCustomRepository;
     }
 
