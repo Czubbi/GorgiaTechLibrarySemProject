@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "StudentsGpaHigher3WorkingMoreThan1Year", schema = "dbo", catalog = "dmai0917_1067677")
+@Table(name = "StudentsGpaHigher3WorkingMoreThan1Year", schema = "dbo")
 public class StudentsGpaHigher3WorkingMoreThan1YearEntity {
     private Integer studentId;
     private Double gpa;

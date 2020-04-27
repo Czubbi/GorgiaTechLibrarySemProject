@@ -3,7 +3,7 @@ package GTL_API.Models.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Postcode", schema = "dbo", catalog = "dmai0917_1067677")
+@Table(name = "Postcode", schema = "dbo")
 public class PostcodeEntity {
     private String postcode;
     private String city;
