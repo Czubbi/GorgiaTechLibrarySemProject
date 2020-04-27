@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoverTypeService implements ICoverTypeService {
 
+    /**
+     * Instance of ICoverTypeCustom interface.
+     */
     private ICoverTypeCustom iCoverTypeRepository;
 
+    /**
+     * Instance of model mapper class.
+     */
     private ModelMapper modelMapper;
 
     @Autowired
@@ -26,11 +32,22 @@ public class CoverTypeService implements ICoverTypeService {
         this.iCoverTypeRepository = iCoverTypeRepository;
     }
 
+    /**
+     * Invokes iCoverTypeRepository instance's method findCoverTypeByName by passing desired string
+     * @param coverType A name of a cover type.
+     * @return A found object with filled information.
+     */
     @Override
     public CoverTypeReturn findCoverTypeByName(String coverType) {
         return iCoverTypeRepository.findCoverTypeByName(coverType);
     }
 
+    /**
+     * Invokes iCoverTypeRepository instance's method updateCoverType by passing a mapped CoverTypeEntity with new
+     * information.
+     * @param coverType An object containing information that will overwrite old.
+     * @return An updated object with new information.
+     */
     @Override
     public CoverTypeReturn updateCoverType(CoverTypeUpdate coverType) {
         return iCoverTypeRepository.updateCoverType(modelMapper.map(coverType, CoverTypeEntity.class));
