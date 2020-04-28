@@ -3,8 +3,7 @@ package GTL_API.Repositories;
 import GTL_API.MainApplicationClass;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
-import GTL_API.Repositories.IPersonRepository;
-import GTL_API.Repositories.IPersonRepositoryCustom;
+import GTL_API.TestDataSourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MainApplicationClass.class)
+@SpringBootTest(classes = {MainApplicationClass.class, TestDataSourceConfig.class})
 public class IPersonRepositoryRepositoryTest {
 
     @Autowired
