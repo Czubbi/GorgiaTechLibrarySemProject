@@ -21,21 +21,19 @@ public class CardController {
     }
 
     @RequestMapping(value = "/{cardNumber}", method = RequestMethod.GET)
-    public ResponseEntity<?> findCardByNumber(@PathVariable int cardNumber){
+    public ResponseEntity<?> findCardByNumber(@PathVariable int cardNumber) {
         return new ResponseEntity<>(iCardService.findCardByNumber(cardNumber), new HttpHeaders(), HttpStatus.FOUND);
     }
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
-    public ResponseEntity<?> createCard(@RequestBody CardCreation card){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity<?> createCard(@RequestBody CardCreation card) {
         return new ResponseEntity<>(iCardService.createCard(card), new HttpHeaders(), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{cardNumber}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteCard(@PathVariable int cardNumber){
+    @RequestMapping(value = "/{cardNumber}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCard(@PathVariable int cardNumber) {
         return new ResponseEntity<>(iCardService.deleteCard(cardNumber), new HttpHeaders(), HttpStatus.OK);
     }
-
-
 
 
 }

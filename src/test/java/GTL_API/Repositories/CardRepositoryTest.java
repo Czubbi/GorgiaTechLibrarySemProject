@@ -145,7 +145,6 @@ public class CardRepositoryTest {
         CardEntity cardEntity = new CardEntity();
         cardEntity.setExpirationDate(new Date(System.currentTimeMillis()));
         cardEntity.setNumber(15);
-        cardEntity.setDeleted(false);
         cardEntity.setLibraryEmployeeId(25);
         cardEntity.setPicture("231334-adasd");
         return cardEntity;

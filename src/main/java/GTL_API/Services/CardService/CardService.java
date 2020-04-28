@@ -85,9 +85,9 @@ public class CardService implements ICardService {
     public String deleteCard(int number) {
         boolean result = iCardRepository.deleteCard(number);
         if(result){
-            return String.format("Card with number: %d was successfully deleted", number);
+            return String.format("Card with number: %d was successfully deleted.", number);
         }else{
-            return String.format("Card with number: %d was not deleted", number);
+            return String.format("Card with number: %d was not deleted.", number);
         }
     }
 

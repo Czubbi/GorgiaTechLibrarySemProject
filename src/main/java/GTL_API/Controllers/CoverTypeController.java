@@ -19,7 +19,7 @@ public class CoverTypeController {
         this.iCoverTypeService = iCoverTypeService;
     }
 
-    @RequestMapping(value="/{coverType}", method = RequestMethod.GET)
+    @RequestMapping(value="/coverType", method = RequestMethod.GET)
     public ResponseEntity<?> findCoverTypeByName(@PathVariable String coverType){
         return new ResponseEntity<>(iCoverTypeService.findCoverTypeByName(coverType), new HttpHeaders(), HttpStatus.FOUND);
     }

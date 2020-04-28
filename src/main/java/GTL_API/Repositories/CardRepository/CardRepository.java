@@ -72,6 +72,7 @@ public class CardRepository implements ICardRepositoryCustom {
     @Override
     public CardReturn createCard(CardEntity cardEntity) {
         try {
+            cardEntity.setDeleted(false);
             CardEntity added = cardRepository.save(cardEntity);
             return modelMapper.map(added, CardReturn.class);
         }catch (Exception e) {
@@ -108,6 +109,8 @@ public class CardRepository implements ICardRepositoryCustom {
             found.setDeleted(true);
             CardEntity result = cardRepository.save(found);
             return result.getDeleted();
+        } catch (NotFoundException notFoundException){
+            throw notFoundException;
         } catch (Exception e) {
             throw new UnknownException(String.format("Unknown error while deleting a card with number: %d.", number));
         }
