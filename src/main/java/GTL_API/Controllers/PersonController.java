@@ -2,15 +2,13 @@ package GTL_API.Controllers;
 
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
-import GTL_API.Services.IPersonService;
+import GTL_API.Services.PersonService.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("gtl/person")

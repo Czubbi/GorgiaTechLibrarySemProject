@@ -2,7 +2,7 @@ package GTL_API.Controllers;
 
 
 import GTL_API.Models.CreationModels.CardCreation;
-import GTL_API.Services.ICardService;
+import GTL_API.Services.CardService.ICardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
