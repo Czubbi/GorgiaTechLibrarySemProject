@@ -1,9 +1,9 @@
-package GTL_API.Services;
+package GTL_API.Services.CardService;
 
 import GTL_API.Models.CreationModels.CardCreation;
 import GTL_API.Models.Entities.CardEntity;
 import GTL_API.Models.ReturnModels.CardReturn;
-import GTL_API.Repositories.ICardCustom;
+import GTL_API.Repositories.CardRepository.ICardRepositoryCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class CardService implements ICardService {
     /**
      * Instance of card repository interface.
      */
-    private ICardCustom iCardRepository;
+    private ICardRepositoryCustom iCardRepository;
 
     /**
      * Instance of model mapper class.
@@ -39,7 +39,7 @@ public class CardService implements ICardService {
     }
 
     @Autowired
-    public void setICardRepository(ICardCustom iCardRepository) {
+    public void setICardRepository(ICardRepositoryCustom iCardRepository) {
         this.iCardRepository = iCardRepository;
     }
 

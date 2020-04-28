@@ -1,4 +1,4 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.CoverTypeRepository;
 
 import GTL_API.Exceptions.UnknownException;
 import GTL_API.Exceptions.UpdateException;
@@ -14,11 +14,11 @@ import org.modelmapper.ModelMapper;
 import java.util.Optional;
 
 @Component
-public class CoverType implements ICoverTypeCustom {
+public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
     /**
-     * Instance of a ICoverType interface that extends JPARepository.
+     * Instance of a ICoverTypeRepository interface that extends JPARepository.
      */
-    private ICoverType iCoverType;
+    private ICoverTypeRepository iCoverTypeRepository;
 
     /**
      * Instance of a ModelMapper class.
@@ -41,16 +41,15 @@ public class CoverType implements ICoverTypeCustom {
 
     /**
      * Instantiation of a ICoverType interface.
-     * @param iCoverType An object that will be assigned to class's iCoverType attribute.
+     * @param iCoverTypeRepository An object that will be assigned to class's iCoverTypeRepository attribute.
      */
     @Autowired
-    public void setICoverType(ICoverType iCoverType) {
-        this.iCoverType = iCoverType;
+    public void setICoverType(ICoverTypeRepository iCoverTypeRepository) {
+        this.iCoverTypeRepository = iCoverTypeRepository;
     }
 
     /**
      * Instantiation of a ModelMapper class.
-     *
      * @param modelMapper An object that will be assigned to class's modelMapper attribute.
      */
     @Autowired
@@ -91,7 +90,7 @@ public class CoverType implements ICoverTypeCustom {
             CoverTypeEntity found = findIfExistsAndReturn(Optional.of(coverTypeEntity.getId()));
             patcherHandler.fillNotNullFields(found, coverTypeEntity);
             checkIfExistsByCoverType(found);
-            CoverTypeEntity updated = iCoverType.save(found);
+            CoverTypeEntity updated = iCoverTypeRepository.save(found);
             return modelMapper.map(updated, CoverTypeReturn.class);
         } catch (DuplicateException duplicateException) {
             throw duplicateException;
@@ -111,10 +110,10 @@ public class CoverType implements ICoverTypeCustom {
         Optional<CoverTypeEntity> foundCoverType = Optional.empty();
         String message = null;
         if (searchValue.isPresent() && searchValue.get() instanceof String) {
-            foundCoverType = iCoverType.findByCoverTypeIs((String) searchValue.get());
+            foundCoverType = iCoverTypeRepository.findByCoverTypeIs((String) searchValue.get());
             message = String.format("Cover type of name: %s was not found.", searchValue.get());
         } else if (searchValue.isPresent() && searchValue.get() instanceof Integer) {
-            foundCoverType = iCoverType.findById((Integer) searchValue.get());
+            foundCoverType = iCoverTypeRepository.findById((Integer) searchValue.get());
             message = "Cover type was not found.";
         }
         if (foundCoverType.isPresent()) {
@@ -130,7 +129,7 @@ public class CoverType implements ICoverTypeCustom {
      * @param coverTypeEntity An object of CoverTypeEntity class.
      */
     private void checkIfExistsByCoverType(CoverTypeEntity coverTypeEntity) {
-        if (iCoverType.countAllByCoverTypeIs(coverTypeEntity.getCoverType()) > 0) {
+        if (iCoverTypeRepository.countAllByCoverTypeIs(coverTypeEntity.getCoverType()) > 0) {
             throw new DuplicateException("You tried to update a cover type to a name that already exists. Choose " +
                     "different name.");
         }

@@ -1,7 +1,7 @@
 package GTL_API.Services;
 
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
-import GTL_API.Repositories.CoverType;
+import GTL_API.Repositories.CoverTypeRepository.CoverTypeRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class CoverTypeServiceTest {
     }
 
     @MockBean
-    private CoverType coverTypeRepository;
+    private CoverTypeRepository coverTypeRepository;
 
 
     @Test

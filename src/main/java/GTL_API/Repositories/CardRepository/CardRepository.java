@@ -1,4 +1,4 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.CardRepository;
 
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UnknownException;
@@ -12,12 +12,12 @@ import java.util.Optional;
 
 
 @Component
-public class Card implements ICardCustom {
+public class CardRepository implements ICardRepositoryCustom {
 
     /**
-     * Instance of a ICard interface that extends JPARepository.
+     * Instance of a ICardRepository interface that extends JPARepository.
      */
-    private ICard cardRepository;
+    private ICardRepository cardRepository;
 
     /**
      * Instance of a ModelMapper class.
@@ -25,12 +25,12 @@ public class Card implements ICardCustom {
     private ModelMapper modelMapper;
 
     /**
-     * Instantiation of a ICard interface.
+     * Instantiation of a ICardRepository interface.
      *
      * @param cardRepository An object that will be assigned to class's cardRepository attribute.
      */
     @Autowired
-    public void setCardRepository(ICard cardRepository) {
+    public void setCardRepository(ICardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
 

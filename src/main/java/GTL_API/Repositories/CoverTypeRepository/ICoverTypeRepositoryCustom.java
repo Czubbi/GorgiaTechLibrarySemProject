@@ -1,9 +1,9 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.CoverTypeRepository;
 
 import GTL_API.Models.Entities.CoverTypeEntity;
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
 
-public interface ICoverTypeCustom {
+public interface ICoverTypeRepositoryCustom {
     CoverTypeReturn findCoverTypeByName(String coverType);
 
     CoverTypeReturn updateCoverType(CoverTypeEntity coverTypeEntity);

@@ -1,4 +1,4 @@
-package GTL_API.Services;
+package GTL_API.Services.CoverTypeService;
 
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
 import GTL_API.Models.UpdateModels.CoverTypeUpdate;

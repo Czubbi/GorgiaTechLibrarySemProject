@@ -1,4 +1,4 @@
-package GTL_API.Services;
+package GTL_API.Services.CardService;
 
 import GTL_API.Models.CreationModels.CardCreation;
 import GTL_API.Models.ReturnModels.CardReturn;

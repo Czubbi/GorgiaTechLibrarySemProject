@@ -1,6 +1,7 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.PersonRepository;
 
 import GTL_API.Exceptions.NotFoundException;
+import GTL_API.Exceptions.UnknownException;
 import GTL_API.Exceptions.UpdateException;
 import GTL_API.Handlers.PatcherHandler;
 import GTL_API.Models.Entities.PersonEntity;
@@ -32,7 +33,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
             PersonEntity foundPerson = findBySsnIfExistsAndReturn(ssn);
             return modelMapper.map(foundPerson, PersonReturn.class);
         } catch (Exception e){
-            throw e;
+            throw new UnknownException(String.format("There was an unknown exception while finding person with " +
+                    "ssn: %s", ssn));
         }
     }
 
@@ -42,7 +44,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
             PersonEntity foundPerson = findByFirstNameAndLastNameIfExistsAndReturn(firstName, lastName);
             return modelMapper.map(foundPerson, PersonReturn.class);
         } catch (Exception e){
-            throw e;
+            throw new UnknownException(String.format("There was an unknown exception while finding person with name" +
+                    "%s %s", firstName, lastName));
         }
     }
 
@@ -52,7 +55,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
             PersonEntity foundPerson = findByCardNumberIdIfExistsAndReturn(cardNumberId);
             return modelMapper.map(foundPerson, PersonReturn.class);
         } catch (Exception e){
-            throw e;
+            throw new UnknownException(String.format("There was an unknown exception while finding a person with " +
+                    "card number: %d", cardNumberId));
         }
     }
 
@@ -83,7 +87,7 @@ public class PersonRepository implements IPersonRepositoryCustom{
 
     private PersonEntity findBySsnIfExistsAndReturn(String ssn) {
         Optional<PersonEntity> foundPerson;
-        String message = null;
+        String message;
         foundPerson = iPerson.findBySsnIs(ssn);
         message = String.format("Person with ssn: %s was not found", ssn);
 
@@ -96,7 +100,7 @@ public class PersonRepository implements IPersonRepositoryCustom{
 
     private PersonEntity findByFirstNameAndLastNameIfExistsAndReturn(String firstName, String lastName) {
         Optional<PersonEntity> foundPerson;
-        String message = null;
+        String message;
 
         foundPerson = iPerson.findByFirstNameIsAndLastNameIs(firstName, lastName);
         message = String.format("Person with name: %s %s was not found", firstName, lastName);
@@ -110,7 +114,7 @@ public class PersonRepository implements IPersonRepositoryCustom{
 
     private PersonEntity findByCardNumberIdIfExistsAndReturn(Integer cardNumberId) {
         Optional<PersonEntity> foundPerson;
-        String message = null;
+        String message;
         foundPerson = iPerson.findByCardNumberIdIs(cardNumberId);
         message = String.format("Person with card number: %s was not found", cardNumberId);
 

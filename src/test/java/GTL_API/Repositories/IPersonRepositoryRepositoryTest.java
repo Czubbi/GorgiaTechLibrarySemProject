@@ -3,6 +3,7 @@ package GTL_API.Repositories;
 import GTL_API.MainApplicationClass;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
+import GTL_API.Repositories.PersonRepository.IPersonRepositoryCustom;
 import GTL_API.TestDataSourceConfig;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,10 +1,9 @@
-package GTL_API.Services;
+package GTL_API.Services.CoverTypeService;
 
 import GTL_API.Models.Entities.CoverTypeEntity;
 import GTL_API.Models.ReturnModels.CoverTypeReturn;
 import GTL_API.Models.UpdateModels.CoverTypeUpdate;
-import GTL_API.Repositories.ICoverTypeCustom;
-
+import GTL_API.Repositories.CoverTypeRepository.ICoverTypeRepositoryCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class CoverTypeService implements ICoverTypeService {
 
     /**
-     * Instance of ICoverTypeCustom interface.
+     * Instance of ICoverTypeRepositoryCustom interface.
      */
-    private ICoverTypeCustom iCoverTypeRepository;
+    private ICoverTypeRepositoryCustom iCoverTypeRepository;
 
     /**
      * Instance of model mapper class.
@@ -28,7 +27,7 @@ public class CoverTypeService implements ICoverTypeService {
     }
 
     @Autowired
-    public void setICoverTypeRepository(ICoverTypeCustom iCoverTypeRepository) {
+    public void setICoverTypeRepository(ICoverTypeRepositoryCustom iCoverTypeRepository) {
         this.iCoverTypeRepository = iCoverTypeRepository;
     }
 

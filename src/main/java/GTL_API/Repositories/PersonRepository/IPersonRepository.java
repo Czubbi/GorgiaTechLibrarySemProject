@@ -1,4 +1,4 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.PersonRepository;
 
 import GTL_API.Models.Entities.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

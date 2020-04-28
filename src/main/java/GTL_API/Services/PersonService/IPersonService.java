@@ -1,4 +1,4 @@
-package GTL_API.Services;
+package GTL_API.Services.PersonService;
 
 import GTL_API.Models.CreationModels.PersonCreation;
 import GTL_API.Models.ReturnModels.PersonReturn;

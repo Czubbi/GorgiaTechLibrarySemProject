@@ -1,4 +1,4 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.PersonRepository;
 
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;

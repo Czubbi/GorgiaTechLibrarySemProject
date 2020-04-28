@@ -1,10 +1,10 @@
-package GTL_API.Services;
+package GTL_API.Services.PersonService;
 
 import GTL_API.Models.CreationModels.PersonCreation;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
-import GTL_API.Repositories.IPersonRepositoryCustom;
+import GTL_API.Repositories.PersonRepository.IPersonRepositoryCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
