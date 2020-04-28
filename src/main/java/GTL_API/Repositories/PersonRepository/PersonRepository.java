@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.util.Optional;
 
 @Component
@@ -17,6 +20,9 @@ public class PersonRepository implements IPersonRepositoryCustom{
     private IPersonRepository iPerson;
     private ModelMapper modelMapper;
     private PatcherHandler patcherHandler;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     public void setPatcherHandler(PatcherHandler patcherHandler) { this.patcherHandler = patcherHandler; }
@@ -83,6 +89,13 @@ public class PersonRepository implements IPersonRepositoryCustom{
         } catch (Exception e) {
             throw new CreationException("There was an unexpected error while updating the person");
         }*/
+    }
+
+    @Override
+    public PersonReturn findPersonByCardSP(Integer cardNumber) {
+        StoredProcedureQuery findPersonByCardNumberProcedure =
+                entityManager.createNamedStoredProcedureQuery("findPersonByCardNumber").setParameter("@theCardNumber", cardNumber);
+        return modelMapper.map(findPersonByCardNumberProcedure.getSingleResult(), PersonReturn.class);
     }
 
     private PersonEntity findBySsnIfExistsAndReturn(String ssn) {

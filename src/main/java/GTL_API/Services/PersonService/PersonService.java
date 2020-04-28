@@ -35,7 +35,7 @@ public class PersonService implements IPersonService {
 
     @Override
     public PersonReturn findPersonByCardNumberId(Integer cardNumberId) {
-        return personRepositoryCustom.findPersonByCardNumberId(cardNumberId);
+        return personRepositoryCustom.findPersonByCardSP(cardNumberId);
     }
 
     @Override
