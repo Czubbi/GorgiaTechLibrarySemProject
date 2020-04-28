@@ -4,6 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Person", schema = "dbo")
+@NamedStoredProcedureQueries(
+        @NamedStoredProcedureQuery(
+                name="findPersonByCardNumber",
+                procedureName = "FindPersonByCardNumber",
+                resultClasses = PersonEntity.class,
+                parameters =
+                        @StoredProcedureParameter(
+                                mode = ParameterMode.IN,
+                                type=Integer.class,
+                                name="@theCardNumber")
+                ))
 public class PersonEntity {
     private String ssn;
     private String firstName;

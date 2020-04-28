@@ -11,4 +11,6 @@ public interface IPersonRepositoryCustom {
     PersonReturn updatePerson(PersonEntity personEntity);
 
     PersonReturn createPerson(PersonEntity personEntity);
+
+    PersonReturn findPersonByCardSP(Integer cardNumber);
 }

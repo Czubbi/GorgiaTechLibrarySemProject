@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.util.Optional;
 
 @Component
@@ -28,6 +31,9 @@ public class PersonRepository implements IPersonRepositoryCustom{
      * Instance of a PatchHandler class.
      */
     private PatcherHandler patcherHandler;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     public void setPatcherHandler(PatcherHandler patcherHandler) { this.patcherHandler = patcherHandler; }
@@ -144,11 +150,20 @@ public class PersonRepository implements IPersonRepositoryCustom{
         }*/
     }
 
+    @Override
+    public PersonReturn findPersonByCardSP(Integer cardNumber) {
+        StoredProcedureQuery findPersonByCardNumberProcedure =
+                entityManager.createNamedStoredProcedureQuery("findPersonByCardNumber").setParameter("@theCardNumber", cardNumber);
+        return modelMapper.map(findPersonByCardNumberProcedure.getSingleResult(), PersonReturn.class);
+    }
+
     /**
      * The methods checks if a record of person is present in a database by performing search by ssn.
      * @param ssn String class's object.
      * @return Found person of PersonEntity class.
      */
+
+
     private PersonEntity findBySsnIfExistsAndReturn(String ssn) {
         Optional<PersonEntity> foundPerson;
         String message;
