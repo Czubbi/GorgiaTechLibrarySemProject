@@ -59,7 +59,7 @@ public class CardRepository implements ICardRepositoryCustom {
         }catch(NotFoundException notFoundException){
             throw notFoundException;
         }catch (Exception e) {
-            throw new UnknownException(String.format("Unknown error while finding card with number %d", number));
+            throw new UnknownException(String.format("Unknown error while finding card with number: %d", number));
         }
     }
 
@@ -109,7 +109,7 @@ public class CardRepository implements ICardRepositoryCustom {
             CardEntity result = cardRepository.save(found);
             return result.getDeleted();
         } catch (Exception e) {
-            throw new UnknownException(String.format("Unknown error while deleting a card with number: %d", number));
+            throw new UnknownException(String.format("Unknown error while deleting a card with number: %d.", number));
         }
     }
 

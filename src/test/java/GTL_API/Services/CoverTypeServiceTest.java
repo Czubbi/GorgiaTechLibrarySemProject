@@ -21,8 +21,6 @@ public class CoverTypeServiceTest {
     public void setUp() {
         coverTypeReturn = new CoverTypeReturn();
         coverTypeReturn.setCoverType("TestCoverTypeName");
-
-
     }
 
     @MockBean
