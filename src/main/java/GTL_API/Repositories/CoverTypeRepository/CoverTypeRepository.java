@@ -32,6 +32,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
 
     /**
      * Instantiation of a PatcherHandler class.
+     *
      * @param patcherHandler An object that will be assigned to class's patcherHandler attribute.
      */
     @Autowired
@@ -41,6 +42,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
 
     /**
      * Instantiation of a ICoverType interface.
+     *
      * @param iCoverTypeRepository An object that will be assigned to class's iCoverTypeRepository attribute.
      */
     @Autowired
@@ -50,6 +52,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
 
     /**
      * Instantiation of a ModelMapper class.
+     *
      * @param modelMapper An object that will be assigned to class's modelMapper attribute.
      */
     @Autowired
@@ -60,6 +63,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
     /**
      * A method that finds a cover type record in a database and returns the found object that is mapped
      * to the CoverTypeReturn class.
+     *
      * @param coverType Name of a cover type that is being stored in a database.
      * @return Object of CoverTypeReturn class with filled information.
      */
@@ -68,6 +72,8 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
         try {
             CoverTypeEntity foundCoverType = findIfExistsAndReturn(Optional.of(coverType));
             return modelMapper.map(foundCoverType, CoverTypeReturn.class);
+        } catch (NotFoundException notFoundException) {
+            throw notFoundException;
         } catch (Exception e) {
             throw new UnknownException(String.format("There was an unknown exception while finding a cover" +
                     " type with name: %s", coverType));
@@ -81,6 +87,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
      * prevent adding duplicate records with the same coverType name. At the end, the record is being updated by using
      * iCoverType object's save() method, which returns updated object which is later mapped to CoverTypeReturn class
      * and returned.
+     *
      * @param coverTypeEntity CoverTypeEntity object with new information.
      * @return CoverTypeReturn object with updated information.
      */
@@ -103,12 +110,13 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
      * The methods checks if a record of coverType table is present in a database. The implementation of the method
      * allows to search weather by CoverTypeEntity's id or coverType attributes. Depending on the type of a passed
      * parameter, the method searching differs.
+     *
      * @param searchValue Optional class's object with generic value.
      * @return Found object of CoverTypeEntity class.
      */
     private CoverTypeEntity findIfExistsAndReturn(Optional<?> searchValue) {
         Optional<CoverTypeEntity> foundCoverType = Optional.empty();
-        String message = null;
+        String message = "Cover type was not found.";
         if (searchValue.isPresent() && searchValue.get() instanceof String) {
             foundCoverType = iCoverTypeRepository.findByCoverTypeIs((String) searchValue.get());
             message = String.format("Cover type of name: %s was not found.", searchValue.get());
@@ -126,6 +134,7 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
     /**
      * The method checks if there already exists a record in a database with the same coverType name as one that
      * passed parameter has. If there is such record, the method throws DuplicateException.
+     *
      * @param coverTypeEntity An object of CoverTypeEntity class.
      */
     private void checkIfExistsByCoverType(CoverTypeEntity coverTypeEntity) {
