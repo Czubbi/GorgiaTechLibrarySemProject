@@ -32,16 +32,16 @@ public class PersonController {
 
     @RequestMapping(value = "/findbyname/", method = RequestMethod.GET)
     public ResponseEntity<?> findPersonByFirstNameAndLastName(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iPersonService.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findbycard/", method = RequestMethod.GET)
     public ResponseEntity<?> findPersonByCardNumber(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonByCardNumberId(person.getCardNumberId()), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iPersonService.findPersonByCardNumberId(person.getCardNumberId()), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findbyssn/", method = RequestMethod.GET)
     public ResponseEntity<?> findPersonBySsn(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonBySsn(person.getSsn()), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iPersonService.findPersonBySsn(person.getSsn()), new HttpHeaders(), HttpStatus.OK);
     }
 }
