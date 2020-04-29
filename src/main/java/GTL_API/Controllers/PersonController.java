@@ -19,7 +19,7 @@ public class PersonController {
     private IPersonService iPersonService;
 
     @Autowired
-    public void setiPersonService(IPersonService iPersonService){
+    public void setIPersonService(IPersonService iPersonService){
         this.iPersonService = iPersonService;
     }
 

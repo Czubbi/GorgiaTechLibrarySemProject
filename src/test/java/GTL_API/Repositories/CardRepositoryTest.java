@@ -177,9 +177,9 @@ public class CardRepositoryTest {
             MockitoAnnotations.initMocks(this);
             Mockito.when(iCardRepositoryMock.save(Mockito.any())).thenThrow(new RuntimeException());
             cardRepositoryInjected.deleteCard(15);
-        }catch (UnknownException unknownException){
+        }catch (NotFoundException notFoundException){
             Assert.assertEquals("Card with number 15 was not found.",
-                    unknownException.getMessage());
+                    notFoundException.getMessage());
         }
     }
 
