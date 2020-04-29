@@ -19,7 +19,7 @@ public class PersonRepositoryTest {
     @Autowired
     private IPersonRepositoryCustom personRepository;
 
-    private PersonEntity personEntity = new PersonEntity();
+    private final PersonEntity personEntity = new PersonEntity();
 
 
     @Test
