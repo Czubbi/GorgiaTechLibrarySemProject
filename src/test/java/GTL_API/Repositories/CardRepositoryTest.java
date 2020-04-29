@@ -175,15 +175,19 @@ public class CardRepositoryTest {
     public void deleteCard_throwsUnknownErrorWhenSomethingUnexpectedHappens(){
         try{
             MockitoAnnotations.initMocks(this);
+            Mockito.when(iCardRepositoryMock.findByNumberIs(Mockito.anyInt())).thenReturn(Optional.of(new CardEntity()));
             Mockito.when(iCardRepositoryMock.save(Mockito.any())).thenThrow(new RuntimeException());
             cardRepositoryInjected.deleteCard(15);
-        }catch (NotFoundException notFoundException){
-            Assert.assertEquals("Card with number 15 was not found.",
-                    notFoundException.getMessage());
+        }catch (UnknownException unknownException){
+            Assert.assertEquals("Unknown error while deleting a card with number: 15.",
+                    unknownException.getMessage());
         }
     }
 
-
+    /**
+     * Creates object of CardEntity class.
+     * @return created object with all information filled.
+     */
     private CardEntity getCardEntity(){
         CardEntity cardEntity = new CardEntity();
         cardEntity.setExpirationDate(new Date(System.currentTimeMillis()));
