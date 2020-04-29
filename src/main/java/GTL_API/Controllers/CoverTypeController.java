@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import GTL_API.Services.CoverTypeService.ICoverTypeService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("gtl/coverType")
 public class CoverTypeController {
@@ -25,7 +27,7 @@ public class CoverTypeController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.PATCH)
-    public ResponseEntity<?> updateCoverType(@RequestBody CoverTypeUpdate coverType){
+    public ResponseEntity<?> updateCoverType(@RequestBody @Valid CoverTypeUpdate coverType){
         return new ResponseEntity<>(iCoverTypeService.updateCoverType(coverType), new HttpHeaders(), HttpStatus.OK);
     }
 

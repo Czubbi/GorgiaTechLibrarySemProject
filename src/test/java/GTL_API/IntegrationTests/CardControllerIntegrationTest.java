@@ -85,6 +85,10 @@ public class CardControllerIntegrationTest {
         }
     }
 
+    /**
+     * The test method runs a request of deleting card. It assets expected content of status and content. Afterwards,
+     * by using cardRepository instance the deleted card's column value is changed back to not deleted.
+     */
     @Test
     public void deleteCardShouldChangeItsColumnValueToTrue(){
         try{
@@ -105,11 +109,45 @@ public class CardControllerIntegrationTest {
     }
 
     @Test
-    public void deleteCardThatDoesNotRaise(){
+    public void deleteCardThatDoesNotReturnNotFoundResponse(){
         try{
             mvc.perform(delete("/gtl/card/25"))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Card with number 25 was not found."));
+        }catch (Exception e){
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testCreatingCardWithoutEmployeeIdProvided_ShouldReturnAppropriateMessage(){
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            ResultActions resultActions = mvc.perform(post("/gtl/card/").content("{\n" +
+                    "\t\"expirationDate\":\"2098-08-08\",\n" +
+                    "\t\"picture\":\"Test\"\n" +
+                    "}").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(content()
+                            .string("Identification of person who makes the card must be provided." + "\n"));
+
+        }catch (Exception e){
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testCreatingCardWithoutExpirationDateProvided_ShouldReturnAppropriateMessage(){
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            ResultActions resultActions = mvc.perform(post("/gtl/card/").content("{\n" +
+                    "\t\"libraryEmployeeId\": 25,\n" +
+                    "\t\"picture\":\"Test\"\n" +
+                    "}").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(content()
+                            .string("Expiration date must be provided." + "\n"));
+
         }catch (Exception e){
             Assert.fail();
         }

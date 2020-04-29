@@ -10,21 +10,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest( classes = {MainApplicationClass.class, TestDataSourceConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(classes = {MainApplicationClass.class, TestDataSourceConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 public class PersonControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void findPersonBySsn() throws Exception{
-
+    public void findPersonBySsn() throws Exception {
         mvc.perform(get("/gtl/person/findbyssn/")
                 .content("{\"ssn\": \"000-71-3764\"}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -41,8 +41,7 @@ public class PersonControllerIntegrationTest {
     }
 
     @Test
-    public void findPersonByName() throws Exception{
-
+    public void findPersonByName() throws Exception {
         mvc.perform(get("/gtl/person/findbyname/")
                 .content("{ \"firstName\": \"Bart\", \"lastName\": \"Bennet\"}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -59,8 +58,7 @@ public class PersonControllerIntegrationTest {
     }
 
     @Test
-    public void findPersonByCard() throws Exception{
-
+    public void findPersonByCard() throws Exception {
         mvc.perform(get("/gtl/person/findbycard/")
                 .content("{\"cardNumberId\": 1209995103}")
                 .contentType(MediaType.APPLICATION_JSON))

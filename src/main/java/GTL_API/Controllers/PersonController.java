@@ -1,5 +1,6 @@
 package GTL_API.Controllers;
 
+import GTL_API.Models.CreationModels.PersonCreation;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
 import GTL_API.Services.PersonService.IPersonService;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -21,13 +24,13 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PATCH)
-    public ResponseEntity<?> updatePersonBySsn(@RequestBody PersonUpdate person){
+    public ResponseEntity<?> updatePersonBySsn(@RequestBody @Valid PersonUpdate person){
         return new ResponseEntity<>(iPersonService.updatePerson(person), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> createPerson(@RequestBody PersonUpdate person){
-        return new ResponseEntity<>(iPersonService.updatePerson(person), new HttpHeaders(), HttpStatus.OK);
+    public ResponseEntity<?> createPerson(@RequestBody @Valid PersonCreation person){
+        return new ResponseEntity<>(iPersonService.createPerson(person), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findbyname/", method = RequestMethod.GET)

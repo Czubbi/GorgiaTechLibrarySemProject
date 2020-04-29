@@ -1,14 +1,24 @@
 package GTL_API.Models.UpdateModels;
 
+import javax.validation.constraints.NotNull;
+
 public class PersonUpdate {
+    @NotNull(message = "Social security number must be provided.")
     private String ssn;
+    @NotNull(message = "First name is required.")
     private String firstName;
     private String middleName;
+    @NotNull(message = "Last name must be provided.")
     private String lastName;
+    @NotNull(message = "Identification number of home address must be given.")
     private Integer homeAddressId;
+    @NotNull(message = "Identification number of campus address must be given.")
     private Integer campusAddressId;
+    @NotNull(message = "Loan duration must be given.")
     private Integer loanDuration;
+    @NotNull(message = "A card number must be provided.")
     private Integer cardNumberId;
+    @NotNull(message = "Identification of person type must be passed.")
     private Integer personTypeId;
 
     public String getSsn() {

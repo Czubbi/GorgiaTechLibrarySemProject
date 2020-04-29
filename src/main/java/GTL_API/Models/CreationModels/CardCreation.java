@@ -1,11 +1,14 @@
 package GTL_API.Models.CreationModels;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class CardCreation {
     private Integer number;
+    @NotNull(message = "Expiration date must be provided.")
     private Date expirationDate;
     private String picture;
+    @NotNull(message = "Identification of person who makes the card must be provided.")
     private Integer libraryEmployeeId;
 
     public Integer getNumber() {

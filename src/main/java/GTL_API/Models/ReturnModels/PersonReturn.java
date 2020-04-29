@@ -1,7 +1,6 @@
 package GTL_API.Models.ReturnModels;
 
 public class PersonReturn {
-
     private String ssn;
     private String firstName;
     private String middleName;

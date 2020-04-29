@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("gtl/card")
 public class CardController {
@@ -26,8 +28,8 @@ public class CardController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> createCard(@RequestBody CardCreation card) {
-        return new ResponseEntity<>(iCardService.createCard(card), new HttpHeaders(), HttpStatus.CREATED);
+    public ResponseEntity<?> createCard(@RequestBody @Valid CardCreation cardCreation) {
+        return new ResponseEntity<>(iCardService.createCard(cardCreation), new HttpHeaders(), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{cardNumber}", method = RequestMethod.DELETE)
