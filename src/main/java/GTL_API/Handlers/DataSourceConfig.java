@@ -16,9 +16,9 @@ public class DataSourceConfig {
     public DataSource dataSourceTest() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         dataSource.setUsername("sa");
-        dataSource.setPassword("90809988Qwe");
+        dataSource.setPassword("123");
         return dataSource;
     }
 
@@ -26,7 +26,7 @@ public class DataSourceConfig {
     public DataSource dataSourceLibrarian(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         dataSource.setUsername("librarian");
         dataSource.setPassword("userOnePassword");
         return dataSource;
@@ -36,9 +36,9 @@ public class DataSourceConfig {
     public DataSource dataSourceStudent(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         dataSource.setUsername("student");
-        dataSource.setPassword("studentPassword");
+        dataSource.setPassword("123");
         return dataSource;
     }
 
@@ -46,9 +46,9 @@ public class DataSourceConfig {
     public DataSource dataSourceChefLibrarian(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         dataSource.setUsername("chefLibrarian");
-        dataSource.setPassword("chefLibrarianPassword");
+        dataSource.setPassword("123");
         return dataSource;
     }
 

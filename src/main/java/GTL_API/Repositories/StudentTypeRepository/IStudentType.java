@@ -1,4 +1,4 @@
-package GTL_API.Repositories;
+package GTL_API.Repositories.StudentTypeRepository;
 
 import GTL_API.Models.Entities.CoverTypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
