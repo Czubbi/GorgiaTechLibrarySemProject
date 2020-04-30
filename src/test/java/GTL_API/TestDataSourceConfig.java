@@ -23,7 +23,9 @@ public class TestDataSourceConfig {
     public DataSource dataSourceTest() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://kraka.ucn.dk;database=dmai0917_1067677");
+        dataSource.setUsername("dmai0917_1067677");
+        dataSource.setPassword("Password1!");
         return dataSource;
     }
 

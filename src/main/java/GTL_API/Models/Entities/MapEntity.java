@@ -1,5 +1,8 @@
 package GTL_API.Models.Entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -21,6 +24,7 @@ public class MapEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "added_date", nullable = false)
     public Date getAddedDate() {
         return addedDate;

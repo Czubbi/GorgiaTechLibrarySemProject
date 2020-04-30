@@ -2,6 +2,7 @@ package GTL_API.IntegrationTests;
 
 import GTL_API.MainApplicationClass;
 import GTL_API.TestDataSourceConfig;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +25,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PersonControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
+
+    @Before
+    public void login() throws Exception{
+        String token = mvc.perform(post("/gtl/auth/login/")
+                .content("{ \"login\": \"login\", \"password\": \"password\"}")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+    }
 
     @Test
     public void findPersonBySsn() throws Exception {
