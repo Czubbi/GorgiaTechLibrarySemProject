@@ -3,7 +3,7 @@ package GTL_API.Repositories.PersonRepository;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UnknownException;
 import GTL_API.Exceptions.UpdateException;
-import GTL_API.Handlers.PatcherHandler;
+import GTL_API.Handlers.Patcher.PatcherHandler;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import org.modelmapper.ModelMapper;

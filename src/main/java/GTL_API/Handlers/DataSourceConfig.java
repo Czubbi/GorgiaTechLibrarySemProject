@@ -1,10 +1,6 @@
-package GTL_API;
+package GTL_API.Handlers;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.persistence.EntityManager;
@@ -13,17 +9,16 @@ import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories
-@EnableJpaAuditing
-@ComponentScan(excludeFilters = @ComponentScan.Filter(type= FilterType.ASSIGNABLE_TYPE, value = CommandLineRunner.class))
-@EnableAutoConfiguration
-public class TestDataSourceConfig {
+public class DataSourceConfig {
+
     @Bean
     @Primary
     public DataSource dataSourceTest() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
+        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("90809988Qwe");
         return dataSource;
     }
 
@@ -31,9 +26,9 @@ public class TestDataSourceConfig {
     public DataSource dataSourceLibrarian(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
         dataSource.setUsername("librarian");
         dataSource.setPassword("userOnePassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         return dataSource;
     }
 
@@ -41,9 +36,9 @@ public class TestDataSourceConfig {
     public DataSource dataSourceStudent(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
         dataSource.setUsername("student");
         dataSource.setPassword("studentPassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         return dataSource;
     }
 
@@ -51,13 +46,11 @@ public class TestDataSourceConfig {
     public DataSource dataSourceChefLibrarian(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dataSource.setUrl("jdbc:sqlserver://localhost\\\\MSSQLSERVER:1433;database=Giorgia_Tech_Library");
         dataSource.setUsername("chefLibrarian");
         dataSource.setPassword("chefLibrarianPassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
         return dataSource;
     }
-
-
 
     @Bean
     @Primary

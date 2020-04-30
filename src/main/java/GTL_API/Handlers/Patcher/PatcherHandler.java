@@ -1,4 +1,4 @@
-package GTL_API.Handlers;
+package GTL_API.Handlers.Patcher;
 
 import org.springframework.stereotype.Component;
 import java.beans.IntrospectionException;

@@ -19,31 +19,38 @@ import java.util.List;
 @EnableWebMvc
 public class ResponseExceptionsHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value= NotFoundException.class)
-    protected ResponseEntity<Object> handleNotFoundException(NotFoundException exception){
+    @ExceptionHandler(value = NotFoundException.class)
+    protected ResponseEntity<Object> handleNotFoundException(NotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value= DuplicateException.class)
-    protected ResponseEntity<Object> handleDuplicateException(DuplicateException exception){
+    @ExceptionHandler(value = DuplicateException.class)
+    protected ResponseEntity<Object> handleDuplicateException(DuplicateException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(value= CreationException.class)
-    protected ResponseEntity<Object> handleCreationException(CreationException exception){
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
-    }
-    @ExceptionHandler(value= UpdateException.class)
-    protected ResponseEntity<Object> handleUpdateException(UpdateException exception){
+    @ExceptionHandler(value = CreationException.class)
+    protected ResponseEntity<Object> handleCreationException(CreationException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(value= UnknownException.class)
-    protected  ResponseEntity<Object> handleUnknownError(UnknownException exception){
+    @ExceptionHandler(value = UpdateException.class)
+    protected ResponseEntity<Object> handleUpdateException(UpdateException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = UnknownException.class)
+    protected ResponseEntity<Object> handleUnknownError(UnknownException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = InvalidJwtAuthenticationException.class)
+    protected ResponseEntity<Object> handleInvalidJwtAuthenticationException(InvalidJwtAuthenticationException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @Override
+
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         BindingResult bindingResult = ex.getBindingResult();
         StringBuilder builder = new StringBuilder();

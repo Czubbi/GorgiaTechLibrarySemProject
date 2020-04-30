@@ -1,7 +1,7 @@
 package GTL_API.Models.UpdateModels;
 
-import javax.validation.constraints.NotNull;
-//todo probably is going to be deleted
+
+//TODO probably is going to be deleted
 public class CoverTypeUpdate {
     private Integer id;
     private String coverType;

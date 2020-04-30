@@ -2,7 +2,7 @@ package GTL_API.Repositories.CoverTypeRepository;
 
 import GTL_API.Exceptions.UnknownException;
 import GTL_API.Exceptions.UpdateException;
-import GTL_API.Handlers.PatcherHandler;
+import GTL_API.Handlers.Patcher.PatcherHandler;
 import GTL_API.Exceptions.DuplicateException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Models.Entities.CoverTypeEntity;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -104,6 +105,12 @@ public class CoverTypeRepository implements ICoverTypeRepositoryCustom {
         } catch (Exception e) {
             throw new UpdateException("There was an unexpected error while updating the cover type.");
         }
+    }
+
+    //TODO implement the method
+    @Override
+    public List<CoverTypeReturn> getAllCoverTypes() {
+        return null;
     }
 
     /**

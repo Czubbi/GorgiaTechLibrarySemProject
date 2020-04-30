@@ -1,5 +1,7 @@
 package GTL_API.Models.Entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -13,6 +15,7 @@ public class BookBorrowEntity {
     private Integer bookReturnId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
@@ -43,6 +46,7 @@ public class BookBorrowEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "borrow_date", nullable = false)
     public Date getBorrowDate() {
         return borrowDate;
