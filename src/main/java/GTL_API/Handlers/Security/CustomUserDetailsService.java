@@ -1,9 +1,7 @@
 package GTL_API.Handlers.Security;
 
-import GTL_API.Handlers.Encrpytion.EncryptionHandler;
 import GTL_API.Models.Entities.CredentialsEntity;
 import GTL_API.Repositories.CredentialsRepository.ICredentialsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
