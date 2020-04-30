@@ -2,8 +2,6 @@ HELP.md
 target/
 gradle
 META-INF
-src/main/java/GTL_API/Handlers/DataSourceConfig.java
-src/main/resources/META-INF/persistence.xml
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
