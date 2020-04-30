@@ -26,11 +26,15 @@ public class PersonControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
+    private String token;
+
     @Before
     public void login() throws Exception{
-        String token = mvc.perform(post("/gtl/auth/login/")
-                .content("{ \"login\": \"login\", \"password\": \"password\"}")
-                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        MvcResult result = mvc.perform(post("/gtl/auth/login")
+                .content("{\"login\": \"login\", \"password\": \"password\"}")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+
+        token = result.getResponse().getContentAsString();
     }
 
     @Test
