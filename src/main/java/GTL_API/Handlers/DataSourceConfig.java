@@ -52,6 +52,7 @@ public class DataSourceConfig {
         return dataSource;
     }
 
+
     @Bean
     @Primary
     public EntityManager entityManagerFactory() {
