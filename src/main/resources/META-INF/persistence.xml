@@ -34,7 +34,7 @@
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;database=Giorgia_Tech_Library"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value="90809988Qwe!"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="javax.persistence.jdbc.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.show_sql" value="true"/>
