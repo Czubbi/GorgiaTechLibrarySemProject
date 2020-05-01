@@ -7,6 +7,7 @@ import GTL_API.Repositories.CardRepository.ICardRepository;
 import GTL_API.TestDataSourceConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CardControllerIntegrationTest {
 
+    private String token;
+
     @Autowired
     private MockMvc mvc;
 
@@ -37,15 +40,25 @@ public class CardControllerIntegrationTest {
     @Autowired
     private ICardRepository cardRepository;
 
+    @Before
+    public void login() throws Exception{
+        MvcResult result = mvc.perform(post("/gtl/auth/login")
+                .content("{\"login\": \"login\", \"password\": \"password\"}")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+
+        token = result.getResponse().getContentAsString();
+    }
+
     @Test
     public void findCardByNumberControllerMethodShouldPass() {
         try {
-            mvc.perform(get("/gtl/card/1025435856"))
+            mvc.perform(get("/gtl/card/1025435856")
+                    .header("Authorization", "Bearer " + token))
                     .andExpect(status().isFound())
                     .andExpect(content().json("{\n" +
                             "    \"number\": 1025435856,\n" +
                             "    \"expirationDate\": \"2020-08-28\",\n" +
-                            "    \"picture\": \"9DbC0FFD-aeFF-5F42-862B-cC15B7Ce79Bb\\n\",\n" +
+                            "    \"picture\": \"9DbC0FFD-aeFF-5F42-862B-cC15B7Ce79Bb\\r\\n\",\n" +
                             "    \"libraryEmployeeId\": 25\n" +
                             "}"));
         } catch (Exception e) {
@@ -56,7 +69,8 @@ public class CardControllerIntegrationTest {
     @Test
     public void findCardThatDoesNotExistsShouldGiveBackErrorMessage() {
         try {
-            mvc.perform(get("/gtl/card/-1"))
+            mvc.perform(get("/gtl/card/-1")
+                    .header("Authorization", "Bearer " + token))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Card with number -1 was not found."));
         } catch (Exception e) {
@@ -68,7 +82,9 @@ public class CardControllerIntegrationTest {
     public void createCardShouldCreateIt(){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            ResultActions resultActions = mvc.perform(post("/gtl/card/").content("{\n" +
+            ResultActions resultActions = mvc.perform(post("/gtl/card/")
+                    .header("Authorization", "Bearer " + token)
+                    .content("{\n" +
                     "\t\"expirationDate\":\"2098-08-08\",\n" +
                     "\t\"libraryEmployeeId\": 25,\n" +
                     "\t\"picture\":\"Test\"\n" +
@@ -92,7 +108,8 @@ public class CardControllerIntegrationTest {
     @Test
     public void deleteCardShouldChangeItsColumnValueToTrue(){
         try{
-            mvc.perform(delete("/gtl/card/1025435856"))
+            mvc.perform(delete("/gtl/card/1025435856")
+                    .header("Authorization", "Bearer " + token))
                     .andExpect(status().isOk())
                     .andExpect(content().string("Card with number: 1025435856 was successfully deleted."));
             Optional<CardEntity> foundOptional = cardRepository.findById(1025435856);
@@ -111,7 +128,8 @@ public class CardControllerIntegrationTest {
     @Test
     public void deleteCardThatDoesNotReturnNotFoundResponse(){
         try{
-            mvc.perform(delete("/gtl/card/25"))
+            mvc.perform(delete("/gtl/card/25")
+                    .header("Authorization", "Bearer " + token))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Card with number 25 was not found."));
         }catch (Exception e){
@@ -123,7 +141,9 @@ public class CardControllerIntegrationTest {
     public void testCreatingCardWithoutEmployeeIdProvided_ShouldReturnAppropriateMessage(){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            ResultActions resultActions = mvc.perform(post("/gtl/card/").content("{\n" +
+            ResultActions resultActions = mvc.perform(post("/gtl/card/")
+                    .header("Authorization", "Bearer " + token)
+                    .content("{\n" +
                     "\t\"expirationDate\":\"2098-08-08\",\n" +
                     "\t\"picture\":\"Test\"\n" +
                     "}").contentType(MediaType.APPLICATION_JSON))
@@ -140,7 +160,9 @@ public class CardControllerIntegrationTest {
     public void testCreatingCardWithoutExpirationDateProvided_ShouldReturnAppropriateMessage(){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            ResultActions resultActions = mvc.perform(post("/gtl/card/").content("{\n" +
+            ResultActions resultActions = mvc.perform(post("/gtl/card/")
+                    .header("Authorization", "Bearer " + token)
+                    .content("{\n" +
                     "\t\"libraryEmployeeId\": 25,\n" +
                     "\t\"picture\":\"Test\"\n" +
                     "}").contentType(MediaType.APPLICATION_JSON))

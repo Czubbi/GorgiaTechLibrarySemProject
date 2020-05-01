@@ -39,8 +39,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonBySsn() throws Exception {
-        mvc.perform(get("/gtl/person/findbyssn/")
-                .content("{\"ssn\": \"000-71-3764\"}")
+        mvc.perform(get("/gtl/person/findbyssn/000-71-3764")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -56,8 +56,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonByName() throws Exception {
-        mvc.perform(get("/gtl/person/findbyname/")
-                .content("{ \"firstName\": \"Bart\", \"lastName\": \"Bennet\"}")
+        mvc.perform(get("/gtl/person/findbyname/Bart/Bennet")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -73,8 +73,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonByCard() throws Exception {
-        mvc.perform(get("/gtl/person/findbycard/")
-                .content("{\"cardNumberId\": 1209995103}")
+        mvc.perform(get("/gtl/person/findbycard/1209995103")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
