@@ -66,14 +66,13 @@ public class JwtTokenProvider {
             case "student":
                 DBContextHolder.setCurrentDb(DBTypeEnum.STUDENT);
                 break;
+            case "chefLibrarian":
+                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
+                break;
+            case "librarian":
+                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
+                break;
         }
-//            case "chefLibrarian":
-//                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
-//                break;
-//            case "librarian":
-//                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
-//                break;
-//        }
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
