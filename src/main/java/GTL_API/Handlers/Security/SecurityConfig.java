@@ -1,5 +1,6 @@
 package GTL_API.Handlers.Security;
 
+import GTL_API.Services.CredentialsService.CredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -23,20 +24,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtTokenProvider jwtTokenProvider;
 
-    @Qualifier("customUserDetailsService")
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private CredentialsService credentialsService;
 
     private UserAuthenticationEntryPoint userAuthenticationEntryPoint;
 
     @Bean
-    public JwtTokenFilter jwtTokenFilterBean(){
+    public JwtTokenFilter jwtTokenFilterBean() {
         return new JwtTokenFilter(jwtTokenProvider);
+
+    }
+
+    @Autowired
+    public void setCredentialsService(CredentialsService credentialsService) {
+        this.credentialsService = credentialsService;
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
@@ -46,15 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(credentialsService).passwordEncoder(encoder());
     }
 
     @Autowired
     public void setJwtTokenProvider(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
-
 
 
     @Override
