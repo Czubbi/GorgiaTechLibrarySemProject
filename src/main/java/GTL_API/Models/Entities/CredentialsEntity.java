@@ -1,14 +1,8 @@
 package GTL_API.Models.Entities;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.Collection;
-
 @Entity
-@Table(name = "Credentials", schema = "dbo", catalog = "Giorgia_Tech_Library")
+@Table(name = "Credentials", schema = "dbo")
 public class CredentialsEntity {
     private Integer id;
     private String login;
@@ -67,9 +61,7 @@ public class CredentialsEntity {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (role != null ? !role.equals(that.role) : that.role != null) return false;
-
-        return true;
+        return role != null ? role.equals(that.role) : that.role == null;
     }
 
     @Override

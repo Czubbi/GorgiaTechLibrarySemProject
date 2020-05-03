@@ -4,6 +4,7 @@ import GTL_API.Exceptions.InvalidJwtAuthenticationException;
 import GTL_API.Handlers.DatabaseConnection.DBContextHolder;
 import GTL_API.Handlers.DatabaseConnection.DBTypeEnum;
 import GTL_API.Handlers.DatabaseConnection.RoutingDataSource;
+import GTL_API.Services.CredentialsService.CredentialsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,12 +30,15 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private final long validityInMilliseconds = 3600000;
 
-    @Qualifier("customUserDetailsService")
+
+    private CredentialsService credentialsService;
+
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    public void setCredentialsService(CredentialsService credentialsService) {
+        this.credentialsService = credentialsService;
+    }
 
-
-    private RoutingDataSource r = new RoutingDataSource();
 
     @PostConstruct
     protected void init() {
@@ -56,18 +60,20 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        switch(userDetails.getAuthorities().iterator().next().getAuthority()){
+        UserDetails userDetails = this.credentialsService.loadUserByUsername(getUsername(token));
+        String auth = userDetails.getAuthorities().iterator().next().getAuthority();
+        switch (auth) {
             case "student":
                 DBContextHolder.setCurrentDb(DBTypeEnum.STUDENT);
                 break;
-            case "chefLibrarian":
-                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
-                break;
-            case "librarian":
-                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
-                break;
         }
+//            case "chefLibrarian":
+//                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
+//                break;
+//            case "librarian":
+//                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
+//                break;
+//        }
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

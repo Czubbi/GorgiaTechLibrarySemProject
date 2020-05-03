@@ -11,6 +11,7 @@
         <class>GTL_API.Models.Entities.BookTypeEntity</class>
         <class>GTL_API.Models.Entities.CardEntity</class>
         <class>GTL_API.Models.Entities.CoverTypeEntity</class>
+        <class>GTL_API.Models.Entities.CredentialsEntity</class>
         <class>GTL_API.Models.Entities.FacultyMemberEntity</class>
         <class>GTL_API.Models.Entities.FacultyMemberTypeEntity</class>
         <class>GTL_API.Models.Entities.LanguageEntity</class>
@@ -30,14 +31,12 @@
         <class>GTL_API.Models.Entities.PeopleWhoDidNotReturedBooksYetEntity</class>
         <class>GTL_API.Models.Entities.StudentsGpaHigher3WorkingMoreThan1YearEntity</class>
         <class>GTL_API.Models.Entities.StudentsInformationEntity</class>
-        <class>GTL_API.Models.Entities.CredentialsEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost;database=Giorgia_Tech_Library"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value="90809988Qwe!"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value="90809988Qwe"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="javax.persistence.jdbc.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
         </properties>
     </persistence-unit>
 
