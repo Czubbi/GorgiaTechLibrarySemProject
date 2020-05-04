@@ -6,6 +6,7 @@ import GTL_API.Handlers.DatabaseConnection.DBTypeEnum;
 import GTL_API.Handlers.DatabaseConnection.RoutingDataSource;
 import GTL_API.Services.CredentialsService.CredentialsService;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,9 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class JwtTokenProvider {
@@ -61,18 +60,6 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.credentialsService.loadUserByUsername(getUsername(token));
-        String auth = userDetails.getAuthorities().iterator().next().getAuthority();
-        switch (auth) {
-            case "student":
-                DBContextHolder.setCurrentDb(DBTypeEnum.STUDENT);
-                break;
-            case "chefLibrarian":
-                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
-                break;
-            case "librarian":
-                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
-                break;
-        }
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -91,6 +78,19 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            List<?> roles = (List<?>) claims.getBody().get("roles");
+            String specificRole = (String) roles.get(0);
+            switch (specificRole) {
+                case "student":
+                    DBContextHolder.setCurrentDb(DBTypeEnum.STUDENT);
+                    break;
+                case "chefLibrarian":
+                    DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
+                    break;
+                case "librarian":
+                    DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
+                    break;
+            }
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
