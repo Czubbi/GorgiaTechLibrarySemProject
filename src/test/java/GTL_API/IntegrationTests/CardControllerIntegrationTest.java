@@ -48,7 +48,6 @@ public class CardControllerIntegrationTest {
         token = result.getResponse().getContentAsString();
     }
 
-    //TODO: messed up spaces in the Expect
     @Test
     public void findCardByNumberControllerMethodShouldPass() {
         try {
@@ -58,7 +57,7 @@ public class CardControllerIntegrationTest {
                     .andExpect(content().json("{\n" +
                             "    \"number\": 1025435856,\n" +
                             "    \"expirationDate\": \"2020-08-28\",\n" +
-                            "    \"picture\": \"9DbC0FFD-aeFF-5F42-862B-cC15B7Ce79Bb\n\",\n" +
+                            "    \"picture\": \"9DbC0FFD-aeFF-5F42-862B-cC15B7Ce79Bb\\r\\n\",\n" +
                             "    \"libraryEmployeeId\": 25\n" +
                             "}"));
         } catch (Exception e) {
