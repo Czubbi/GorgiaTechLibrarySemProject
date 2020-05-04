@@ -1,11 +1,14 @@
 package GTL_API.Handlers.Security;
 
 import GTL_API.Exceptions.InvalidJwtAuthenticationException;
+import GTL_API.Handlers.DatabaseConnection.DBContextHolder;
+import GTL_API.Handlers.DatabaseConnection.DBTypeEnum;
+import GTL_API.Handlers.DatabaseConnection.RoutingDataSource;
+import GTL_API.Services.CredentialsService.CredentialsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,9 +31,13 @@ public class JwtTokenProvider {
     private final long validityInMilliseconds = 3600000;
 
 
-    @Qualifier("customUserDetailsService")
+    private CredentialsService credentialsService;
+
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    public void setCredentialsService(CredentialsService credentialsService) {
+        this.credentialsService = credentialsService;
+    }
 
 
     @PostConstruct
@@ -53,8 +60,19 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-//        if(userDetails.getAuthorities().contains(""))
+        UserDetails userDetails = this.credentialsService.loadUserByUsername(getUsername(token));
+        String auth = userDetails.getAuthorities().iterator().next().getAuthority();
+        switch (auth) {
+            case "student":
+                DBContextHolder.setCurrentDb(DBTypeEnum.STUDENT);
+                break;
+            case "chefLibrarian":
+                DBContextHolder.setCurrentDb(DBTypeEnum.CHEF_LIBRARIAN);
+                break;
+            case "librarian":
+                DBContextHolder.setCurrentDb(DBTypeEnum.LIBRARIAN);
+                break;
+        }
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -62,19 +80,19 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest req){
+    public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")){
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;
     }
 
-    public boolean validateToken(String token){
-        try{
+    public boolean validateToken(String token) {
+        try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
-        }catch(JwtException| IllegalArgumentException e){
+        } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
         }
     }
