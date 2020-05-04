@@ -3,7 +3,7 @@ package GTL_API.Models.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "FacultyMemberType", schema = "dbo")
+@Table(name = "FacultyMemberType", schema = "Information_Sensitive")
 public class FacultyMemberTypeEntity {
     private Integer id;
     private String type;

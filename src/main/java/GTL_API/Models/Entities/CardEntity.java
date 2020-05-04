@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Card", schema = "dbo")
+@Table(name = "Card", schema = "Information_Basic")
 public class CardEntity {
     private Integer number;
     private Date expirationDate;

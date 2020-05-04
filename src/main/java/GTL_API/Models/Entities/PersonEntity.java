@@ -3,7 +3,7 @@ package GTL_API.Models.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Person", schema = "dbo")
+@Table(name = "Person", schema = "Information_Basic")
 @NamedStoredProcedureQueries(
         @NamedStoredProcedureQuery(
                 name="findPersonByCardNumber",
