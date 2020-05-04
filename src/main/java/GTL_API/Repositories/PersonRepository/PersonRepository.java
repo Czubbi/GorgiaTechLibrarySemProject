@@ -66,6 +66,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
         try{
             PersonEntity foundPerson = findBySsnIfExistsAndReturn(ssn);
             return modelMapper.map(foundPerson, PersonReturn.class);
+        } catch (NotFoundException ex){
+            throw new NotFoundException(ex.getMessage());
         } catch (Exception e){
             throw new UnknownException(String.format("There was an unknown exception while finding person with " +
                     "ssn: %s", ssn));
@@ -85,6 +87,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
         try{
             PersonEntity foundPerson = findByFirstNameAndLastNameIfExistsAndReturn(firstName, lastName);
             return modelMapper.map(foundPerson, PersonReturn.class);
+        } catch (NotFoundException ex){
+            throw new NotFoundException(ex.getMessage());
         } catch (Exception e){
             throw new UnknownException(String.format("There was an unknown exception while finding person with name" +
                     "%s %s", firstName, lastName));
@@ -103,6 +107,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
         try{
             PersonEntity foundPerson = findByCardNumberIdIfExistsAndReturn(cardNumberId);
             return modelMapper.map(foundPerson, PersonReturn.class);
+        } catch (NotFoundException ex){
+            throw new NotFoundException(ex.getMessage());
         } catch (Exception e){
             throw new UnknownException(String.format("There was an unknown exception while finding a person with " +
                     "card number: %d", cardNumberId));

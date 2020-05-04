@@ -31,7 +31,7 @@ public class PersonControllerIntegrationTest {
     @Before
     public void login() throws Exception{
         MvcResult result = mvc.perform(post("/gtl/auth/login")
-                .content("{\"login\": \"login\", \"password\": \"password\"}")
+                .content("{\"login\": \"loginMaster\", \"password\": \"password\"}")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
         token = result.getResponse().getContentAsString();
@@ -39,8 +39,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonBySsn() throws Exception {
-        mvc.perform(get("/gtl/person/findbyssn/")
-                .content("{\"ssn\": \"000-71-3764\"}")
+        mvc.perform(get("/gtl/person/findbyssn/000-71-3764")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -55,9 +55,18 @@ public class PersonControllerIntegrationTest {
     }
 
     @Test
+    public void findPersonWhichDoesNotExistBySsn() throws Exception {
+        mvc.perform(get("/gtl/person/findbyssn/1")
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Person with ssn: 1 was not found"));
+    }
+
+    @Test
     public void findPersonByName() throws Exception {
-        mvc.perform(get("/gtl/person/findbyname/")
-                .content("{ \"firstName\": \"Bart\", \"lastName\": \"Bennet\"}")
+        mvc.perform(get("/gtl/person/findbyname/Bart/Bennet")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -73,8 +82,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonByCard() throws Exception {
-        mvc.perform(get("/gtl/person/findbycard/")
-                .content("{\"cardNumberId\": 1209995103}")
+        mvc.perform(get("/gtl/person/findbycard/1209995103")
+                .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +

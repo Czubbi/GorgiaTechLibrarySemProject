@@ -33,18 +33,18 @@ public class PersonController {
         return new ResponseEntity<>(iPersonService.createPerson(person), new HttpHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findbyname/", method = RequestMethod.GET)
-    public ResponseEntity<?> findPersonByFirstNameAndLastName(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()), new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping(value = "/findbyname/{firstName}/{lastName}", method = RequestMethod.GET)
+    public ResponseEntity<?> findPersonByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName){
+        return new ResponseEntity<>(iPersonService.findPersonByFirstNameAndLastName(firstName, lastName), new HttpHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findbycard/", method = RequestMethod.GET)
-    public ResponseEntity<?> findPersonByCardNumber(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonByCardNumberId(person.getCardNumberId()), new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping(value = "/findbycard/{number}", method = RequestMethod.GET)
+    public ResponseEntity<?> findPersonByCardNumber(@PathVariable Integer number){
+        return new ResponseEntity<>(iPersonService.findPersonByCardNumberId(number), new HttpHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/findbyssn/", method = RequestMethod.GET)
-    public ResponseEntity<?> findPersonBySsn(@RequestBody PersonReturn person){
-        return new ResponseEntity<>(iPersonService.findPersonBySsn(person.getSsn()), new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping(value = "/findbyssn/{ssn}", method = RequestMethod.GET)
+    public ResponseEntity<?> findPersonBySsn(@PathVariable String ssn){
+        return new ResponseEntity<>(iPersonService.findPersonBySsn(ssn), new HttpHeaders(), HttpStatus.OK);
     }
 }
