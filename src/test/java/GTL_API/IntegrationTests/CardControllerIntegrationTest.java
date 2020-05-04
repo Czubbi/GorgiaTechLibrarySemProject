@@ -66,6 +66,7 @@ public class CardControllerIntegrationTest {
         }
     }
 
+
     @Test
     public void findCardThatDoesNotExistsShouldGiveBackErrorMessage() {
         try {

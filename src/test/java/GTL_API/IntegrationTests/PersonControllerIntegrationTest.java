@@ -1,6 +1,8 @@
 package GTL_API.IntegrationTests;
 
 import GTL_API.MainApplicationClass;
+import GTL_API.Models.Entities.PersonEntity;
+import GTL_API.Repositories.PersonRepository.IPersonRepositoryCustom;
 import GTL_API.TestDataSourceConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {MainApplicationClass.class, TestDataSourceConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 public class PersonControllerIntegrationTest {
+    @Autowired
+    IPersonRepositoryCustom personRepository;
+
     @Autowired
     private MockMvc mvc;
 
@@ -52,6 +57,26 @@ public class PersonControllerIntegrationTest {
                         "    \"loanDuration\": 21,\n" +
                         "    \"cardNumberId\": 1209995103,\n" +
                         "    \"personTypeId\": 102084}"));
+    }
+
+    @Test
+    public void updatePersonLastName() throws Exception {
+        mvc.perform(post("/gtl/person/")
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"ssn\": \"000-71-3764\", \"lastName\": \"test\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
+                        "    \"firstName\": \"Bart\",\n" +
+                        "    \"middleName\": \"Aaron Prince\",\n" +
+                        "    \"lastName\": \"test\",\n" +
+                        "    \"homeAddressId\": 3052,\n" +
+                        "    \"campusAddressId\": 3052,\n" +
+                        "    \"loanDuration\": 21,\n" +
+                        "    \"cardNumberId\": 1209995103,\n" +
+                        "    \"personTypeId\": 102084}"));
+
+        cleanup();
     }
 
     @Test
@@ -95,5 +120,20 @@ public class PersonControllerIntegrationTest {
                         "    \"loanDuration\": 21,\n" +
                         "    \"cardNumberId\": 1209995103,\n" +
                         "    \"personTypeId\": 102084}"));
+    }
+
+    public void cleanup(){
+        PersonEntity person = new PersonEntity();
+        person.setSsn("000-71-3764");
+        person.setFirstName("Bart");
+        person.setMiddleName("Aaron Prince");
+        person.setLastName("Bennet");
+        person.setHomeAddressId(3052);
+        person.setCampusAddressId(3052);
+        person.setLoanDuration(21);
+        person.setPersonTypeId(102084);
+
+
+        personRepository.updatePerson(person);
     }
 }

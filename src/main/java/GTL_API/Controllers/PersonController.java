@@ -23,12 +23,12 @@ public class PersonController {
         this.iPersonService = iPersonService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PATCH)
-    public ResponseEntity<?> updatePersonBySsn(@RequestBody @Valid PersonUpdate person){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResponseEntity<?> updatePersonBySsn(@RequestBody PersonUpdate person){
         return new ResponseEntity<>(iPersonService.updatePerson(person), new HttpHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity<?> createPerson(@RequestBody @Valid PersonCreation person){
         return new ResponseEntity<>(iPersonService.createPerson(person), new HttpHeaders(), HttpStatus.OK);
     }
