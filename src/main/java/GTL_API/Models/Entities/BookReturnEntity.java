@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "BookReturn", schema = "dbo")
+@Table(name = "BookReturn", schema = "Loan_Activities")
 public class BookReturnEntity {
     private Integer id;
     private Date returnedDate;

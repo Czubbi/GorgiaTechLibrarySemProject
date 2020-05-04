@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Map", schema = "dbo")
+@Table(name = "Map", schema = "Book")
 public class MapEntity {
     private String barcode;
     private Date addedDate;

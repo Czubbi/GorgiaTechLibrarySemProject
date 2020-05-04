@@ -2,7 +2,7 @@ package GTL_API.Models.Entities;
 
 import javax.persistence.*;
 @Entity
-@Table(name = "Credentials", schema = "dbo")
+@Table(name = "Credentials", schema = "Admin")
 public class CredentialsEntity {
     private Integer id;
     private String login;

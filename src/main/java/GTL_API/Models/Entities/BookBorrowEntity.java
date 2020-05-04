@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "BookBorrow", schema = "dbo")
+@Table(name = "BookBorrow", schema = "Loan_Activities")
 public class BookBorrowEntity {
     private Integer id;
     private Integer bookCatalogId;
