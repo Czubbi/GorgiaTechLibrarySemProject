@@ -2,9 +2,6 @@ HELP.md
 target/
 gradle
 META-INF
-src/test/java/resources/application-test.properties
-src/test/java/resources/META-INF/persistence.xml
-src/test/java/GTL_API/TestDataSourceConfig.java
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
