@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class BookBorrowController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> borrowBook(@RequestBody BookBorrowCreation bookBorrow) {
+    public ResponseEntity<?> borrowBook(@RequestBody @Validated BookBorrowCreation bookBorrow) {
         return new ResponseEntity<>(bookBorrowService.borrowBook(bookBorrow), new HttpHeaders(), HttpStatus.CREATED);
     }
 }

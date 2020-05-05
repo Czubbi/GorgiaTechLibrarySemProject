@@ -6,5 +6,5 @@ import GTL_API.Models.ReturnModels.BookReturnReturn;
 public interface IBookReturnRepositoryCustom {
     BookReturnReturn createBookReturn(BookReturnEntity bookReturnEntity);
 
-    BookReturnReturn returnBook(int id);
+    boolean returnBook(int id);
 }

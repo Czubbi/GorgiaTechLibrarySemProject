@@ -4,6 +4,7 @@ import GTL_API.Models.CreationModels.BookReturnCreation;
 import GTL_API.Models.Entities.BookReturnEntity;
 import GTL_API.Models.ReturnModels.BookReturnReturn;
 import GTL_API.Repositories.BookReturnRespository.IBookReturnRepositoryCustom;
+import GTL_API.Services.BookBorrowService.IBookBorrowService;
 import GTL_API.Services.PersonService.IPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class BookReturnService implements IBookReturnService {
@@ -19,7 +21,14 @@ public class BookReturnService implements IBookReturnService {
 
     private IBookReturnRepositoryCustom iBookReturnRepository;
 
+    private IBookBorrowService bookBorrowService;
+
     private ModelMapper modelMapper;
+
+    @Autowired
+    public void setBookBorrowService(IBookBorrowService bookBorrowService) {
+        this.bookBorrowService = bookBorrowService;
+    }
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -49,5 +58,17 @@ public class BookReturnService implements IBookReturnService {
                 modelMapper.map(bookReturnCreation, BookReturnEntity.class)
         );
         return result;
+    }
+
+    @Override
+    public boolean returnBook(int bookCatalogId, String ssn) {
+        List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookCatalogId, ssn);
+        for(Integer id: bookReturnIds){
+            boolean result = iBookReturnRepository.returnBook(id);
+            if(result){
+                return true;
+            }
+        }
+        return false;
     }
 }

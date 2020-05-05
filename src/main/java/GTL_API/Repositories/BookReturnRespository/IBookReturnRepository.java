@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface IBookReturnRepository extends JpaRepository<BookReturnEntity, Integer> {
-    Optional<BookReturnEntity> findByIdIs(int id);
+    Optional<BookReturnEntity> findByIdIsAndStatusIsFalse(int id);
 }

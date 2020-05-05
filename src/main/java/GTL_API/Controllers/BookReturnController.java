@@ -19,9 +19,9 @@ public class BookReturnController {
         this.bookReturnService = bookReturnService;
     }
 
-    @RequestMapping(value = "/{ssn}", method = RequestMethod.GET)
-    public ResponseEntity<?> findCardByNumber(@PathVariable String ssn, @RequestBody BookReturnCreation bookReturn) {
-        return new ResponseEntity<>(bookReturnService.createBookReturn(bookReturn, ssn), new HttpHeaders(), HttpStatus.FOUND);
+    @RequestMapping(value = "/{bookCatalogId}/{ssn}", method = RequestMethod.POST)
+    public ResponseEntity<?> findCardByNumber(@PathVariable int bookCatalogId, @PathVariable String ssn) {
+        return new ResponseEntity<>(bookReturnService.returnBook(bookCatalogId, ssn), new HttpHeaders(), HttpStatus.FOUND);
     }
 
 

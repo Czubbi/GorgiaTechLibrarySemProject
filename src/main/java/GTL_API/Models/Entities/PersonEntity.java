@@ -7,7 +7,7 @@ import javax.persistence.*;
 @NamedStoredProcedureQueries(
         @NamedStoredProcedureQuery(
                 name="findPersonByCardNumber",
-                procedureName = "FindPersonByCardNumber",
+                procedureName = "StudentPermission_Procedures.FindPersonByCardNumber",
                 resultClasses = PersonEntity.class,
                 parameters =
                         @StoredProcedureParameter(

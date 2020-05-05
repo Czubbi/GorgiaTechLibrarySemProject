@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 @Component
@@ -38,13 +40,19 @@ public class BookReturnRepository implements IBookReturnRepositoryCustom {
         }
     }
     @Override
-    public BookReturnReturn returnBook(int id) {
+    public boolean returnBook(int id) {
         try{
-            Optional<BookReturnEntity> found = iBookReturnRepository.findByIdIs(id);
+            Optional<BookReturnEntity> found = iBookReturnRepository.findByIdIsAndStatusIsFalse(id);
             if(found.isPresent()){
-                return modelMapper.map(found.get(), BookReturnReturn.class);
+                BookReturnEntity foundToReturn = found.get();
+                foundToReturn.setStatus(true);
+                foundToReturn.setPayment(0D);
+                Calendar c = Calendar.getInstance();
+                foundToReturn.setReturnedDate(new Date(c.getTime().getTime()));
+                iBookReturnRepository.save(foundToReturn);
+                return true;
             }else{
-                throw new NotFoundException("Returning record was not found");
+                return false;
             }
         }catch (Exception e){
             throw new UnknownException(String.format(

@@ -1,5 +1,6 @@
 package GTL_API.Repositories.BookBorrowRepository;
 
+import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Models.Entities.BookBorrowEntity;
 import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import org.modelmapper.ModelMapper;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Component
 public class BookBorrowRepository implements IBookBorrowRepositoryCustom {
@@ -32,5 +35,18 @@ public class BookBorrowRepository implements IBookBorrowRepositoryCustom {
         bookBorrowEntity.setBorrowDate(new Date(Calendar.getInstance().getTime().getTime()));
         BookBorrowEntity savedBookBorrow = iBookBorrowRepository.save(bookBorrowEntity);
         return modelMapper.map(savedBookBorrow, BookBorrowReturn.class);
+    }
+
+    @Override
+    public List<Integer> findBorrowedBook(int bookCatalogId, String ssn) {
+        List<Integer> ids = new ArrayList<>();
+        List<BookBorrowEntity> foundLoans = iBookBorrowRepository.findAllByBookCatalogIdIsAndSsnIs(bookCatalogId, ssn);
+        if(foundLoans.size() == 0){
+            throw new NotFoundException(String.format("No loans with book catalog: %d and SSN: %s was found.", bookCatalogId, ssn));
+        }
+        for(BookBorrowEntity loan: foundLoans){
+            ids.add(loan.getBookReturnId());
+        }
+        return ids;
     }
 }
