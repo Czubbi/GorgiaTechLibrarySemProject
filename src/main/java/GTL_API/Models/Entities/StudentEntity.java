@@ -11,6 +11,7 @@ public class StudentEntity {
     private Double gpa;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id", nullable = false)
     public Integer getStudentId() {
         return studentId;
