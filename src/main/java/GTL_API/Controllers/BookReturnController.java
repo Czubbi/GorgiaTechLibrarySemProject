@@ -1,6 +1,5 @@
 package GTL_API.Controllers;
 
-import GTL_API.Models.CreationModels.BookReturnCreation;
 import GTL_API.Services.BookReturnService.IBookReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +18,9 @@ public class BookReturnController {
         this.bookReturnService = bookReturnService;
     }
 
-    @RequestMapping(value = "/{bookCatalogId}/{ssn}", method = RequestMethod.POST)
-    public ResponseEntity<?> findCardByNumber(@PathVariable int bookCatalogId, @PathVariable String ssn) {
-        return new ResponseEntity<>(bookReturnService.returnBook(bookCatalogId, ssn), new HttpHeaders(), HttpStatus.FOUND);
+    @RequestMapping(value = "/{bookCatalogId}/{cardNumber}", method = RequestMethod.POST)
+    public ResponseEntity<?> returnBook(@PathVariable int bookCatalogId, @PathVariable int cardNumber) {
+        return new ResponseEntity<>(bookReturnService.returnBook(bookCatalogId, cardNumber), new HttpHeaders(), HttpStatus.FOUND);
     }
 
 

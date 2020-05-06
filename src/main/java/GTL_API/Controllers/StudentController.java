@@ -1,7 +1,6 @@
 package GTL_API.Controllers;
 
 import GTL_API.Models.CreationModels.StudentCreation;
-import GTL_API.Models.ReturnModels.StudentReturn;
 import GTL_API.Models.UpdateModels.StudentUpdate;
 import GTL_API.Services.StudentService.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PATCH)
-    public ResponseEntity<?> updateStudentByStudentId(@RequestBody @Valid StudentUpdate student){
+    public ResponseEntity<?> updateStudent(@RequestBody @Valid StudentUpdate student){
         return new ResponseEntity<>(iStudentService.updateStudent(student), new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -41,5 +40,4 @@ public class StudentController {
     public ResponseEntity<?> findByGpaBetween(@PathVariable int bottomRange, @PathVariable int upperRange){
         return new ResponseEntity<>(iStudentService.findByGpaBetween(bottomRange,upperRange), new HttpHeaders(), HttpStatus.FOUND);
     }
-
 }

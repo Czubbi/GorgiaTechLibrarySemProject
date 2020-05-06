@@ -1,7 +1,6 @@
 package GTL_API.Controllers;
 
 import GTL_API.Models.CreationModels.PersonCreation;
-import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.PersonUpdate;
 import GTL_API.Services.PersonService.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
