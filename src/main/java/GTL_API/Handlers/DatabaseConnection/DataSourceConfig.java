@@ -13,9 +13,6 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfig {
 
-    private final String PACKAGE_SCAN = "src.main.java.GTL_API";
-
-
     public DataSource dataSourceMain() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -67,48 +64,6 @@ public class DataSourceConfig {
         routingDataSource.setTargetDataSources(targetDataSource);
         return routingDataSource;
     }
-//
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean multiEntityManager() {
-//        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-//        em.setDataSource(multiRoutingDataSource());
-//        em.setPackagesToScan(PACKAGE_SCAN);
-//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        em.setJpaVendorAdapter(vendorAdapter);
-//        em.setJpaProperties(hibernateProperties());
-//        return em;
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager multiTransactionManager() {
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(multiEntityManager().getObject());
-//        return transactionManager;
-//    }
-//
-//    @Primary
-//    @Bean
-//    public LocalSessionFactoryBean dbSessionFactory() {
-//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-//        sessionFactoryBean.setDataSource(multiRoutingDataSource());
-//        sessionFactoryBean.setPackagesToScan(PACKAGE_SCAN);
-//        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-//        return sessionFactoryBean;
-//    }
-//
-//
-//    private Properties hibernateProperties() {
-//        Properties properties = new Properties();
-//        properties.put("hibernate.connection.url", "jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
-//        properties.put("hibernate.connection.username","sa");
-//        properties.put("hibernate.connection.password","90809988Qwe");
-//        properties.put("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServer2012Dialect");
-//        properties.put("hibernate.show_sql", true);
-//        properties.put("hibernate.format_sql", true);
-//        properties.put("spring.main.allow-bean-definition-overriding",true);
-//        return properties;
-//    }
 
     @Bean
     public EntityManager entityManagerFactory() {
