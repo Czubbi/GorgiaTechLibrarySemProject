@@ -1,10 +1,12 @@
 package GTL_API.Models.UpdateModels;
 
+import javax.validation.constraints.NotNull;
+
 public class StudentUpdate {
+    @NotNull(message = "Student ID must be set.")
     private int studentId;
+    @NotNull(message = "Student type must be set.")
     private int studentTypeId;
-    private int deadlinesMissed;
-    private double gpa;
 
     public int getStudentId() {
         return studentId;
@@ -22,19 +24,4 @@ public class StudentUpdate {
         this.studentTypeId = studentTypeId;
     }
 
-    public int getDeadlinesMissed() {
-        return deadlinesMissed;
-    }
-
-    public void setDeadlinesMissed(int deadlinesMissed) {
-        this.deadlinesMissed = deadlinesMissed;
-    }
-
-    public double getGpa() {
-        return gpa;
-    }
-
-    public void setGpa(double gpa) {
-        this.gpa = gpa;
-    }
 }

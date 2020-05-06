@@ -1,36 +1,17 @@
 package GTL_API.Models.CreationModels;
 
+import javax.validation.constraints.NotNull;
+
 public class StudentCreation {
+    @NotNull(message = "Student type must be provided.")
+    private Integer studentTypeId;
 
-    private String coverType;
-    private int studentTypeId;
-    private int deadlinesMissed;
-    private double gpa;
-
-    public int getStudentTypeId() {
+    public Integer getStudentTypeId() {
         return studentTypeId;
     }
 
-    public void setStudentTypeId(int studentTypeId) {
+    public void setStudentTypeId(Integer studentTypeId) {
         this.studentTypeId = studentTypeId;
     }
-
-    public int getDeadlinesMissed() {
-        return deadlinesMissed;
-    }
-
-    public void setDeadlinesMissed(int deadlinesMissed) {
-        this.deadlinesMissed = deadlinesMissed;
-    }
-
-    public double getGpa() {
-        return gpa;
-    }
-
-    public void setGpa(double gpa) {
-        this.gpa = gpa;
-    }
-
-
 
 }
