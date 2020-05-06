@@ -7,7 +7,7 @@ public interface IBookReturnService {
 
     BookReturnReturn createBookReturn(BookReturnCreation bookReturnCreation, String ssn);
 
-    boolean returnBook(int bookCatalogId, String ssn);
+    boolean returnBook(int bookCatalogId, int cardNumber);
 
 
 
