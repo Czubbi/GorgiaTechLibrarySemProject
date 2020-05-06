@@ -1,7 +1,6 @@
 package GTL_API.Repositories.BookReturnRespository;
 
 import GTL_API.Exceptions.CreationException;
-import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UnknownException;
 import GTL_API.Models.Entities.BookReturnEntity;
 import GTL_API.Models.ReturnModels.BookReturnReturn;
@@ -40,23 +39,55 @@ public class BookReturnRepository implements IBookReturnRepositoryCustom {
         }
     }
     @Override
-    public boolean returnBook(int id) {
+    public BookReturnReturn findReturningBook(int id) {
         try{
             Optional<BookReturnEntity> found = iBookReturnRepository.findByIdIsAndStatusIsFalse(id);
             if(found.isPresent()){
-                BookReturnEntity foundToReturn = found.get();
-                foundToReturn.setStatus(true);
-                foundToReturn.setPayment(0D);
-                Calendar c = Calendar.getInstance();
-                foundToReturn.setReturnedDate(new Date(c.getTime().getTime()));
-                iBookReturnRepository.save(foundToReturn);
-                return true;
+                return modelMapper.map(found.get(), BookReturnReturn.class);
             }else{
-                return false;
+                return null;
             }
         }catch (Exception e){
             throw new UnknownException(String.format(
                     "There was an error while finding a book returning record with ID: %d", id));
         }
+    }
+
+    @Override
+    public boolean returnBookAndChangeStatus(int catalogId, int cardNumber, int id) {
+        try{
+            BookReturnEntity updated = addPaymentAndReturnDate(id);
+            if(updated.getStatus() && updated.getReturnedDate() != null){
+                return true;
+            }
+            return true;
+        }catch (Exception e){
+            throw new UnknownException("There was an exception while calling stored procedure of returning book and" +
+                    "changing status." + e.getMessage());
+        }
+
+    }
+
+    private BookReturnEntity addPaymentAndReturnDate(int id) {
+        BookReturnEntity bookReturnEntity = iBookReturnRepository.findByIdIs(id);
+        bookReturnEntity.setStatus(true);
+        Date estimatedReturnDate = bookReturnEntity.getEstimatedReturnDate();
+        Calendar c = Calendar.getInstance();
+        Date returnedDate = new Date(c.getTime().getTime());
+        bookReturnEntity.setReturnedDate(returnedDate);
+        double payment = calculatePayment(estimatedReturnDate, returnedDate);
+        bookReturnEntity.setPayment(payment);
+        return iBookReturnRepository.save(bookReturnEntity);
+    }
+
+
+    private double calculatePayment(Date estimated, Date returned){
+        long diff = returned.getTime() - estimated.getTime();
+        long diffDays = diff/(24*60*60*100);
+        double payment = 0D;
+        if(diffDays >= 1){
+            payment = (double)diffDays * 0.75;
+        }
+        return payment;
     }
 }
