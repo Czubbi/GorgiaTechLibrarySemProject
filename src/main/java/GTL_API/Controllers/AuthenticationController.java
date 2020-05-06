@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 @RequestMapping("gtl/auth")
 public class AuthenticationController {
 
-
     private AuthenticationManager authenticationManager;
 
 

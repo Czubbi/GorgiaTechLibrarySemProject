@@ -1,4 +1,4 @@
 package GTL_API.Repositories.StudentTypeRepository;
 
-public class IStudentTypeCustom {
+public interface IStudentTypeCustom {
 }
