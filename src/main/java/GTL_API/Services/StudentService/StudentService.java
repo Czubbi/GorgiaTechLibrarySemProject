@@ -1,7 +1,6 @@
 package GTL_API.Services.StudentService;
 
 import GTL_API.Models.CreationModels.StudentCreation;
-import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Models.Entities.StudentEntity;
 import GTL_API.Models.ReturnModels.StudentReturn;
 import GTL_API.Models.UpdateModels.StudentUpdate;
@@ -44,5 +43,10 @@ public class StudentService implements IStudentService {
     @Override
     public StudentReturn createStudent(StudentCreation student) {
         return studentRepositoryCustom.createStudent(modelMapper.map(student, StudentEntity.class));
+    }
+
+    @Override
+    public boolean increaseMissedDeadlines(int studentId) {
+        return studentRepositoryCustom.increaseMissedDeadlines(studentId);
     }
 }

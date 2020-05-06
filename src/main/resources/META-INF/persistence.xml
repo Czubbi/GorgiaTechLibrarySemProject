@@ -31,6 +31,7 @@
         <class>GTL_API.Models.Entities.PeopleWhoDidNotReturedBooksYetEntity</class>
         <class>GTL_API.Models.Entities.StudentsGpaHigher3WorkingMoreThan1YearEntity</class>
         <class>GTL_API.Models.Entities.StudentsInformationEntity</class>
+        <class>GTL_API.Models.Entities.PeopleWhoDidNotReturnedBooksYetEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://64.225.69.54;database=Giorgia_Tech_Library"/>
             <property name="hibernate.connection.username" value="sa"/>

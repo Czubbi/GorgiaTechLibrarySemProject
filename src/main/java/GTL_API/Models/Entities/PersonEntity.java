@@ -3,18 +3,21 @@ package GTL_API.Models.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Person", schema = "Information_Basic")
-@NamedStoredProcedureQueries(
+@Table(name = "Person", schema = "Information_Basic", catalog = "Giorgia_Tech_Library")
+@NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
                 name="findPersonByCardNumber",
                 procedureName = "StudentPermission_Procedures.FindPersonByCardNumber",
                 resultClasses = PersonEntity.class,
                 parameters =
-                        @StoredProcedureParameter(
-                                mode = ParameterMode.IN,
-                                type=Integer.class,
-                                name="@theCardNumber")
-                ))
+                @StoredProcedureParameter(
+                        mode = ParameterMode.IN,
+                        type=Integer.class,
+                        name="@theCardNumber"
+                )
+        ),
+}
+)
 public class PersonEntity {
     private String ssn;
     private String firstName;
@@ -26,6 +29,7 @@ public class PersonEntity {
     private Integer cardNumberId;
     private Integer personTypeId;
     private Boolean isDeleted;
+    private Integer credentialsId;
 
     @Id
     @Column(name = "ssn", nullable = false, length = 11)
@@ -127,6 +131,16 @@ public class PersonEntity {
         isDeleted = deleted;
     }
 
+    @Basic
+    @Column(name = "credentials_id", nullable = false)
+    public Integer getCredentialsId() {
+        return credentialsId;
+    }
+
+    public void setCredentialsId(Integer credentialsId) {
+        this.credentialsId = credentialsId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,7 +159,11 @@ public class PersonEntity {
         if (loanDuration != null ? !loanDuration.equals(that.loanDuration) : that.loanDuration != null) return false;
         if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
         if (personTypeId != null ? !personTypeId.equals(that.personTypeId) : that.personTypeId != null) return false;
-        return isDeleted != null ? isDeleted.equals(that.isDeleted) : that.isDeleted == null;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+        if (credentialsId != null ? !credentialsId.equals(that.credentialsId) : that.credentialsId != null)
+            return false;
+
+        return true;
     }
 
     @Override
@@ -160,6 +178,7 @@ public class PersonEntity {
         result = 31 * result + (cardNumberId != null ? cardNumberId.hashCode() : 0);
         result = 31 * result + (personTypeId != null ? personTypeId.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
+        result = 31 * result + (credentialsId != null ? credentialsId.hashCode() : 0);
         return result;
     }
 }
