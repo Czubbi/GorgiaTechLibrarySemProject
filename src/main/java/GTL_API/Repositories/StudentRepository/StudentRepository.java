@@ -1,7 +1,9 @@
 package GTL_API.Repositories.StudentRepository;
 
+import GTL_API.Exceptions.CreationException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UnknownException;
+import GTL_API.Exceptions.UpdateException;
 import GTL_API.Handlers.Patcher.PatcherHandler;
 import GTL_API.Models.Entities.StudentEntity;
 import GTL_API.Models.ReturnModels.PersonReturn;
@@ -9,6 +11,7 @@ import GTL_API.Models.ReturnModels.StudentReturn;
 import org.aspectj.apache.bcel.classfile.Unknown;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -47,6 +50,7 @@ public class StudentRepository implements IStudentCustomRepository {
         }
     }
 
+
     @Override
     public StudentReturn findByGpaBetween(int bottomRange, int upperRange) {
         try {
@@ -54,18 +58,53 @@ public class StudentRepository implements IStudentCustomRepository {
             return modelMapper.map(found, StudentReturn.class);
         } catch (Exception e) {
             throw new UnknownException(String.format("There was an unknown exception while finding student with"
-                    + "Gpa between: %s and %s", bottomRange,upperRange));
+                    + "Gpa between: %s and %s", bottomRange, upperRange));
         }
     }
 
     @Override
     public StudentReturn updateStudent(StudentEntity studentEntity) {
-        return null;
+        try {
+            StudentEntity found = findByStudentIdIfExistsAndReturn(studentEntity.getStudentId());
+            patcherHandler.fillNotNullFields(found, studentEntity);
+            StudentEntity updated = studentRepository.save(found);
+            return modelMapper.map(updated, StudentReturn.class);
+        } catch (NotFoundException notFoundException) {
+            throw notFoundException;
+        } catch (Exception e) {
+            throw new UpdateException("There was an unexpected error while updating the person");
+        }
     }
 
     @Override
     public StudentReturn createStudent(StudentEntity studentEntity) {
-        return null;
+        studentEntity.setDeadlinesMissed(0);
+        studentEntity.setGpa(generateGPA());
+        StudentEntity created = studentRepository.save(studentEntity);
+        if (created == null) {
+            throw new CreationException("There was a problem while creating a student.");
+        } else {
+            return modelMapper.map(created, StudentReturn.class);
+        }
+    }
+
+    @Override
+    public boolean increaseMissedDeadlines(int studentId) {
+        try {
+            StudentEntity found = findByStudentIdIfExistsAndReturn(studentId);
+            int deadlineMissed = found.getDeadlinesMissed();
+            found.setDeadlinesMissed(deadlineMissed + 1);
+            StudentEntity updated = studentRepository.save(found);
+            if(deadlineMissed + 1 == updated.getDeadlinesMissed()){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (NotFoundException notFoundException) {
+            throw notFoundException;
+        } catch (Exception e) {
+            throw new UpdateException("There was an unexpected error while increasing missed deadlines.");
+        }
     }
 
     private StudentEntity findByStudentIdIfExistsAndReturn(int studentId) {
@@ -82,8 +121,15 @@ public class StudentRepository implements IStudentCustomRepository {
         if (found.isPresent()) {
             return found.get();
         } else {
-            throw new NotFoundException(String.format("There is no student with:" + "Gpa between: %s and %s", bottomRange,upperRange));
+            throw new NotFoundException(String.format("There is no student with:" + "Gpa between: %s and %s", bottomRange, upperRange));
         }
+    }
+
+    private double generateGPA() {
+        double upper = 4;
+        double lower = 1;
+        double result = Math.random() * (upper - lower) + lower;
+        return result;
     }
 
 
