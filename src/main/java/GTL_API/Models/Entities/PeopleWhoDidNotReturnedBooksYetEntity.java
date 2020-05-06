@@ -4,14 +4,16 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "PeopleWhoDidNotReturedBooksYet", schema = "dbo")
-public class PeopleWhoDidNotReturedBooksYetEntity {
+@Table(name = "PeopleWhoDidNotReturnedBooksYet", schema = "dbo", catalog = "Giorgia_Tech_Library")
+public class PeopleWhoDidNotReturnedBooksYetEntity {
     private String ssn;
     private String firstName;
     private String lastName;
+    private Integer cardNumberId;
     private Date borrowDate;
     private String isbn;
     private Date estimatedReturnDate;
+    private Boolean status;
 
     @Id
     @Column(name = "ssn", nullable = false, length = 11)
@@ -44,6 +46,16 @@ public class PeopleWhoDidNotReturedBooksYetEntity {
     }
 
     @Basic
+    @Column(name = "card_number_id", nullable = false)
+    public Integer getCardNumberId() {
+        return cardNumberId;
+    }
+
+    public void setCardNumberId(Integer cardNumberId) {
+        this.cardNumberId = cardNumberId;
+    }
+
+    @Basic
     @Column(name = "borrow_date", nullable = false)
     public Date getBorrowDate() {
         return borrowDate;
@@ -73,19 +85,34 @@ public class PeopleWhoDidNotReturedBooksYetEntity {
         this.estimatedReturnDate = estimatedReturnDate;
     }
 
+    @Basic
+    @Column(name = "status", nullable = false)
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PeopleWhoDidNotReturedBooksYetEntity that = (PeopleWhoDidNotReturedBooksYetEntity) o;
+        PeopleWhoDidNotReturnedBooksYetEntity that = (PeopleWhoDidNotReturnedBooksYetEntity) o;
 
         if (ssn != null ? !ssn.equals(that.ssn) : that.ssn != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
         if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
-        return estimatedReturnDate != null ? estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate == null;
+        if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
+            return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+
+        return true;
     }
 
     @Override
@@ -93,9 +120,11 @@ public class PeopleWhoDidNotReturedBooksYetEntity {
         int result = ssn != null ? ssn.hashCode() : 0;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (cardNumberId != null ? cardNumberId.hashCode() : 0);
         result = 31 * result + (borrowDate != null ? borrowDate.hashCode() : 0);
         result = 31 * result + (isbn != null ? isbn.hashCode() : 0);
         result = 31 * result + (estimatedReturnDate != null ? estimatedReturnDate.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }
