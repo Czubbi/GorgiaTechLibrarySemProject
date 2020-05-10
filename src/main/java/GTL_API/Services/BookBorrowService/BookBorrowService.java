@@ -67,19 +67,25 @@ public class BookBorrowService implements IBookBorrowService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BookBorrowReturn borrowBook(BookBorrowCreation bookBorrowCreation) {
-        PersonReturn foundPerson = personService.findPersonByCardNumberId(bookBorrowCreation.getCardNumberId());
-        String ssn = foundPerson.getSsn();
-        BookReturnReturn result = bookReturnService.createBookReturn(
-                new BookReturnCreation(), ssn
-        );
+        String isbn = iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn();
+        if(iBookService.findBook(isbn).getAvailableBooksNumber() > 0){
+            PersonReturn foundPerson = personService.findPersonByCardNumberId(bookBorrowCreation.getCardNumberId());
+            String ssn = foundPerson.getSsn();
+            BookReturnReturn result = bookReturnService.createBookReturn(
+                    new BookReturnCreation(), ssn
+            );
 
-        iBookService.borrowingBookDecrease(iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn());
-        int bookReturnId = result.getId();
-        bookBorrowCreation.setSsn(ssn);
-        return bookBorrowRepositoryCustom.createBookBorrow(
-                modelMapper.map(bookBorrowCreation, BookBorrowEntity.class),
-                bookReturnId
-        );
+            iBookService.borrowingBookDecrease(isbn);
+            int bookReturnId = result.getId();
+            bookBorrowCreation.setSsn(ssn);
+            return bookBorrowRepositoryCustom.createBookBorrow(
+                    modelMapper.map(bookBorrowCreation, BookBorrowEntity.class),
+                    bookReturnId
+            );
+        }else{
+            throw new NotFoundException(String.format("There is not available book copies with ISBN: %s", isbn));
+        }
+
     }
 
     @Override
