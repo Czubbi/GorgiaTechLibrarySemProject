@@ -95,11 +95,7 @@ public class StudentRepository implements IStudentCustomRepository {
             int deadlineMissed = found.getDeadlinesMissed();
             found.setDeadlinesMissed(deadlineMissed + 1);
             StudentEntity updated = studentRepository.save(found);
-            if(deadlineMissed + 1 == updated.getDeadlinesMissed()){
-                return true;
-            }else{
-                return false;
-            }
+            return deadlineMissed + 1 == updated.getDeadlinesMissed();
         } catch (NotFoundException notFoundException) {
             throw notFoundException;
         } catch (Exception e) {

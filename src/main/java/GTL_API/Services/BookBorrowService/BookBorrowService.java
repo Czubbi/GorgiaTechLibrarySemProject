@@ -8,7 +8,9 @@ import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import GTL_API.Models.ReturnModels.BookReturnReturn;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Repositories.BookBorrowRepository.IBookBorrowRepositoryCustom;
+import GTL_API.Services.BookCatalogService.IBookCatalogService;
 import GTL_API.Services.BookReturnService.IBookReturnService;
+import GTL_API.Services.BookService.IBookService;
 import GTL_API.Services.PersonService.IPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,25 @@ public class BookBorrowService implements IBookBorrowService {
 
     private IBookReturnService bookReturnService;
 
+    private IBookService iBookService;
+
+    private IBookCatalogService iBookCatalogService;
+
     private IBookBorrowRepositoryCustom bookBorrowRepositoryCustom;
 
     private ModelMapper modelMapper;
 
     private IPersonService personService;
+
+    @Autowired
+    public void setIBookService(IBookService iBookService) {
+        this.iBookService = iBookService;
+    }
+
+    @Autowired
+    public void setIBookCatalogService(IBookCatalogService iBookCatalogService) {
+        this.iBookCatalogService = iBookCatalogService;
+    }
 
     @Autowired
     public void setPersonService(IPersonService personService) {
@@ -56,6 +72,8 @@ public class BookBorrowService implements IBookBorrowService {
         BookReturnReturn result = bookReturnService.createBookReturn(
                 new BookReturnCreation(), ssn
         );
+
+        iBookService.borrowingBookDecrease(iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn());
         int bookReturnId = result.getId();
         bookBorrowCreation.setSsn(ssn);
         return bookBorrowRepositoryCustom.createBookBorrow(

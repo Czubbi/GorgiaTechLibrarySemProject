@@ -110,9 +110,7 @@ public class PeopleWhoDidNotReturnedBooksYetEntity {
         if (isbn != null ? !isbn.equals(that.isbn) : that.isbn != null) return false;
         if (estimatedReturnDate != null ? !estimatedReturnDate.equals(that.estimatedReturnDate) : that.estimatedReturnDate != null)
             return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-
-        return true;
+        return status != null ? status.equals(that.status) : that.status == null;
     }
 
     @Override

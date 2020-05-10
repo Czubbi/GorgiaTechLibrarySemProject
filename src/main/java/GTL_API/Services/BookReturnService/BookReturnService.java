@@ -7,6 +7,8 @@ import GTL_API.Models.ReturnModels.BookReturnReturn;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Repositories.BookReturnRespository.IBookReturnRepositoryCustom;
 import GTL_API.Services.BookBorrowService.IBookBorrowService;
+import GTL_API.Services.BookCatalogService.IBookCatalogService;
+import GTL_API.Services.BookService.IBookService;
 import GTL_API.Services.PersonService.IPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,20 @@ public class BookReturnService implements IBookReturnService {
     private IBookBorrowService bookBorrowService;
 
     private ModelMapper modelMapper;
+
+    private IBookService iBookService;
+
+    private IBookCatalogService iBookCatalogService;
+
+    @Autowired
+    public void setiBookService(IBookService iBookService) {
+        this.iBookService = iBookService;
+    }
+
+    @Autowired
+    public void setiBookCatalogService(IBookCatalogService iBookCatalogService) {
+        this.iBookCatalogService = iBookCatalogService;
+    }
 
     @Autowired
     public void setBookBorrowService(IBookBorrowService bookBorrowService) {
@@ -67,6 +83,7 @@ public class BookReturnService implements IBookReturnService {
     @Transactional(rollbackFor = Exception.class)
     public boolean returnBook(int bookCatalogId, int cardNumber) {
         PersonReturn foundPerson = personService.findPersonByCardNumberId(cardNumber);
+        iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookCatalogId).getIsbn());
         String ssn = foundPerson.getSsn();
         List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookCatalogId, ssn);
         for (Integer id : bookReturnIds) {

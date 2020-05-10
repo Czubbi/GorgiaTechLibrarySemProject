@@ -160,10 +160,7 @@ public class PersonEntity {
         if (cardNumberId != null ? !cardNumberId.equals(that.cardNumberId) : that.cardNumberId != null) return false;
         if (personTypeId != null ? !personTypeId.equals(that.personTypeId) : that.personTypeId != null) return false;
         if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
-        if (credentialsId != null ? !credentialsId.equals(that.credentialsId) : that.credentialsId != null)
-            return false;
-
-        return true;
+        return credentialsId != null ? credentialsId.equals(that.credentialsId) : that.credentialsId == null;
     }
 
     @Override

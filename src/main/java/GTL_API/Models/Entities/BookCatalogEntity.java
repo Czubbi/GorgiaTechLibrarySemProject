@@ -1,5 +1,7 @@
 package GTL_API.Models.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class BookCatalogEntity {
     private Boolean isDeleted;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
