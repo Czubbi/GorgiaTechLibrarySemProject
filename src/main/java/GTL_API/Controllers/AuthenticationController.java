@@ -22,7 +22,6 @@ public class AuthenticationController {
 
     private AuthenticationManager authenticationManager;
 
-
     private JwtTokenProvider jwtTokenProvider;
 
     private ICredentialsRepository credentialsRepository;

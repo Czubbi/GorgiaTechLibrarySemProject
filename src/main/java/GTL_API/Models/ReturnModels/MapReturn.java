@@ -1,9 +1,12 @@
 package GTL_API.Models.ReturnModels;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 
 public class MapReturn {
     private String barcode;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date addedDate;
     private Boolean isDeleted;
 

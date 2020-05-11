@@ -1,10 +1,14 @@
 package GTL_API.Models.ReturnModels;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 
 public class BookReturnReturn {
     private Integer id;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date returnedDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date estimatedReturnDate;
     private Double payment;
     private Boolean status;
