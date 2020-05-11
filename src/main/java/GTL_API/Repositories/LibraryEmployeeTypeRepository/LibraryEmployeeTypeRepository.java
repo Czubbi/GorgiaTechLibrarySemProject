@@ -82,7 +82,7 @@ public class LibraryEmployeeTypeRepository implements ILibraryEmployeeTypeReposi
         } catch (NotFoundException notFoundException) {
             throw notFoundException;
         } catch (Exception e) {
-            throw new UnknownException(String.format("There was an unknown exception while finding a library employee type" +
+            throw new UnknownException(String.format("There was an unknown exception while finding a library employee" +
                     " type with id: %d", id));
         }
     }
