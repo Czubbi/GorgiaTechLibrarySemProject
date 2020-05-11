@@ -1,11 +1,14 @@
 package GTL_API.Models.ReturnModels;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 
 public class BookBorrowReturn {
     private Integer id;
     private Integer bookCatalogId;
     private String ssn;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date borrowDate;
     private Integer bookReturnId;
 

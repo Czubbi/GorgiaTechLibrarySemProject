@@ -4,7 +4,6 @@ import GTL_API.Models.CreationModels.BookCreation;
 import GTL_API.Models.Entities.BookEntity;
 import GTL_API.Models.ReturnModels.BookReturn;
 import GTL_API.Models.UpdateModels.BookUpdate;
-import GTL_API.Repositories.BookCatalogRepository.IBookCatalogRepositoryCustom;
 import GTL_API.Repositories.BookRepository.IBookRepositoryCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,8 @@ public class BookService implements IBookService {
 
     private IBookRepositoryCustom iBookRepositoryCustom;
 
-    private IBookCatalogRepositoryCustom iBookCatalogRepositoryCustom;
-
     private ModelMapper modelMapper;
 
-    @Autowired
-    public void setIBookCatalogRepositoryCustom(IBookCatalogRepositoryCustom iBookCatalogRepositoryCustom) {
-        this.iBookCatalogRepositoryCustom = iBookCatalogRepositoryCustom;
-    }
 
     @Autowired
     public void setIBookRepositoryCustom(IBookRepositoryCustom iBookRepositoryCustom) {
@@ -45,15 +38,13 @@ public class BookService implements IBookService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BookReturn addBook(BookCreation bookEntity) {
-        BookReturn added = iBookRepositoryCustom.addBook(modelMapper.map(bookEntity, BookEntity.class));
-        return added;
+        return iBookRepositoryCustom.addBook(modelMapper.map(bookEntity, BookEntity.class));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BookReturn updateBook(BookUpdate bookEntity) {
-        BookReturn updated = iBookRepositoryCustom.updateBook(modelMapper.map(bookEntity, BookEntity.class));
-        return updated;
+        return iBookRepositoryCustom.updateBook(modelMapper.map(bookEntity, BookEntity.class));
     }
 
     @Override

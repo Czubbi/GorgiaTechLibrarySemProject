@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "PeopleWhoDidNotReturnedBooksYet", schema = "dbo", catalog = "Giorgia_Tech_Library")
+@Table(name = "PeopleWhoDidNotReturnedBooksYet", schema = "Information_Basic")
 public class PeopleWhoDidNotReturnedBooksYetEntity {
     private String ssn;
     private String firstName;

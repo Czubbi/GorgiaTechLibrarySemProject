@@ -1,10 +1,13 @@
 package GTL_API.Models.ReturnModels;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 
 public class StudentTypeReturn {
     private int id;
     private String courseName;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date graduationDate;
 
     public int getId() {
