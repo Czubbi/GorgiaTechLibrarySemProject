@@ -14,6 +14,10 @@ import GTL_API.Services.BookService.IBookService;
 import GTL_API.Services.PersonService.IPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +73,8 @@ public class BookBorrowService implements IBookBorrowService {
     public BookBorrowReturn borrowBook(BookBorrowCreation bookBorrowCreation) {
         String isbn = iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn();
         if(iBookService.findBook(isbn).getAvailableBooksNumber() > 0){
-            PersonReturn foundPerson = personService.findPersonByCardNumberId(bookBorrowCreation.getCardNumberId());
+            UserDetails user =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
             String ssn = foundPerson.getSsn();
             BookReturnReturn result = bookReturnService.createBookReturn(
                     new BookReturnCreation(), ssn

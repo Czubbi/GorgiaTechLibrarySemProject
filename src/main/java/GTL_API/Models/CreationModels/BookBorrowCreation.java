@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 public class BookBorrowCreation {
     @NotNull
     private Integer bookCatalogId;
-    @NotNull
-    private Integer cardNumberId;
 
     private String ssn;
 
@@ -17,14 +15,6 @@ public class BookBorrowCreation {
 
     public void setSsn(String ssn) {
         this.ssn = ssn;
-    }
-
-    public Integer getCardNumberId() {
-        return cardNumberId;
-    }
-
-    public void setCardNumberId(Integer cardNumberId) {
-        this.cardNumberId = cardNumberId;
     }
 
     public Integer getBookCatalogId() {

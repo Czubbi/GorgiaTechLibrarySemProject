@@ -38,17 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    /*@Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(CorsConfiguration.ALL));
-        configuration.setAllowedMethods(Arrays.asList(CorsConfiguration.ALL));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }*/
-
     @Autowired
     public void setCredentialsService(CredentialsService credentialsService) {
         this.credentialsService = credentialsService;
