@@ -163,6 +163,8 @@ public class PersonRepository implements IPersonRepositoryCustom{
         return modelMapper.map(findPersonByCardNumberProcedure.getSingleResult(), PersonReturn.class);
     }
 
+
+
     /**
      * The methods checks if a record of person is present in a database by performing search by ssn.
      * @param ssn String class's object.

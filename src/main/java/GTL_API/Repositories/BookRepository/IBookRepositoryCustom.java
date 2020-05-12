@@ -14,4 +14,5 @@ public interface IBookRepositoryCustom  {
     List<BookReturn> findBooksByAuthor(String author);
     boolean borrowingBookDecrease(String isbn);
     boolean returningBookIncrease(String isbn);
+    List<BookReturn> findSpecificUsersBookToReturn(Integer cardNumber);
 }

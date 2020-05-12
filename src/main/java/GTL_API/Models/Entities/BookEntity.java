@@ -5,8 +5,23 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.sql.Date;
 
+
 @Entity
 @Table(name = "Book", schema = "Book")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name="findPersonBooksToReturn",
+                procedureName = "Loan_Activities.SpecificUserBooksToReturn",
+                resultClasses = BookEntity.class,
+                parameters =
+                @StoredProcedureParameter(
+                        mode = ParameterMode.IN,
+                        type=Integer.class,
+                        name="@cardNumber"
+                )
+        ),
+}
+)
 public class BookEntity {
     private String isbn;
     private String description;

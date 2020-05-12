@@ -6,6 +6,7 @@ import GTL_API.Exceptions.UnknownException;
 import GTL_API.Handlers.Patcher.PatcherHandler;
 import GTL_API.Models.Entities.BookEntity;
 import GTL_API.Models.ReturnModels.BookReturn;
+import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Models.UpdateModels.BookUpdate;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +29,11 @@ public class BookRepository implements IBookRepositoryCustom {
     private ModelMapper modelMapper;
 
     private PatcherHandler patcherHandler;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
 
     @Autowired
     public void setPatcherHandler(PatcherHandler patcherHandler) {
@@ -166,6 +175,14 @@ public class BookRepository implements IBookRepositoryCustom {
         }catch (Exception e){
             throw new UnknownException("There was unexpected error while increasing number of available numbers of books");
         }
+    }
+
+    @Override
+    public List<BookReturn> findSpecificUsersBookToReturn(Integer cardNumber) {
+        Type listType = new TypeToken<List<BookReturn>>() {}.getType();
+        StoredProcedureQuery findSpecificUsersBookToReturn =
+                entityManager.createNamedStoredProcedureQuery("findPersonBooksToReturn").setParameter("@cardNumber", cardNumber);
+        return modelMapper.map(findSpecificUsersBookToReturn.getResultList(), listType);
     }
 
     private int checkIfExists(String isbn){

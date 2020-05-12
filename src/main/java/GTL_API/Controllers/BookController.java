@@ -51,4 +51,9 @@ public class BookController {
         return new ResponseEntity<>(iBookService.updateBook(bookUpdate), new HttpHeaders(), HttpStatus.FOUND);
     }
 
+    @RequestMapping(value = "/{cardNumber}", method = RequestMethod.GET)
+    public ResponseEntity<?> findSpecificUsersBookToReturn(@PathVariable int cardNumber) {
+        return new ResponseEntity<>(iBookService.findSpecificUsersBookToReturn(cardNumber), new HttpHeaders(), HttpStatus.FOUND);
+    }
+
 }
