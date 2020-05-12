@@ -4,10 +4,12 @@ import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Models.CreationModels.BookBorrowCreation;
 import GTL_API.Models.CreationModels.BookReturnCreation;
 import GTL_API.Models.Entities.BookBorrowEntity;
+import GTL_API.Models.ReturnModels.AvailableBooksReturn;
 import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import GTL_API.Models.ReturnModels.BookReturnReturn;
 import GTL_API.Models.ReturnModels.PersonReturn;
 import GTL_API.Repositories.BookBorrowRepository.IBookBorrowRepositoryCustom;
+import GTL_API.Services.AvailableBooksService.IAvailableBooksService;
 import GTL_API.Services.BookCatalogService.IBookCatalogService;
 import GTL_API.Services.BookReturnService.IBookReturnService;
 import GTL_API.Services.BookService.IBookService;
@@ -30,6 +32,8 @@ public class BookBorrowService implements IBookBorrowService {
 
     private IBookService iBookService;
 
+    private IAvailableBooksService iAvailableBooksService;
+
     private IBookCatalogService iBookCatalogService;
 
     private IBookBorrowRepositoryCustom bookBorrowRepositoryCustom;
@@ -37,6 +41,11 @@ public class BookBorrowService implements IBookBorrowService {
     private ModelMapper modelMapper;
 
     private IPersonService personService;
+
+    @Autowired
+    public void setIAvailableBooksService(IAvailableBooksService iAvailableBooksService) {
+        this.iAvailableBooksService = iAvailableBooksService;
+    }
 
     @Autowired
     public void setIBookService(IBookService iBookService) {
@@ -72,7 +81,11 @@ public class BookBorrowService implements IBookBorrowService {
     @Transactional(rollbackFor = Exception.class)
     public BookBorrowReturn borrowBook(BookBorrowCreation bookBorrowCreation) {
         String isbn = iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn();
+        AvailableBooksReturn availableBooksReturn = iAvailableBooksService.findAvailableByCatalogId(bookBorrowCreation.getBookCatalogId());
         if(iBookService.findBook(isbn).getAvailableBooksNumber() > 0){
+            if(availableBooksReturn == null){
+                throw new NotFoundException(String.format("The book with ISBN: %s, is not available", availableBooksReturn.getIsbn()));
+            }
             UserDetails user =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
             String ssn = foundPerson.getSsn();

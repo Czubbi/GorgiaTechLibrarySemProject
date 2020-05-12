@@ -12,6 +12,8 @@ import GTL_API.Services.BookService.IBookService;
 import GTL_API.Services.PersonService.IPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,15 +83,16 @@ public class BookReturnService implements IBookReturnService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean returnBook(int bookCatalogId, int cardNumber) {
-        PersonReturn foundPerson = personService.findPersonByCardNumberId(cardNumber);
-        iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookCatalogId).getIsbn());
+    public boolean returnBook(BookReturnCreation bookReturnCreation) {
+        UserDetails user =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
+        iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookReturnCreation.getCatalogId()).getIsbn());
         String ssn = foundPerson.getSsn();
-        List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookCatalogId, ssn);
+        List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookReturnCreation.getCatalogId(), ssn);
         for (Integer id : bookReturnIds) {
             BookReturnReturn result = iBookReturnRepository.findReturningBook(id);
             if (result != null) {
-                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(bookCatalogId, cardNumber, id);
+                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(bookReturnCreation.getCatalogId(), Integer.parseInt(user.getUsername()), id);
                 if(returningResult){
                     return true;
                 }else{

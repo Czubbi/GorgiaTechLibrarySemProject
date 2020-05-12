@@ -1,11 +1,22 @@
 package GTL_API.Models.CreationModels;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class BookReturnCreation {
     private Double payment;
     private Boolean status;
     private Date estimatedReturnDate;
+    @NotNull(message = "ID of a book catalog must be set")
+    private Integer catalogId;
+
+    public Integer getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(Integer catalogId) {
+        this.catalogId = catalogId;
+    }
 
     public Date getEstimatedReturnDate() {
         return estimatedReturnDate;
