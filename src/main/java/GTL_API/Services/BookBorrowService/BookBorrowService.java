@@ -93,12 +93,12 @@ public class BookBorrowService implements IBookBorrowService {
             iBookService.borrowingBookDecrease(isbn);
             int bookReturnId = result.getId();
             bookBorrowCreation.setSsn(ssn);
-            BookBorrowReturn bookReturn = bookBorrowRepositoryCustom.createBookBorrow(
+            bookBorrowRepositoryCustom.createBookBorrow(
                     modelMapper.map(bookBorrowCreation, BookBorrowEntity.class),
                     bookReturnId
             );
-            BookReturn br = iBookService.findBook(isbn);
-            BookBorrowReturnView bookBorrowReturnView = modelMapper.map(br, BookBorrowReturnView.class);
+            BookReturn bookReturn = iBookService.findBook(isbn);
+            BookBorrowReturnView bookBorrowReturnView = modelMapper.map(bookReturn, BookBorrowReturnView.class);
             bookBorrowReturnView.setCatalogId(bookBorrowCreation.getBookCatalogId());
             return bookBorrowReturnView;
         }else{
