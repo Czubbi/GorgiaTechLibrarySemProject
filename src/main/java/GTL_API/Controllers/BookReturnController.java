@@ -29,12 +29,12 @@ public class BookReturnController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> returnBook(@RequestBody BookReturnCreation bookReturnCreation) {
-        return new ResponseEntity<>(iBookReturnService.returnBook(bookReturnCreation), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookReturnService.returnBook(bookReturnCreation), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> getListPeopleWhoDidNotReturnedBooks() {
-        return new ResponseEntity<>(iNotReturnedService.getListPeopleWhoDidNotReturnedBooks(), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iNotReturnedService.getListPeopleWhoDidNotReturnedBooks(), new HttpHeaders(), HttpStatus.OK);
     }
 
 
