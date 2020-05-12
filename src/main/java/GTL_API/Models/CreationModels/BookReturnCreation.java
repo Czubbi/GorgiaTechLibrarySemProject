@@ -8,14 +8,15 @@ public class BookReturnCreation {
     private Boolean status;
     private Date estimatedReturnDate;
     @NotNull(message = "ID of a book catalog must be set")
-    private Integer catalogId;
+    private Integer bookCatalogId;
 
-    public Integer getCatalogId() {
-        return catalogId;
+    public void setBookCatalogId(Integer bookCatalogId) {
+        this.bookCatalogId = bookCatalogId;
     }
 
-    public void setCatalogId(Integer catalogId) {
-        this.catalogId = catalogId;
+
+    public Integer getBookCatalogId() {
+        return bookCatalogId;
     }
 
     public Date getEstimatedReturnDate() {

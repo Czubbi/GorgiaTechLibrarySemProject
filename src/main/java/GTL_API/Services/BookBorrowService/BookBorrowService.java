@@ -4,10 +4,7 @@ import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Models.CreationModels.BookBorrowCreation;
 import GTL_API.Models.CreationModels.BookReturnCreation;
 import GTL_API.Models.Entities.BookBorrowEntity;
-import GTL_API.Models.ReturnModels.AvailableBooksReturn;
-import GTL_API.Models.ReturnModels.BookBorrowReturn;
-import GTL_API.Models.ReturnModels.BookReturnReturn;
-import GTL_API.Models.ReturnModels.PersonReturn;
+import GTL_API.Models.ReturnModels.*;
 import GTL_API.Repositories.BookBorrowRepository.IBookBorrowRepositoryCustom;
 import GTL_API.Services.AvailableBooksService.IAvailableBooksService;
 import GTL_API.Services.BookCatalogService.IBookCatalogService;
@@ -79,7 +76,7 @@ public class BookBorrowService implements IBookBorrowService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BookBorrowReturn borrowBook(BookBorrowCreation bookBorrowCreation) {
+    public BookBorrowReturnView borrowBook(BookBorrowCreation bookBorrowCreation) {
         String isbn = iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn();
         AvailableBooksReturn availableBooksReturn = iAvailableBooksService.findAvailableByCatalogId(bookBorrowCreation.getBookCatalogId());
         if(iBookService.findBook(isbn).getAvailableBooksNumber() > 0){
@@ -96,10 +93,14 @@ public class BookBorrowService implements IBookBorrowService {
             iBookService.borrowingBookDecrease(isbn);
             int bookReturnId = result.getId();
             bookBorrowCreation.setSsn(ssn);
-            return bookBorrowRepositoryCustom.createBookBorrow(
+            BookBorrowReturn bookReturn = bookBorrowRepositoryCustom.createBookBorrow(
                     modelMapper.map(bookBorrowCreation, BookBorrowEntity.class),
                     bookReturnId
             );
+            BookReturn br = iBookService.findBook(isbn);
+            BookBorrowReturnView bookBorrowReturnView = modelMapper.map(br, BookBorrowReturnView.class);
+            bookBorrowReturnView.setCatalogId(bookBorrowCreation.getBookCatalogId());
+            return bookBorrowReturnView;
         }else{
             throw new NotFoundException(String.format("There is not available book copies with ISBN: %s", isbn));
         }

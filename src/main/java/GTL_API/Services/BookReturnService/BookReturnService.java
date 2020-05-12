@@ -86,13 +86,13 @@ public class BookReturnService implements IBookReturnService {
     public boolean returnBook(BookReturnCreation bookReturnCreation) {
         UserDetails user =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
-        iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookReturnCreation.getCatalogId()).getIsbn());
+        iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookReturnCreation.getBookCatalogId()).getIsbn());
         String ssn = foundPerson.getSsn();
-        List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookReturnCreation.getCatalogId(), ssn);
+        List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookReturnCreation.getBookCatalogId(), ssn);
         for (Integer id : bookReturnIds) {
             BookReturnReturn result = iBookReturnRepository.findReturningBook(id);
             if (result != null) {
-                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(bookReturnCreation.getCatalogId(), Integer.parseInt(user.getUsername()), id);
+                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(bookReturnCreation.getBookCatalogId(), Integer.parseInt(user.getUsername()), id);
                 if(returningResult){
                     return true;
                 }else{
