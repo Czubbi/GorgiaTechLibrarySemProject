@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("gtl/book")
 public class BookController {
 
@@ -19,7 +20,6 @@ public class BookController {
     public void setIBookService(IBookService iBookService) {
         this.iBookService = iBookService;
     }
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBooks() {
