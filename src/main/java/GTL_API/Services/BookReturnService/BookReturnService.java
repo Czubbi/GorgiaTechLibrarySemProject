@@ -1,5 +1,6 @@
 package GTL_API.Services.BookReturnService;
 
+import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UpdateException;
 import GTL_API.Models.CreationModels.BookReturnCreation;
 import GTL_API.Models.Entities.BookReturnEntity;
@@ -100,6 +101,6 @@ public class BookReturnService implements IBookReturnService {
                 }
             }
         }
-        return false;
+        throw new NotFoundException("Book is not borrowed");
     }
 }

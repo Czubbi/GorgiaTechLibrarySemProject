@@ -47,11 +47,16 @@ public class AuthenticationController {
             String username = data.getLogin();
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            String role=this.credentialsRepository.findByLoginIs(username).get().getRole();
             String token = jwtTokenProvider.createToken(username, Stream.of(this.credentialsRepository.findByLoginIs(username).get().getRole()).collect(Collectors.toList()));
             if(token.isEmpty()){
                 throw new AuthenticationException();
             }else{
-                return new ResponseEntity<>(token, new HttpHeaders(), HttpStatus.OK);
+                Object myobj = new Object() {
+                    public final String authToken = token;
+                    public final String authRole = role;
+                };
+                return new ResponseEntity<>(myobj, new HttpHeaders(), HttpStatus.OK);
             }
         }catch(AuthenticationException e){
             throw new BadCredentialsException("Invalid username/password");
