@@ -83,13 +83,16 @@ public class BookBorrowService implements IBookBorrowService {
             if(availableBooksReturn == null){
                 throw new NotFoundException(String.format("The book with ISBN: %s, is not available", availableBooksReturn.getIsbn()));
             }
-            UserDetails user =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
-            String ssn = foundPerson.getSsn();
+            String ssn = "";
+            if(bookBorrowCreation.getSsn()==""||bookBorrowCreation.getSsn()==null){
+                UserDetails user =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
+                ssn = foundPerson.getSsn();
+            }
+            else ssn=bookBorrowCreation.getSsn();
             BookReturnReturn result = bookReturnService.createBookReturn(
                     new BookReturnCreation(), ssn
             );
-
             iBookService.borrowingBookDecrease(isbn);
             int bookReturnId = result.getId();
             bookBorrowCreation.setSsn(ssn);

@@ -23,7 +23,7 @@ public class BookController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBooks() {
-        return new ResponseEntity<>(iBookService.getAllBooks(), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.getAllBooks(), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
@@ -33,27 +33,27 @@ public class BookController {
 
     @RequestMapping(value = "/author/{author}", method = RequestMethod.GET)
     public ResponseEntity<?> getBookByAuthor(@PathVariable String author) {
-        return new ResponseEntity<>(iBookService.findBooksByAuthor(author), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.findBooksByAuthor(author), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/isbn/{isbn}", method = RequestMethod.GET)
     public ResponseEntity<?> getBookByIsbn(@PathVariable String isbn) {
-        return new ResponseEntity<>(iBookService.findBook(isbn), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.findBook(isbn), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<?> addBook(@RequestBody BookCreation bookCreation) {
-        return new ResponseEntity<>(iBookService.addBook(bookCreation), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.addBook(bookCreation), new HttpHeaders(), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PATCH)
     public ResponseEntity<?> addBook(@RequestBody BookUpdate bookUpdate) {
-        return new ResponseEntity<>(iBookService.updateBook(bookUpdate), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.updateBook(bookUpdate), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{cardNumber}", method = RequestMethod.GET)
     public ResponseEntity<?> findSpecificUsersBookToReturn(@PathVariable int cardNumber) {
-        return new ResponseEntity<>(iBookService.findSpecificUsersBookToReturn(cardNumber), new HttpHeaders(), HttpStatus.FOUND);
+        return new ResponseEntity<>(iBookService.findSpecificUsersBookToReturn(cardNumber), new HttpHeaders(), HttpStatus.OK);
     }
 
 }
