@@ -4,7 +4,7 @@ package GTL_API.Models.CreationModels;
 import javax.validation.constraints.NotNull;
 
 public class BookBorrowCreation {
-    @NotNull
+    @NotNull(message = "ID of a book catalog must be set")
     private Integer bookCatalogId;
 
     private String ssn;

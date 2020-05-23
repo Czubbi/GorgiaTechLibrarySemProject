@@ -67,7 +67,7 @@ public class PersonControllerIntegrationTest {
                         "    \"homeAddressId\": 3052,\n" +
                         "    \"campusAddressId\": 3052,\n" +
                         "    \"loanDuration\": 21,\n" +
-                        "    \"cardNumberId\": 1209995103,\n" +
+                        "    \"cardNumberId\": 1027294938,\n" +
                         "    \"personTypeId\": 102084}"));
     }
 
@@ -85,7 +85,7 @@ public class PersonControllerIntegrationTest {
                         "    \"homeAddressId\": 3052,\n" +
                         "    \"campusAddressId\": 3052,\n" +
                         "    \"loanDuration\": 21,\n" +
-                        "    \"cardNumberId\": 1209995103,\n" +
+                        "    \"cardNumberId\": 1027294938,\n" +
                         "    \"personTypeId\": 102084}"));
 
         cleanup();
@@ -113,7 +113,7 @@ public class PersonControllerIntegrationTest {
                         "    \"homeAddressId\": 3052,\n" +
                         "    \"campusAddressId\": 3052,\n" +
                         "    \"loanDuration\": 21,\n" +
-                        "    \"cardNumberId\": 1209995103,\n" +
+                        "    \"cardNumberId\": 1027294938,\n" +
                         "    \"personTypeId\": 102084}"));
     }
 
@@ -130,7 +130,7 @@ public class PersonControllerIntegrationTest {
                         "    \"homeAddressId\": 3052,\n" +
                         "    \"campusAddressId\": 3052,\n" +
                         "    \"loanDuration\": 21,\n" +
-                        "    \"cardNumberId\": 1209995103,\n" +
+                        "    \"cardNumberId\": 1027294938,\n" +
                         "    \"personTypeId\": 102084}"));
     }
 

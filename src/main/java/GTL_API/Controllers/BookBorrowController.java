@@ -22,6 +22,6 @@ public class BookBorrowController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> borrowBook(@RequestBody @Validated BookBorrowCreation bookBorrow) {
-        return new ResponseEntity<>(bookBorrowService.borrowBook(bookBorrow), new HttpHeaders(), HttpStatus.CREATED);
+        return new ResponseEntity<>(bookBorrowService.borrowBook(bookBorrow), new HttpHeaders(), HttpStatus.OK);
     }
 }

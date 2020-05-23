@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {MainApplicationClass.class, TestDataSourceConfig.class})
@@ -28,10 +27,31 @@ public class BookReturnRepositoryTest {
     private IBookReturnRepository iBookReturnRepository;
 
 
-    private boolean createBookReturnRecord(){
+
+
+    private int createBookReturnRecord(){
         BookReturnEntity br = new BookReturnEntity();
 
         Calendar c = Calendar.getInstance();
+        Date estimatedDate = new Date(c.getTime().getTime());
+        br.setEstimatedReturnDate(estimatedDate);
+        br.setStatus(false);
+        br.setPayment(0D);
+
+        BookReturnEntity result = iBookReturnRepository.save(br);
+        if(result!=null){
+            return result.getId();
+        }
+        else{
+            return 0;
+        }
+    }
+
+    private int createBookReturnRecordLate(){
+        BookReturnEntity br = new BookReturnEntity();
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, -10);
         Date estimatedDate = new Date(c.getTime().getTime());
 
         br.setEstimatedReturnDate(estimatedDate);
@@ -40,43 +60,49 @@ public class BookReturnRepositoryTest {
 
         BookReturnEntity result = iBookReturnRepository.save(br);
         if(result!=null){
-            return true;
+            return result.getId();
         }
         else{
-            return false;
+            return 0;
         }
     }
 
     @Test
     public void testReturningBookWithValidData_ShouldReturnTrue(){
-        boolean inserted = createBookReturnRecord();
-        if(inserted){
-            List<BookReturnEntity> records = iBookReturnRepository.findAll();
-            int id = records.get(0).getId();
-            boolean result = iBookReturnRepositoryCustom.returnBookAndChangeStatus(id);
+        int insertedId = createBookReturnRecord();
+        if(insertedId!=0){
+            boolean result = iBookReturnRepositoryCustom.returnBookAndChangeStatus(insertedId);
             Assert.assertTrue(result);
         }else{
             Assert.fail();
         }
-        iBookReturnRepository.deleteAllInBatch();
+        iBookReturnRepository.deleteById(insertedId);
     }
+
+
+    @Test
+    public void testReturningBookWithValidData_Payment(){
+        int insertedId = createBookReturnRecordLate();
+        if(insertedId!=0){
+            boolean result = iBookReturnRepositoryCustom.returnBookAndChangeStatus(insertedId);
+            String payment=  iBookReturnRepository.findByIdIs(insertedId).getPayment().toString();
+            Assert.assertEquals("7.5", payment);
+        }else{
+            Assert.fail();
+        }
+        iBookReturnRepository.deleteById(insertedId);
+    }
+
+
+
 
     @Test
     public void testReturningBookWithInvalidData_ShouldThrowException(){
-        boolean inserted = createBookReturnRecord();
-        if(inserted){
-            List<BookReturnEntity> records = iBookReturnRepository.findAll();
-            int id = records.get(0).getId();
             try{
                 boolean result = iBookReturnRepositoryCustom.returnBookAndChangeStatus(-1);
                 Assert.fail();
             } catch (UnknownException ex){
                 Assert.assertTrue(true);
             }
-
-        }else{
-            Assert.fail();
-        }
-        iBookReturnRepository.deleteAllInBatch();
     }
 }

@@ -27,6 +27,7 @@ import org.mockito.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
@@ -40,8 +41,7 @@ public class LibraryEmployeeTypeRepositoryTest {
     @Autowired
     private LibraryEmployeeTypeRepository letRepo;
 
-    @Autowired
-    private ILibraryEmployeeTypeRepository iLetRepo;
+
 
     @InjectMocks
     private LibraryEmployeeTypeRepository letRepoInjected;
@@ -89,17 +89,6 @@ public class LibraryEmployeeTypeRepositoryTest {
         }
     }
 
-    /**
-     * The test method creates a record in a database. Then, by using LibraryEmployeeTypeRepository instance, it checks
-     * the existence of added record and asserts its type value to expected. After all it removes a record
-     * from database.
-     */
-    @Test
-    public void createLibraryEmployeeType_shouldAddToDb(){
-        LibraryEmployeeTypeReturn emp= letRepo.createLibraryEmployeeType(getLibraryEmployeeTypeEntity());
-        Assert.assertEquals("Test", letRepo.findLibraryEmployeeTypeById(9999).getType());
-        iLetRepoMock.deleteById(7);
-    }
 
     /**
      * The test method tries to create a library employee type as a null value. Unknown exception is expected to be thrown.
