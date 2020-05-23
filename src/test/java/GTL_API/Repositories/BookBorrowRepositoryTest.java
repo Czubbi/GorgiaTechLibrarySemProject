@@ -1,20 +1,18 @@
 package GTL_API.Repositories;
 
 
+import GTL_API.Exceptions.CreationException;
 import GTL_API.MainApplicationClass;
 import GTL_API.Models.Entities.BookBorrowEntity;
 import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import GTL_API.Repositories.BookBorrowRepository.IBookBorrowRepository;
 import GTL_API.Repositories.BookBorrowRepository.IBookBorrowRepositoryCustom;
-import GTL_API.Repositories.CardRepository.ICardRepository;
 import GTL_API.TestDataSourceConfig;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -30,7 +28,7 @@ public class BookBorrowRepositoryTest {
     private IBookBorrowRepository iBookBorrowRepository;
 
 
-    private int bookReturnId = 2495;
+    private int bookReturnId = 3509;
 
     private BookBorrowEntity getValidEntity() {
         BookBorrowEntity bb = new BookBorrowEntity();
@@ -69,7 +67,6 @@ public class BookBorrowRepositoryTest {
     public void testAddingBookBorrowWithValidData_ShouldAdd() {
         BookBorrowReturn result = iBookBorrowRepositoryCustom.createBookBorrow(getValidEntity(), bookReturnId);
         System.out.println(result.getBookReturnId());
-        Assert.assertNotNull(result);
         Assert.assertEquals(iBookBorrowRepository.findById(result.getId()).get().getSsn(), "000-18-3244");
         iBookBorrowRepository.deleteById(result.getId());
 
@@ -91,7 +88,7 @@ public class BookBorrowRepositoryTest {
         try {
             iBookBorrowRepositoryCustom.createBookBorrow(getEntityWithMissingSsn(), bookReturnId);
             Assert.fail();
-        } catch (DataIntegrityViolationException exception) {
+        } catch (CreationException exception) {
             Assert.assertTrue(true);
 
         }
@@ -102,7 +99,7 @@ public class BookBorrowRepositoryTest {
         try {
             iBookBorrowRepositoryCustom.createBookBorrow(getEntityWithInvalidSsn(), bookReturnId);
             Assert.fail();
-        } catch (DataIntegrityViolationException exception) {
+        } catch (CreationException exception) {
             Assert.assertTrue(true);
         }
     }
@@ -112,7 +109,7 @@ public class BookBorrowRepositoryTest {
         try {
             iBookBorrowRepositoryCustom.createBookBorrow(getEntityWithMissingBookCatalogId(), bookReturnId);
             Assert.fail();
-        } catch (DataIntegrityViolationException exception) {
+        } catch (CreationException exception) {
             Assert.assertTrue(true);
 
         }
@@ -123,7 +120,7 @@ public class BookBorrowRepositoryTest {
         try {
             iBookBorrowRepositoryCustom.createBookBorrow(getEntityWithInvalidBookCatalogId(), bookReturnId);
             Assert.fail();
-        } catch (DataIntegrityViolationException exception) {
+        } catch (CreationException exception) {
             Assert.assertTrue(true);
 
         }

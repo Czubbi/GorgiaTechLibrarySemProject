@@ -5,7 +5,8 @@ import GTL_API.Models.Entities.CardEntity;
 import GTL_API.Models.ReturnModels.CardReturn;
 import GTL_API.Repositories.CardRepository.ICardRepository;
 import GTL_API.TestDataSourceConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +34,8 @@ public class CardControllerIntegrationTest {
 
     private String token;
 
+    private HttpHeaders headers;
+
     @Autowired
     private MockMvc mvc;
 
@@ -42,18 +46,26 @@ public class CardControllerIntegrationTest {
 
     @Before
     public void login() throws Exception{
-        MvcResult result = mvc.perform(post("/gtl/auth/login")
-                .content("{\"login\": \"loginMaster\", \"password\": \"password\"}")
+        headers = new HttpHeaders();
+        headers.add("Origin","*");
+        headers.add("Access-Control-Allow-Credentials", "true");
+        headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        headers.add("Access-Control-Max-Age", "3600");
+        headers.add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        MvcResult result = mvc.perform(post("/gtl/auth/login").headers(headers)
+                .content("{\"login\": \"1045946125\", \"password\": \"Pass011-53-8195word\"}")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        token = result.getResponse().getContentAsString();
+        JSONObject obj = new JSONObject(result.getResponse().getContentAsString());
+        token = obj.getString("authToken");
+        headers.add("Authorization", "Bearer " + token);
     }
 
     @Test
     public void findCardByNumberControllerMethodShouldPass() {
         try {
             mvc.perform(get("/gtl/card/1025435856")
-                    .header("Authorization", "Bearer " + token))
+                    .headers(headers))
                     .andExpect(status().isFound())
                     .andExpect(content().json("{\n" +
                             "    \"number\": 1025435856,\n" +
@@ -62,6 +74,7 @@ public class CardControllerIntegrationTest {
                             "    \"libraryEmployeeId\": 25\n" +
                             "}"));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             Assert.fail();
         }
     }
@@ -71,7 +84,7 @@ public class CardControllerIntegrationTest {
     public void findCardThatDoesNotExistsShouldGiveBackErrorMessage() {
         try {
             mvc.perform(get("/gtl/card/-1")
-                    .header("Authorization", "Bearer " + token))
+                    .headers(headers))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Card with number -1 was not found."));
         } catch (Exception e) {
@@ -84,7 +97,7 @@ public class CardControllerIntegrationTest {
         try{
             ObjectMapper objectMapper = new ObjectMapper();
             ResultActions resultActions = mvc.perform(post("/gtl/card/")
-                    .header("Authorization", "Bearer " + token)
+                    .headers(headers)
                     .content("{\n" +
                     "\t\"expirationDate\":\"2098-08-08\",\n" +
                     "\t\"libraryEmployeeId\": 25,\n" +
@@ -110,7 +123,7 @@ public class CardControllerIntegrationTest {
     public void deleteCardShouldChangeItsColumnValueToTrue(){
         try{
             mvc.perform(delete("/gtl/card/1025435856")
-                    .header("Authorization", "Bearer " + token))
+                    .headers(headers))
                     .andExpect(status().isOk())
                     .andExpect(content().string("Card with number: 1025435856 was successfully deleted."));
             Optional<CardEntity> foundOptional = cardRepository.findById(1025435856);
@@ -130,7 +143,7 @@ public class CardControllerIntegrationTest {
     public void deleteCardThatDoesNotReturnNotFoundResponse(){
         try{
             mvc.perform(delete("/gtl/card/25")
-                    .header("Authorization", "Bearer " + token))
+                    .headers(headers))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Card with number 25 was not found."));
         }catch (Exception e){
@@ -143,7 +156,7 @@ public class CardControllerIntegrationTest {
         try{
             ObjectMapper objectMapper = new ObjectMapper();
             ResultActions resultActions = mvc.perform(post("/gtl/card/")
-                    .header("Authorization", "Bearer " + token)
+                    .headers(headers)
                     .content("{\n" +
                     "\t\"expirationDate\":\"2098-08-08\",\n" +
                     "\t\"picture\":\"Test\"\n" +
@@ -162,7 +175,7 @@ public class CardControllerIntegrationTest {
         try{
             ObjectMapper objectMapper = new ObjectMapper();
             ResultActions resultActions = mvc.perform(post("/gtl/card/")
-                    .header("Authorization", "Bearer " + token)
+                    .headers(headers)
                     .content("{\n" +
                     "\t\"libraryEmployeeId\": 25,\n" +
                     "\t\"picture\":\"Test\"\n" +
