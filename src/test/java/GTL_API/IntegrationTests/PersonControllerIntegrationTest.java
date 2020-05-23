@@ -4,12 +4,14 @@ import GTL_API.MainApplicationClass;
 import GTL_API.Models.Entities.PersonEntity;
 import GTL_API.Repositories.PersonRepository.IPersonRepositoryCustom;
 import GTL_API.TestDataSourceConfig;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +30,8 @@ public class PersonControllerIntegrationTest {
     @Autowired
     IPersonRepositoryCustom personRepository;
 
+    private HttpHeaders headers;
+
     @Autowired
     private MockMvc mvc;
 
@@ -35,17 +39,25 @@ public class PersonControllerIntegrationTest {
 
     @Before
     public void login() throws Exception{
-        MvcResult result = mvc.perform(post("/gtl/auth/login")
-                .content("{\"login\": \"loginMaster\", \"password\": \"password\"}")
+        headers = new HttpHeaders();
+        headers.add("Origin","*");
+        headers.add("Access-Control-Allow-Credentials", "true");
+        headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        headers.add("Access-Control-Max-Age", "3600");
+        headers.add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        MvcResult result = mvc.perform(post("/gtl/auth/login").headers(headers)
+                .content("{\"login\": \"1045946125\", \"password\": \"Pass011-53-8195word\"}")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        token = result.getResponse().getContentAsString();
+        JSONObject obj = new JSONObject(result.getResponse().getContentAsString());
+        token = obj.getString("authToken");
+        headers.add("Authorization", "Bearer " + token);
     }
 
     @Test
     public void findPersonBySsn() throws Exception {
         mvc.perform(get("/gtl/person/findbyssn/000-71-3764")
-                .header("Authorization", "Bearer " + token)
+                .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -62,7 +74,7 @@ public class PersonControllerIntegrationTest {
     @Test
     public void updatePersonLastName() throws Exception {
         mvc.perform(post("/gtl/person/")
-                .header("Authorization", "Bearer " + token)
+                .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"ssn\": \"000-71-3764\", \"lastName\": \"test\"}"))
                 .andExpect(status().isOk())
@@ -82,7 +94,7 @@ public class PersonControllerIntegrationTest {
     @Test
     public void findPersonWhichDoesNotExistBySsn() throws Exception {
         mvc.perform(get("/gtl/person/findbyssn/1")
-                .header("Authorization", "Bearer " + token)
+                .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Person with ssn: 1 was not found"));
@@ -91,7 +103,7 @@ public class PersonControllerIntegrationTest {
     @Test
     public void findPersonByName() throws Exception {
         mvc.perform(get("/gtl/person/findbyname/Bart/Bennet")
-                .header("Authorization", "Bearer " + token)
+                .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +
@@ -107,8 +119,8 @@ public class PersonControllerIntegrationTest {
 
     @Test
     public void findPersonByCard() throws Exception {
-        mvc.perform(get("/gtl/person/findbycard/1209995103")
-                .header("Authorization", "Bearer " + token)
+        mvc.perform(get("/gtl/person/findbycard/1027294938")
+                .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"ssn\": \"000-71-3764\",\n" +

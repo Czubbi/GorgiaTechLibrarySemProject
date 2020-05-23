@@ -1,11 +1,13 @@
 package GTL_API.Repositories.BookBorrowRepository;
 
+import GTL_API.Exceptions.CreationException;
 import GTL_API.Exceptions.NotFoundException;
 import GTL_API.Exceptions.UnknownException;
 import GTL_API.Models.Entities.BookBorrowEntity;
 import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -33,12 +35,15 @@ public class BookBorrowRepository implements IBookBorrowRepositoryCustom {
 
     @Override
     public BookBorrowReturn createBookBorrow(@NotNull BookBorrowEntity bookBorrowEntity, int bookReturnId) {
-        try{
+        try {
             bookBorrowEntity.setBookReturnId(bookReturnId);
             bookBorrowEntity.setBorrowDate(new Date(Calendar.getInstance().getTime().getTime()));
             BookBorrowEntity savedBookBorrow = iBookBorrowRepository.save(bookBorrowEntity);
             return modelMapper.map(savedBookBorrow, BookBorrowReturn.class);
-
+        }catch(NullPointerException nullPointerException){
+            throw new NullPointerException("Object is null");
+        }catch (DataIntegrityViolationException dataIntegrityViolationException){
+            throw new CreationException("Missing fields to add records to the database");
         }catch (Exception e){
             throw new UnknownException("There was unknown error while creating book borrow.");
         }

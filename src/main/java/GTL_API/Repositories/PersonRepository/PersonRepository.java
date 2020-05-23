@@ -191,11 +191,10 @@ public class PersonRepository implements IPersonRepositoryCustom{
      * @return Found person of PersonEntity class.
      */
     private PersonEntity findByFirstNameAndLastNameIfExistsAndReturn(String firstName, String lastName) {
-        Optional<PersonEntity> foundPerson;
-        String message;
 
-        foundPerson = iPerson.findByFirstNameIsAndLastNameIs(firstName, lastName);
-        message = String.format("Person with name: %s %s was not found", firstName, lastName);
+
+        Optional<PersonEntity> foundPerson = iPerson.findByFirstNameIsAndLastNameIs(firstName, lastName);
+        String message = String.format("Person with name: %s %s was not found", firstName, lastName);
 
         if (foundPerson.isPresent()) {
             return foundPerson.get();
