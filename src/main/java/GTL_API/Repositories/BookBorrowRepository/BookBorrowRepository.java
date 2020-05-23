@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +31,7 @@ public class BookBorrowRepository implements IBookBorrowRepositoryCustom {
     }
 
     @Override
-    public BookBorrowReturn createBookBorrow(BookBorrowEntity bookBorrowEntity, int bookReturnId) {
+    public BookBorrowReturn createBookBorrow(@NotNull BookBorrowEntity bookBorrowEntity, int bookReturnId) {
         bookBorrowEntity.setBookReturnId(bookReturnId);
         bookBorrowEntity.setBorrowDate(new Date(Calendar.getInstance().getTime().getTime()));
         BookBorrowEntity savedBookBorrow = iBookBorrowRepository.save(bookBorrowEntity);
