@@ -1,6 +1,7 @@
 package GTL_API.Repositories.BookBorrowRepository;
 
 import GTL_API.Exceptions.NotFoundException;
+import GTL_API.Exceptions.UnknownException;
 import GTL_API.Models.Entities.BookBorrowEntity;
 import GTL_API.Models.ReturnModels.BookBorrowReturn;
 import org.modelmapper.ModelMapper;
@@ -32,10 +33,15 @@ public class BookBorrowRepository implements IBookBorrowRepositoryCustom {
 
     @Override
     public BookBorrowReturn createBookBorrow(@NotNull BookBorrowEntity bookBorrowEntity, int bookReturnId) {
-        bookBorrowEntity.setBookReturnId(bookReturnId);
-        bookBorrowEntity.setBorrowDate(new Date(Calendar.getInstance().getTime().getTime()));
-        BookBorrowEntity savedBookBorrow = iBookBorrowRepository.save(bookBorrowEntity);
-        return modelMapper.map(savedBookBorrow, BookBorrowReturn.class);
+        try{
+            bookBorrowEntity.setBookReturnId(bookReturnId);
+            bookBorrowEntity.setBorrowDate(new Date(Calendar.getInstance().getTime().getTime()));
+            BookBorrowEntity savedBookBorrow = iBookBorrowRepository.save(bookBorrowEntity);
+            return modelMapper.map(savedBookBorrow, BookBorrowReturn.class);
+
+        }catch (Exception e){
+            throw new UnknownException("There was unknown error while creating book borrow.");
+        }
     }
 
     @Override

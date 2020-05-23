@@ -72,7 +72,7 @@ public class BookBorrowRepositoryTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(iBookBorrowRepository.findById(result.getId()).get().getSsn(), "000-18-3244");
         iBookBorrowRepository.deleteById(result.getId());
-        iBookBorrowRepository.deleteAllInBatch();
+
     }
 
     @Test

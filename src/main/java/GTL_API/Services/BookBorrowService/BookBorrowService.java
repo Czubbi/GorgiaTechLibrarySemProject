@@ -112,20 +112,17 @@ public class BookBorrowService implements IBookBorrowService {
     public BookBorrowReturnView borrowBook(BookBorrowCreation bookBorrowCreation) {
         String isbn = getISBN(bookBorrowCreation.getBookCatalogId());
         AvailableBooksReturn availableBooksReturn = getAvailableBooks(bookBorrowCreation.getBookCatalogId());
+        if(availableBooksReturn == null){
+            throw new NotFoundException(String.format("The book with ISBN: %s, is not available",
+                    isbn));
+        }
         if(validateNumberOfAvailableBooks(isbn)){
-            if(availableBooksReturn == null){
-                throw new NotFoundException(String.format("The book with ISBN: %s, is not available",
-                        availableBooksReturn.getIsbn()));
+
+            UserDetails user = getLoggedInUser();
+            if(user == null){
+                throw new NotFoundException("User is not logged in.");
             }
-            String ssn = "";
-            if(bookBorrowCreation.getSsn()==""||bookBorrowCreation.getSsn()==null){
-                UserDetails user = getLoggedInUser();
-                PersonReturn foundPerson = findPersonByUserName(user.getUsername());
-                ssn = foundPerson.getSsn();
-            }
-            else {
-                ssn=bookBorrowCreation.getSsn();
-            }
+            String ssn = findPersonByUserName(user.getUsername()).getSsn();
             BookReturnReturn result = createBookReturnRecord(ssn);
             decreaseNumberOfAvailableCopies(isbn);
             bookBorrowCreation.setSsn(ssn);
