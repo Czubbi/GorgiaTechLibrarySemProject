@@ -74,33 +74,67 @@ public class BookBorrowService implements IBookBorrowService {
         this.modelMapper = modelMapper;
     }
 
+
+    private String getISBN(int bookCatalogID){
+        return iBookCatalogService.getBookCatalog(bookCatalogID).getIsbn();
+    }
+
+    private AvailableBooksReturn getAvailableBooks(int bookCatalogID){
+        return iAvailableBooksService.findAvailableByCatalogId(bookCatalogID);
+    }
+
+    private boolean validateNumberOfAvailableBooks(String isbn){
+        return iBookService.findBook(isbn).getAvailableBooksNumber() > 0;
+    }
+
+    private UserDetails getLoggedInUser(){
+        return (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    private PersonReturn findPersonByUserName(String userName){
+        return personService.findPersonByCardNumberId(Integer.parseInt(userName));
+    }
+
+    private BookReturnReturn createBookReturnRecord(String ssn){
+        return bookReturnService.createBookReturn(new BookReturnCreation(), ssn);
+    }
+
+    private void decreaseNumberOfAvailableCopies(String isbn){
+        iBookService.borrowingBookDecrease(isbn);
+    }
+
+    private BookReturn findBookReturn(String isbn){
+        return iBookService.findBook(isbn);
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BookBorrowReturnView borrowBook(BookBorrowCreation bookBorrowCreation) {
-        String isbn = iBookCatalogService.getBookCatalog(bookBorrowCreation.getBookCatalogId()).getIsbn();
-        AvailableBooksReturn availableBooksReturn = iAvailableBooksService.findAvailableByCatalogId(bookBorrowCreation.getBookCatalogId());
-        if(iBookService.findBook(isbn).getAvailableBooksNumber() > 0){
+        String isbn = getISBN(bookBorrowCreation.getBookCatalogId());
+        AvailableBooksReturn availableBooksReturn = getAvailableBooks(bookBorrowCreation.getBookCatalogId());
+        if(validateNumberOfAvailableBooks(isbn)){
             if(availableBooksReturn == null){
-                throw new NotFoundException(String.format("The book with ISBN: %s, is not available", availableBooksReturn.getIsbn()));
+                throw new NotFoundException(String.format("The book with ISBN: %s, is not available",
+                        availableBooksReturn.getIsbn()));
             }
             String ssn = "";
             if(bookBorrowCreation.getSsn()==""||bookBorrowCreation.getSsn()==null){
-                UserDetails user =  (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
+                UserDetails user = getLoggedInUser();
+                PersonReturn foundPerson = findPersonByUserName(user.getUsername());
                 ssn = foundPerson.getSsn();
             }
-            else ssn=bookBorrowCreation.getSsn();
-            BookReturnReturn result = bookReturnService.createBookReturn(
-                    new BookReturnCreation(), ssn
-            );
-            iBookService.borrowingBookDecrease(isbn);
-            int bookReturnId = result.getId();
+            else {
+                ssn=bookBorrowCreation.getSsn();
+            }
+            BookReturnReturn result = createBookReturnRecord(ssn);
+            decreaseNumberOfAvailableCopies(isbn);
             bookBorrowCreation.setSsn(ssn);
+
             bookBorrowRepositoryCustom.createBookBorrow(
                     modelMapper.map(bookBorrowCreation, BookBorrowEntity.class),
-                    bookReturnId
+                    result.getId()
             );
-            BookReturn bookReturn = iBookService.findBook(isbn);
+            BookReturn bookReturn = findBookReturn(isbn);
             BookBorrowReturnView bookBorrowReturnView = modelMapper.map(bookReturn, BookBorrowReturnView.class);
             bookBorrowReturnView.setCatalogId(bookBorrowCreation.getBookCatalogId());
             return bookBorrowReturnView;

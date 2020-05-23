@@ -29,37 +29,6 @@ public class TestDataSourceConfig {
         return dataSource;
     }
 
-    @Bean
-    public DataSource dataSourceLibrarian(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUsername("librarian");
-        dataSource.setPassword("userOnePassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
-        return dataSource;
-    }
-
-    @Bean
-    public DataSource dataSourceStudent(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUsername("student");
-        dataSource.setPassword("studentPassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
-        return dataSource;
-    }
-
-    @Bean
-    public DataSource dataSourceChefLibrarian(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUsername("chefLibrarian");
-        dataSource.setPassword("chefLibrarianPassword");
-        dataSource.setUrl("jdbc:sqlserver://localhost;database=Giorgia_Tech_Library");
-        return dataSource;
-    }
-
-
 
     @Bean
     @Primary
