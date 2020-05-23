@@ -86,14 +86,15 @@ public class BookReturnService implements IBookReturnService {
     @Transactional(rollbackFor = Exception.class)
     public boolean returnBook(BookReturnCreation bookReturnCreation) {
         UserDetails user =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        PersonReturn foundPerson = personService.findPersonByCardNumberId(Integer.parseInt(user.getUsername()));
+        int username = Integer.parseInt(user.getUsername());
+        PersonReturn foundPerson = personService.findPersonByCardNumberId(username);
         iBookService.returningBookIncrease(iBookCatalogService.getBookCatalog(bookReturnCreation.getBookCatalogId()).getIsbn());
         String ssn = foundPerson.getSsn();
         List<Integer> bookReturnIds = bookBorrowService.findBookBorrows(bookReturnCreation.getBookCatalogId(), ssn);
         for (Integer id : bookReturnIds) {
             BookReturnReturn result = iBookReturnRepository.findReturningBook(id);
             if (result != null) {
-                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(bookReturnCreation.getBookCatalogId(), Integer.parseInt(user.getUsername()), id);
+                boolean returningResult = iBookReturnRepository.returnBookAndChangeStatus(id);
                 if(returningResult){
                     return true;
                 }else{

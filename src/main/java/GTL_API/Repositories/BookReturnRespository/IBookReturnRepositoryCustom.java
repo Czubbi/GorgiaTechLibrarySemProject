@@ -8,6 +8,6 @@ public interface IBookReturnRepositoryCustom {
 
     BookReturnReturn findReturningBook(int id);
 
-    boolean returnBookAndChangeStatus(int catalogId, int cardNumber, int id);
+    boolean returnBookAndChangeStatus(int id);
 
 }

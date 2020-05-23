@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,7 +29,7 @@ public class BookReturnController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<?> returnBook(@RequestBody BookReturnCreation bookReturnCreation) {
+    public ResponseEntity<?> returnBook(@RequestBody @Validated BookReturnCreation bookReturnCreation) {
         return new ResponseEntity<>(iBookReturnService.returnBook(bookReturnCreation), new HttpHeaders(), HttpStatus.OK);
     }
 

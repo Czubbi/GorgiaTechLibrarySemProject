@@ -54,7 +54,7 @@ public class BookReturnRepository implements IBookReturnRepositoryCustom {
     }
 
     @Override
-    public boolean returnBookAndChangeStatus(int catalogId, int cardNumber, int id) {
+    public boolean returnBookAndChangeStatus(int id) {
         try{
             BookReturnEntity updated = addPaymentAndReturnDate(id);
             if(updated.getStatus() && updated.getReturnedDate() != null){
@@ -83,7 +83,7 @@ public class BookReturnRepository implements IBookReturnRepositoryCustom {
 
     private double calculatePayment(Date estimated, Date returned){
         long diff = returned.getTime() - estimated.getTime();
-        long diffDays = diff/(24*60*60*100);
+        long diffDays = diff/(24*60*60*1000);
         double payment = 0D;
         if(diffDays >= 1){
             payment = (double)diffDays * 0.75;
