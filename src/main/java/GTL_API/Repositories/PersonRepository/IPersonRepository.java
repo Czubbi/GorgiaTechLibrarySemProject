@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface IPersonRepository extends JpaRepository<PersonEntity, String>{
     Optional<PersonEntity> findBySsnIs(String ssn);
+
     Optional<PersonEntity> findByFirstNameIsAndLastNameIs(String firstName, String lastName);
     Optional<PersonEntity> findByCardNumberIdIs(Integer cardNumberId);
     int countAllBySsn(String ssn);
