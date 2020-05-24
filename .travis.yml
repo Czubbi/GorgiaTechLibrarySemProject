@@ -3,7 +3,7 @@ sudo: true
 dist: trusty
 jdk: oraclejdk9
 script:
-  mvn verify -B
+  mvn install -DskipTests=false -Dmaven.javadoc.skip=false -B -V
 addons:
   apt:
     packages:
