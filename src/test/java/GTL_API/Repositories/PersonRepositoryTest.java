@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = {MainApplicationClass.class, TestDataSourceConfig.class})
 public class PersonRepositoryTest {
 
+
     @Autowired
     private IPersonRepositoryCustom personRepository;
 
